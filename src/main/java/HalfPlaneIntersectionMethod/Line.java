@@ -5,6 +5,7 @@ import java.awt.geom.Line2D;
 public class Line {
     private Point firstPoint;
     private Point secondPoint;
+    private Line perpendicular;
 
     /**
      * line constructor using Point class
@@ -56,7 +57,7 @@ public class Line {
 
     /**
      * get line angle in degrees
-     * @return
+     * @return angle of line to X dimension in degrees
      */
     public double angleOfLineInDegrees(){
         return Math.toDegrees(Math.atan2(secondPoint.getY() - firstPoint.getY(), secondPoint.getX() - firstPoint.getX()));
@@ -64,13 +65,87 @@ public class Line {
 
     /**
      * get line angle in radians
-     * @return
+     * @return angle of line to X dimension in radians
      */
     public double angleOfLineInRadians(){
         return Math.atan2(secondPoint.getY() - firstPoint.getY(), secondPoint.getX() - firstPoint.getX());
     }
 
+    /**
+     * find angle between perpendicular of the line to the line itself (use for testing)
+     * @return angle between perpendicular and the line in degrees
+     */
+    public double angleOfPerpendicularToLine(){
+        Point middle = middleOfLine();
+        return Math.toDegrees(
+                Math.atan2(middle.getY() - perpendicular.getFirstPoint().getY(), middle.getX() - perpendicular.getFirstPoint().getX()) -
+                Math.atan2(middle.getY() - firstPoint.getY(), middle.getX() - firstPoint.getX())
+        );
+    }
+
+    /**
+     * calculate and create perpendicular to the line
+     * @param xLimit limit of X axis size
+     * @param yLimit limit of Y axis size
+     * @return perpendicular line object
+     */
+    public Line getPerpendicularLine(int xLimit, int yLimit){
+        //  find calculate angle that will be perpendicular to line
+        double perpendicularAngleInRadians = angleOfLineInRadians() + Math.PI/2;
+
+        //  find middle of the line
+        Point middle = middleOfLine();
+
+        //  set all values of the perpendicular to the center of the line
+        double perpendicularFirstPointX = middle.getX();
+        double perpendicularFirstPointY = middle.getY();
+        double perpendicularSecondPointX = middle.getX();
+        double perpendicularSecondPointY = middle.getY();
+
+        //  calculate differentials for each axis that will be applied for finding perpendicular endpoints
+        double difX = Math.cos(perpendicularAngleInRadians);
+        double difY = Math.sin(perpendicularAngleInRadians);
+
+        //  iterate in one direction until reaching axis limits
+        while((perpendicularFirstPointX > 0 && perpendicularFirstPointX < xLimit) && (perpendicularFirstPointY > 0 && perpendicularFirstPointY < yLimit)){
+            perpendicularFirstPointX += difX;
+            perpendicularFirstPointY += difY;
+        }
+
+        //  iterate in another direction until reaching axis limits
+        while((perpendicularSecondPointX > 0 && perpendicularSecondPointX < xLimit) && (perpendicularSecondPointY > 0 && perpendicularSecondPointY < yLimit)){
+            perpendicularSecondPointX -= difX;
+            perpendicularSecondPointY -= difY;
+        }
+
+        //  set perpendicular line reference to the current line
+        this.perpendicular = new Line((int) perpendicularFirstPointX, (int) perpendicularFirstPointY, (int) perpendicularSecondPointX, (int) perpendicularSecondPointY);
+
+        //  return perpendicular line
+        return perpendicular;
+    }
+
+    /**
+     * make line drawable for Swing graphics
+     * @return swing graphics drawable 2D line
+     */
     public Line2D convertLineToGraphics(){
         return new Line2D.Float(firstPoint.getX(), firstPoint.getY(), secondPoint.getX(), secondPoint.getY());
+    }
+
+    public Point getFirstPoint() {
+        return firstPoint;
+    }
+
+    public Point getSecondPoint() {
+        return secondPoint;
+    }
+
+    @Override
+    public String toString() {
+        return "Line{" +
+                "firstPoint=" + firstPoint +
+                ", secondPoint=" + secondPoint +
+                '}';
     }
 }
