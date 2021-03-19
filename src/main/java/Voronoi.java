@@ -9,7 +9,7 @@ public class Voronoi extends JFrame {
         voronoiBrute.interestPointsRandomize();
 
         //  find and calculate locusts for interest points pixel-by-pixel
-        voronoiBrute.voronoiLocustsIdentification(true);
+        voronoiBrute.voronoiLocustsIdentification(false);
 
         //  make displayable image
         voronoiBrute.setVisible(true);
