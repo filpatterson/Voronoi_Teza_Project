@@ -12,8 +12,6 @@ public class VoronoiHalfPlaneIntersection extends JFrame {
         getContentPane().add(panel);
         setSize(450, 450);
 
-        JButton button =new JButton("press");
-        panel.add(button);
         this.line = line;
         this.perp = perp;
     }
