@@ -45,12 +45,12 @@ public class VoronoiHalfPlaneIntersection extends JFrame {
         for (int i = 0; i < this.sites.size(); i++) {
             g2.setColor(sites.get(i).getColor());
             g2.fill(sites.get(i).getLocus());
-            for (int j = 0; j < sites.get(i).getPerps().size(); j++) {
-                g2.setColor(Color.BLACK);
-                if (sites.get(i).getColor().equals(Color.RED)) {
-                    g2.draw(sites.get(i).getPerps().get(j).convertLineToGraphics());
-                }
-            }
+//            for (int j = 0; j < sites.get(i).getPerps().size(); j++) {
+//                g2.setColor(Color.BLACK);
+//                if (sites.get(i).getColor().equals(Color.RED)) {
+//                    g2.draw(sites.get(i).getPerps().get(j).convertLineToGraphics());
+//                }
+//            }
             g2.setColor(Color.BLACK);
             g2.fill(new Ellipse2D.Double(this.sites.get(i).getX() - 2.5, this.sites.get(i).getY() - 2.5, 5, 5));
         }
@@ -64,18 +64,18 @@ public class VoronoiHalfPlaneIntersection extends JFrame {
         Site firstSite = new Site(100, 100, Color.BLUE);
         Site secondSite = new Site(200, 210, Color.CYAN);
         Site thirdSite = new Site(460, 555, Color.GREEN);
-//        Site fourthSite = new Site(822, 673, Color.ORANGE);
+        Site fourthSite = new Site(822, 673, Color.ORANGE);
         Site fifthSite = new Site(322, 111, Color.RED);
-//        Site sixthSite = new Site(999, 222, Color.PINK);
+        Site sixthSite = new Site(999, 222, Color.PINK);
 
         ArrayList<Site> sites = new ArrayList<>();
 
         sites.add(firstSite);
         sites.add(secondSite);
         sites.add(thirdSite);
-//        sites.add(fourthSite);
+        sites.add(fourthSite);
         sites.add(fifthSite);
-//        sites.add(sixthSite);
+        sites.add(sixthSite);
 
 //        firstSite.findLocus(sites, 450, 450);
 

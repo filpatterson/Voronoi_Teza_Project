@@ -30,7 +30,7 @@ public class Site extends Point {
      */
     public void findLocus(ArrayList<Site> sites, int xLimit, int yLimit) {
         //  initialize array of all halfplanes calculated for the current site
-        ArrayList<Polygon> halfPlanes = new ArrayList<>();
+        ArrayList<Area> halfPlanes = new ArrayList<>();
 
         //  iterate through all of the sites
         for (Site anotherSite : sites) {
@@ -47,16 +47,9 @@ public class Site extends Point {
             }
         }
 
-        if (this.color.equals(Color.RED)) {
-            for (Polygon halfPlane : halfPlanes) {
-                System.out.println(this.color + "\n---------------------------");
-                System.out.println("x = [" + Arrays.toString(halfPlane.xpoints) + "];");
-                System.out.println("y = [" + Arrays.toString(halfPlane.ypoints) + "];");
-            }
-        }
         locus = new Area(halfPlanes.get(0));
         if (halfPlanes.size() > 1) {
-            for (Polygon halfPlane : halfPlanes) {
+            for (Area halfPlane : halfPlanes) {
                 locus.intersect(new Area(halfPlane));
             }
         }
@@ -64,7 +57,7 @@ public class Site extends Point {
 
     }
 
-    private Polygon findHalfPlane(Line perpendicular, int xLimit, int yLimit) {
+    private Area findHalfPlane(Line perpendicular, int xLimit, int yLimit) {
         //  initialize lists of borders and corners of the area
         ArrayList<Line> borders = new ArrayList<>();
         ArrayList<Point> corners = new ArrayList<>();
@@ -118,22 +111,23 @@ public class Site extends Point {
                 xpoints[i] = halfPlane.xpoints[i];
                 ypoints[i] = halfPlane.ypoints[i];
             }
-            return new Polygon(xpoints, ypoints, npoints);
+            Polygon answer = new Polygon(xpoints, ypoints, npoints);
+            return new Area(answer);
         } else {
-            halfPlane = new Polygon();
-            halfPlane.addPoint(perpendicular.getFirstPoint().getX(), perpendicular.getFirstPoint().getY());
-            halfPlane.addPoint(perpendicular.getSecondPoint().getX(), perpendicular.getSecondPoint().getY());
-
-            ArrayList<Point> anotherCorners = new ArrayList<>();
-            anotherCorners.add(topLeftCorner);
-            anotherCorners.add(topRightCorner);
-            anotherCorners.add(bottomLeftCorner);
-            anotherCorners.add(bottomRightCorner);
-            anotherCorners.removeAll(corners);
-
-            for (Point anotherCorner : anotherCorners) {
-                halfPlane.addPoint(anotherCorner.getX(), anotherCorner.getY());
-            }
+//            halfPlane = new Polygon();
+//            halfPlane.addPoint(perpendicular.getFirstPoint().getX(), perpendicular.getFirstPoint().getY());
+//            halfPlane.addPoint(perpendicular.getSecondPoint().getX(), perpendicular.getSecondPoint().getY());
+//
+//            ArrayList<Point> anotherCorners = new ArrayList<>();
+//            anotherCorners.add(topLeftCorner);
+//            anotherCorners.add(topRightCorner);
+//            anotherCorners.add(bottomLeftCorner);
+//            anotherCorners.add(bottomRightCorner);
+//            anotherCorners.removeAll(corners);
+//
+//            for (Point anotherCorner : anotherCorners) {
+//                halfPlane.addPoint(anotherCorner.getX(), anotherCorner.getY());
+//            }
 
             int[] xpoints = new int[halfPlane.npoints];
             int[] ypoints = new int[halfPlane.npoints];
@@ -143,7 +137,11 @@ public class Site extends Point {
                 xpoints[i] = halfPlane.xpoints[i];
                 ypoints[i] = halfPlane.ypoints[i];
             }
-            return new Polygon(xpoints, ypoints, npoints);
+            Polygon answer = new Polygon(xpoints, ypoints, npoints);
+            Area nonSiteArea = new Area(answer);
+            Area siteArea = new Area(new Rectangle(0, 0, xLimit, yLimit));
+            siteArea.subtract(nonSiteArea);
+            return siteArea;
         }
     }
 
