@@ -9,5 +9,8 @@
         <module name="voronoi_project" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="voronoi_project" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>

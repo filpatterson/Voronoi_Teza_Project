@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="0faeefb1-e8bf-4e80-84fb-b93fda183b76" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/HalfPlaneIntersectionMethod/Line.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/HalfPlaneIntersectionMethod/Line.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/HalfPlaneIntersectionMethod/Point.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/HalfPlaneIntersectionMethod/Point.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/HalfPlaneIntersectionMethod/Site.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/HalfPlaneIntersectionMethod/Site.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/HalfPlaneIntersectionMethod/VoronoiHalfPlaneIntersection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/HalfPlaneIntersectionMethod/VoronoiHalfPlaneIntersection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/HalfPlaneIntersectionMethod/Line.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/HalfPlaneIntersectionMethod/Line.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/HalfPlaneIntersectionMethod/Point.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/HalfPlaneIntersectionMethod/Point.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/HalfPlaneIntersectionMethod/Site.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/HalfPlaneIntersectionMethod/Site.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/HalfPlaneIntersectionMethod/VoronoiHalfPlaneIntersection.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/HalfPlaneIntersectionMethod/VoronoiHalfPlaneIntersection.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/voronoi_project.iml" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeStyleSettingsInfer">
+    <option name="done" value="true" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2020.2.3\plugins\maven\lib\maven3" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectCodeStyleSettingsMigration">
+    <option name="version" value="1" />
+  </component>
+  <component name="ProjectId" id="1q1CEpb9vvjh7Yjsw20k69dMJGW" />
+  <component name="ProjectViewState">
+    <option name="flattenPackages" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+    <option name="showMembers" value="true" />
+    <option name="showVisibilityIcons" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+  </component>
+  <component name="RunManager">
+    <configuration name="VoronoiHalfPlaneIntersection" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="HalfPlaneIntersectionMethod.VoronoiHalfPlaneIntersection" />
+      <module name="voronoi_project" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="HalfPlaneIntersectionMethod.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.VoronoiHalfPlaneIntersection" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="0faeefb1-e8bf-4e80-84fb-b93fda183b76" name="Default Changelist" comment="" />
+      <created>1616237602438</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1616237602438</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="574" y="118" key="#com.intellij.ide.util.MemberChooser" timestamp="1616591932793">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="574" y="118" key="#com.intellij.ide.util.MemberChooser/0.0.1536.834@0.0.1536.834" timestamp="1616591932793" />
+    <state width="1493" height="213" key="GridCell.Tab.0.bottom" timestamp="1616596677336">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state width="1493" height="213" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1616596677336" />
+    <state width="1493" height="213" key="GridCell.Tab.0.center" timestamp="1616596677336">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state width="1493" height="213" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1616596677336" />
+    <state width="1493" height="213" key="GridCell.Tab.0.left" timestamp="1616596677336">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state width="1493" height="213" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1616596677336" />
+    <state width="1493" height="213" key="GridCell.Tab.0.right" timestamp="1616596677336">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state width="1493" height="213" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1616596677336" />
+    <state width="1493" height="265" key="GridCell.Tab.1.bottom" timestamp="1616596587034">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state width="1493" height="265" key="GridCell.Tab.1.bottom/0.0.1536.834@0.0.1536.834" timestamp="1616596587034" />
+    <state width="1493" height="265" key="GridCell.Tab.1.center" timestamp="1616596587034">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state width="1493" height="265" key="GridCell.Tab.1.center/0.0.1536.834@0.0.1536.834" timestamp="1616596587034" />
+    <state width="1493" height="265" key="GridCell.Tab.1.left" timestamp="1616596587034">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state width="1493" height="265" key="GridCell.Tab.1.left/0.0.1536.834@0.0.1536.834" timestamp="1616596587034" />
+    <state width="1493" height="265" key="GridCell.Tab.1.right" timestamp="1616596587034">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state width="1493" height="265" key="GridCell.Tab.1.right/0.0.1536.834@0.0.1536.834" timestamp="1616596587034" />
+    <state x="277" y="62" key="SettingsEditor" timestamp="1616426810551">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="277" y="62" key="SettingsEditor/0.0.1536.834@0.0.1536.834" timestamp="1616426810551" />
+    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup" timestamp="1616575517898">
+      <screen x="0" y="0" width="1536" height="834" />
+    </state>
+    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup/0.0.1536.834@0.0.1536.834" timestamp="1616575517898" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/HalfPlaneIntersectionMethod/VoronoiHalfPlaneIntersection.java</url>
+          <line>46</line>
+          <option name="timeStamp" value="13" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/HalfPlaneIntersectionMethod/Site.java</url>
+          <line>52</line>
+          <option name="timeStamp" value="15" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

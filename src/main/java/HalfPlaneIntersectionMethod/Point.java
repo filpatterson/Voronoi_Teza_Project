@@ -1,5 +1,7 @@
 package HalfPlaneIntersectionMethod;
 
+import java.awt.geom.Point2D;
+
 public class Point {
     private int x;
     private int y;
@@ -31,5 +33,29 @@ public class Point {
                 "x=" + x +
                 ", y=" + y +
                 '}';
+    }
+
+    public Point2D convertToGraphics() {
+        return new Point2D.Float(this.x, this.y);
+    }
+
+    public boolean isEqual(int x, int y) {
+        if (this.x == x) {
+            if (this.y == y) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public boolean isEqual(Point anotherPoint) {
+        if (this.x == anotherPoint.getX()) {
+            if (this.y == anotherPoint.getY()) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

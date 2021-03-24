@@ -133,12 +133,48 @@ public class Line {
         return new Line2D.Float(firstPoint.getX(), firstPoint.getY(), secondPoint.getX(), secondPoint.getY());
     }
 
+    public boolean contains(Point point) {
+        if (this.getFirstPoint().getX() == this.getSecondPoint().getX() && this.getSecondPoint().getX() == point.getX()) {
+            if(this.getFirstPoint().getY() < this.getSecondPoint().getY()) {
+                return point.getY() > this.getFirstPoint().getY() || point.getY() < this.getSecondPoint().getY();
+            } else {
+                return point.getY() < this.getFirstPoint().getY() || point.getY() > this.getSecondPoint().getY();
+            }
+        } else if (this.getFirstPoint().getY() == this.getSecondPoint().getY() && this.getFirstPoint().getY() == point.getY()) {
+            if(this.getFirstPoint().getX() < this.getSecondPoint().getX()) {
+                return point.getX() > this.getFirstPoint().getX() || point.getX() < this.getSecondPoint().getX();
+            } else {
+                return point.getX() < this.getFirstPoint().getX() || point.getX() > this.getSecondPoint().getX();
+            }
+        } else {
+            double epsilon = 0.001d;
+            Line firstToPoint = new Line(this.getFirstPoint(), point);
+            Line secondToPoint = new Line(this.getSecondPoint(), point);
+
+            double firstToPointDistance = firstToPoint.lineDistanceEuclidean();
+            double secondToPointDistance = secondToPoint.lineDistanceEuclidean();
+            double firstToSecondDistance = this.lineDistanceEuclidean();
+
+            if (firstToSecondDistance == firstToPointDistance + secondToPointDistance) {
+                return true;
+            } else if (Math.abs(firstToSecondDistance - firstToPointDistance - secondToPointDistance) < epsilon) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public Point getFirstPoint() {
         return firstPoint;
     }
 
     public Point getSecondPoint() {
         return secondPoint;
+    }
+
+    public Line2D getGraphicalRepresentation() {
+        return new Line2D.Float(firstPoint.getX(), firstPoint.getY(), secondPoint.getX(), secondPoint.getY());
     }
 
     @Override
