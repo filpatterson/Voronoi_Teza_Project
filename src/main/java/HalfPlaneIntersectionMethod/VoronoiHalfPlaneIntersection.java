@@ -3,30 +3,26 @@ package HalfPlaneIntersectionMethod;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
-import java.awt.geom.Line2D;
 import java.util.ArrayList;
 
 public class VoronoiHalfPlaneIntersection extends JFrame {
-//    private Line line;
-//    private Line perp;
+    //  reference to all sites of the map/area
     private final ArrayList<Site> sites;
 
-//    public VoronoiHalfPlaneIntersection(Line line, Line perp) {
-//        JPanel panel = new JPanel();
-//        getContentPane().add(panel);
-//        setSize(450, 450);
-//
-//        this.line = line;
-//        this.perp = perp;
-//    }
-
+    /**
+     * Constructor, automatically creates locuses for all sites
+     * @param sites reference to sites ArrayList for which is required locuses estimation
+     * @throws Exception error of sending empty list of sites or any another
+     */
     public VoronoiHalfPlaneIntersection(ArrayList<Site> sites) throws Exception {
+        //  initialize panel for sites and locuses drawing, setting window size and how to close program
         JPanel panel = new JPanel();
         getContentPane().add(panel);
         setSize(1000, 1000);
-        //  set how program should be finished
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+
         if (sites.size() > 0) {
+            //  find locus for each site
             for (int i = 0; i < sites.size(); i++) {
                 sites.get(i).findLocus(sites, 1000, 1000);
             }
@@ -40,27 +36,23 @@ public class VoronoiHalfPlaneIntersection extends JFrame {
     public void paint(Graphics g) {
         super.paint(g);  // fixes the immediate problem.
         Graphics2D g2 = (Graphics2D) g;
-//        g2.draw(line.convertLineToGraphics());
-//        g2.draw(perp.convertLineToGraphics());
-        for (int i = 0; i < this.sites.size(); i++) {
-            g2.setColor(sites.get(i).getColor());
-            g2.fill(sites.get(i).getLocus());
-//            for (int j = 0; j < sites.get(i).getPerps().size(); j++) {
-//                g2.setColor(Color.BLACK);
-//                if (sites.get(i).getColor().equals(Color.RED)) {
-//                    g2.draw(sites.get(i).getPerps().get(j).convertLineToGraphics());
-//                }
-//            }
+
+        //  iterate through all sites
+        for (Site site : this.sites) {
+            //  fill locus of the site with site color
+            g2.setColor(site.getColor());
+            g2.fill(site.getLocus());
+
+            //  display each site as small black ellipsoid
             g2.setColor(Color.BLACK);
-            g2.fill(new Ellipse2D.Double(this.sites.get(i).getX() - 2.5, this.sites.get(i).getY() - 2.5, 5, 5));
+            g2.fill(new Ellipse2D.Double(site.getX() - 2.5, site.getY() - 2.5, 6, 6));
         }
     }
 
 
     public static void main(String[] args) throws Exception {
-//        Line line = new Line(new Point(12, 14), new Point(350, 411));
-//        Line perp = line.getPerpendicularLine(450, 450);
 
+        //  sites for performing test
         Site firstSite = new Site(100, 100, Color.BLUE);
         Site secondSite = new Site(200, 210, Color.CYAN);
         Site thirdSite = new Site(460, 555, Color.GREEN);
@@ -68,8 +60,10 @@ public class VoronoiHalfPlaneIntersection extends JFrame {
         Site fifthSite = new Site(322, 111, Color.RED);
         Site sixthSite = new Site(999, 222, Color.PINK);
 
+        //  store all sites in ArrayList
         ArrayList<Site> sites = new ArrayList<>();
 
+        //  append all sites to the ArrayList
         sites.add(firstSite);
         sites.add(secondSite);
         sites.add(thirdSite);
@@ -77,26 +71,10 @@ public class VoronoiHalfPlaneIntersection extends JFrame {
         sites.add(fifthSite);
         sites.add(sixthSite);
 
-//        firstSite.findLocus(sites, 450, 450);
-
+        //  create voronoi diagram with perpendicular half planes approach
         VoronoiHalfPlaneIntersection voronoiHalfPlaneIntersection = new VoronoiHalfPlaneIntersection(sites);
 
+        //  show it
         voronoiHalfPlaneIntersection.setVisible(true);
-
-//        VoronoiHalfPlaneIntersection voronoi = new VoronoiHalfPlaneIntersection(line, perp);
-//
-//
-////        System.out.println("Line distance Euclidean = " + line.lineDistanceEuclidean());
-////        System.out.println("Line distance Manhattan = " + line.lineDistanceManhattan());
-////        System.out.println("Line angle in degrees = " + line.angleOfLineInDegrees());
-////        System.out.println("Line angle in radians = " + line.angleOfLineInRadians());
-//        System.out.println("Original line = " + line);
-//        System.out.println("Middle = " + line.middleOfLine());
-//        System.out.println("angle with the original line = " + line.angleOfPerpendicularToLine());
-//        System.out.println("Perp incremental X = " + Math.sin(line.angleOfLineInRadians()));
-//        System.out.println("Perp incremental Y = " + Math.cos(line.angleOfLineInRadians()));
-//        System.out.println("Perp points: " + perp);
-//        voronoi.setVisible(true);
-
     }
 }
