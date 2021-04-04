@@ -22,13 +22,23 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0faeefb1-e8bf-4e80-84fb-b93fda183b76" name="Default Changelist" comment="">
+    <list default="true" id="2c445b88-c921-4aed-9f23-98fdae96b852" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Globals/Parameters.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/HalfPlaneIntersectionMethod/Line.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/HalfPlaneIntersectionMethod/Line.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/HalfPlaneIntersectionMethod/Point.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/HalfPlaneIntersectionMethod/Point.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/HalfPlaneIntersectionMethod/Site.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/HalfPlaneIntersectionMethod/Site.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/HalfPlaneIntersectionMethod/VoronoiHalfPlaneIntersection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/HalfPlaneIntersectionMethod/VoronoiHalfPlaneIntersection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Voronoi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/PixelByPixelMethod/Voronoi.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/VoronoiBrute.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/PixelByPixelMethod/VoronoiBrute.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/HalfPlaneIntersectionMethod/Line.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/HalfPlaneIntersectionMethod/Line.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/HalfPlaneIntersectionMethod/Site.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/HalfPlaneIntersectionMethod/Site.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/HalfPlaneIntersectionMethod/VoronoiHalfPlaneIntersection.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/HalfPlaneIntersectionMethod/VoronoiHalfPlaneIntersection.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Voronoi.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/VoronoiBrute.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/voronoi.png" beforeDir="false" afterPath="$PROJECT_DIR$/voronoi.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,6 +47,13 @@
   </component>
   <component name="CodeStyleSettingsInfer">
     <option name="done" value="true" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -52,6 +69,7 @@
     <option name="version" value="1" />
   </component>
   <component name="ProjectId" id="1q1CEpb9vvjh7Yjsw20k69dMJGW" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="flattenPackages" value="true" />
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -61,9 +79,25 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.VoronoiHalfPlaneIntersection">
+    <configuration name="Voronoi" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="PixelByPixelMethod.Voronoi" />
+      <module name="voronoi_project" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="PixelByPixelMethod.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="VoronoiHalfPlaneIntersection" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="HalfPlaneIntersectionMethod.VoronoiHalfPlaneIntersection" />
       <module name="voronoi_project" />
@@ -80,81 +114,128 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.VoronoiHalfPlaneIntersection" />
+        <item itemvalue="Application.Voronoi" />
       </list>
     </recent_temporary>
   </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="SpellCheckerSettings" BundledDictionaries="0" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" Dictionaries="0" CorrectionsLimit="5" DefaultDictionary="application-level" UseSingleDictionary="true" />
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="0faeefb1-e8bf-4e80-84fb-b93fda183b76" name="Default Changelist" comment="" />
+      <changelist id="2c445b88-c921-4aed-9f23-98fdae96b852" name="Default Changelist" comment="" />
       <created>1616237602438</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1616237602438</updated>
+      <workItem from="1617536843827" duration="10106000" />
     </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="574" y="118" key="#com.intellij.ide.util.MemberChooser" timestamp="1616591932793">
-      <screen x="0" y="0" width="1536" height="834" />
+    <state x="613" y="122" key="#com.intellij.ide.util.MemberChooser" timestamp="1617553702183">
+      <screen x="62" y="0" width="1474" height="864" />
     </state>
     <state x="574" y="118" key="#com.intellij.ide.util.MemberChooser/0.0.1536.834@0.0.1536.834" timestamp="1616591932793" />
+    <state x="613" y="122" key="#com.intellij.ide.util.MemberChooser/62.0.1474.864@62.0.1474.864" timestamp="1617553702183" />
+    <state x="649" y="321" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1617444390925">
+      <screen x="62" y="0" width="1474" height="864" />
+    </state>
+    <state x="649" y="321" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/62.0.1474.864@62.0.1474.864" timestamp="1617444390925" />
     <state x="626" y="186" key="FileChooserDialogImpl" timestamp="1616625342662">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="626" y="186" key="FileChooserDialogImpl/0.0.1536.834@0.0.1536.834" timestamp="1616625342662" />
-    <state width="1493" height="213" key="GridCell.Tab.0.bottom" timestamp="1616606563004">
-      <screen x="0" y="0" width="1536" height="834" />
+    <state width="1431" height="166" key="GridCell.Tab.0.bottom" timestamp="1617555762054">
+      <screen x="62" y="0" width="1474" height="864" />
     </state>
     <state width="1493" height="213" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1616606563004" />
-    <state width="1493" height="213" key="GridCell.Tab.0.center" timestamp="1616606563004">
-      <screen x="0" y="0" width="1536" height="834" />
+    <state width="1431" height="166" key="GridCell.Tab.0.bottom/62.0.1474.864@62.0.1474.864" timestamp="1617555762054" />
+    <state width="1815" height="221" key="GridCell.Tab.0.bottom/62.0.1858.1080@62.0.1858.1080" timestamp="1617449581741" />
+    <state width="1431" height="166" key="GridCell.Tab.0.center" timestamp="1617555762054">
+      <screen x="62" y="0" width="1474" height="864" />
     </state>
     <state width="1493" height="213" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1616606563004" />
-    <state width="1493" height="213" key="GridCell.Tab.0.left" timestamp="1616606563003">
-      <screen x="0" y="0" width="1536" height="834" />
+    <state width="1431" height="166" key="GridCell.Tab.0.center/62.0.1474.864@62.0.1474.864" timestamp="1617555762054" />
+    <state width="1815" height="221" key="GridCell.Tab.0.center/62.0.1858.1080@62.0.1858.1080" timestamp="1617449581741" />
+    <state width="1431" height="166" key="GridCell.Tab.0.left" timestamp="1617555762054">
+      <screen x="62" y="0" width="1474" height="864" />
     </state>
     <state width="1493" height="213" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1616606563003" />
-    <state width="1493" height="213" key="GridCell.Tab.0.right" timestamp="1616606563004">
-      <screen x="0" y="0" width="1536" height="834" />
+    <state width="1431" height="166" key="GridCell.Tab.0.left/62.0.1474.864@62.0.1474.864" timestamp="1617555762054" />
+    <state width="1815" height="221" key="GridCell.Tab.0.left/62.0.1858.1080@62.0.1858.1080" timestamp="1617449581741" />
+    <state width="1431" height="166" key="GridCell.Tab.0.right" timestamp="1617555762054">
+      <screen x="62" y="0" width="1474" height="864" />
     </state>
     <state width="1493" height="213" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1616606563004" />
-    <state width="1493" height="265" key="GridCell.Tab.1.bottom" timestamp="1616596587034">
-      <screen x="0" y="0" width="1536" height="834" />
+    <state width="1431" height="166" key="GridCell.Tab.0.right/62.0.1474.864@62.0.1474.864" timestamp="1617555762054" />
+    <state width="1815" height="221" key="GridCell.Tab.0.right/62.0.1858.1080@62.0.1858.1080" timestamp="1617449581741" />
+    <state width="1431" height="277" key="GridCell.Tab.1.bottom" timestamp="1617555663433">
+      <screen x="62" y="0" width="1474" height="864" />
     </state>
     <state width="1493" height="265" key="GridCell.Tab.1.bottom/0.0.1536.834@0.0.1536.834" timestamp="1616596587034" />
-    <state width="1493" height="265" key="GridCell.Tab.1.center" timestamp="1616596587034">
-      <screen x="0" y="0" width="1536" height="834" />
+    <state width="1431" height="277" key="GridCell.Tab.1.bottom/62.0.1474.864@62.0.1474.864" timestamp="1617555663433" />
+    <state width="1431" height="277" key="GridCell.Tab.1.center" timestamp="1617555663433">
+      <screen x="62" y="0" width="1474" height="864" />
     </state>
     <state width="1493" height="265" key="GridCell.Tab.1.center/0.0.1536.834@0.0.1536.834" timestamp="1616596587034" />
-    <state width="1493" height="265" key="GridCell.Tab.1.left" timestamp="1616596587034">
-      <screen x="0" y="0" width="1536" height="834" />
+    <state width="1431" height="277" key="GridCell.Tab.1.center/62.0.1474.864@62.0.1474.864" timestamp="1617555663433" />
+    <state width="1431" height="277" key="GridCell.Tab.1.left" timestamp="1617555663432">
+      <screen x="62" y="0" width="1474" height="864" />
     </state>
     <state width="1493" height="265" key="GridCell.Tab.1.left/0.0.1536.834@0.0.1536.834" timestamp="1616596587034" />
-    <state width="1493" height="265" key="GridCell.Tab.1.right" timestamp="1616596587034">
-      <screen x="0" y="0" width="1536" height="834" />
+    <state width="1431" height="277" key="GridCell.Tab.1.left/62.0.1474.864@62.0.1474.864" timestamp="1617555663432" />
+    <state width="1431" height="277" key="GridCell.Tab.1.right" timestamp="1617555663433">
+      <screen x="62" y="0" width="1474" height="864" />
     </state>
     <state width="1493" height="265" key="GridCell.Tab.1.right/0.0.1536.834@0.0.1536.834" timestamp="1616596587034" />
-    <state x="277" y="62" key="SettingsEditor" timestamp="1616626075374">
-      <screen x="0" y="0" width="1536" height="834" />
+    <state width="1431" height="277" key="GridCell.Tab.1.right/62.0.1474.864@62.0.1474.864" timestamp="1617555663433" />
+    <state x="328" y="64" key="SettingsEditor" timestamp="1617537168079">
+      <screen x="62" y="0" width="1474" height="864" />
     </state>
     <state x="277" y="62" key="SettingsEditor/0.0.1536.834@0.0.1536.834" timestamp="1616626075374" />
+    <state x="328" y="64" key="SettingsEditor/62.0.1474.864@62.0.1474.864" timestamp="1617537168079" />
+    <state x="496" y="256" key="com.intellij.ide.util.TipDialog" timestamp="1617536846633">
+      <screen x="62" y="0" width="1474" height="864" />
+    </state>
+    <state x="496" y="256" key="com.intellij.ide.util.TipDialog/62.0.1474.864@62.0.1474.864" timestamp="1617536846633" />
     <state x="541" y="291" width="619" height="282" key="org.intellij.images.editor.actions.BackgroundImageDialog" timestamp="1616625749178">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="541" y="291" width="619" height="282" key="org.intellij.images.editor.actions.BackgroundImageDialog/0.0.1536.834@0.0.1536.834" timestamp="1616625749178" />
+    <state x="456" y="197" key="run.anything.popup" timestamp="1617549218602">
+      <screen x="62" y="0" width="1474" height="864" />
+    </state>
+    <state x="456" y="197" key="run.anything.popup/62.0.1474.864@62.0.1474.864" timestamp="1617549218602" />
     <state x="431" y="155" width="672" height="678" key="search.everywhere.popup" timestamp="1616575517898">
       <screen x="0" y="0" width="1536" height="834" />
     </state>

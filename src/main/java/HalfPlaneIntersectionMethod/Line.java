@@ -1,11 +1,12 @@
 package HalfPlaneIntersectionMethod;
 
 import java.awt.geom.Line2D;
+import java.util.ArrayList;
 
 public class Line {
     //  ending points of the line
-    private final Point firstPoint;
-    private final Point secondPoint;
+    private Point firstPoint;
+    private Point secondPoint;
 
     //  perpendicular of the line
     private Line perpendicular;
@@ -87,12 +88,13 @@ public class Line {
     }
 
     /**
-     * Find perpendicular of the line
+     *  Find perpendicular of the line using differential approach (find line angle, perpendicular angle, iterate in
+     * both directions via angular differentials). Primitive approach.
      * @param xLimit limit of X axis
      * @param yLimit limit of Y axis
      * @return perpendicular line
      */
-    public Line getPerpendicularLine(int xLimit, int yLimit){
+    public Line getPerpendicularByAngleIteration(int xLimit, int yLimit){
         //  find angle of perpendicular: get line angle and turn it by 90 deg
         double perpendicularAngleInRadians = angleOfLineInRadians() + Math.PI/2;
 
@@ -132,6 +134,73 @@ public class Line {
     }
 
     /**
+     * Finds perpendicular of the line basing on first degree polynomial calculations.
+     * @param xLimit limit of the area in X
+     * @param yLimit limit of the area in Y
+     * @return perpendicular of the line limited by area
+     */
+    public Line getPerpendicularByEquation(int xLimit, int yLimit) {
+        //  if line is horizontal, then get vertical perpendicular
+        if (firstPoint.getY() == secondPoint.getY()) {
+            Point middle = middleOfLine();
+            return new Line(new Point(middle.getX(), 0), new Point(middle.getX(), yLimit));
+        }
+
+        //  if line is vertical, then get horizontal perpendicular
+        if (firstPoint.getX() == secondPoint.getX()) {
+            Point middle = middleOfLine();
+            return new Line(new Point(0, middle.getY()), new Point(xLimit, middle.getY()));
+        }
+
+        //  storage for perpendicular endpoints
+        ArrayList<Point> perpendicularEndpoints = new ArrayList<>();
+
+        //  find coefficient of the line, defining its "angle"
+        double m = ((double) secondPoint.getY() - (double) firstPoint.getY()) / ((double) secondPoint.getX() - (double) firstPoint.getX());
+
+        //  find equation of the perpendicular
+        double perpM = -1 / m;
+        Point middle = middleOfLine();
+        double perpB = middle.getY() - perpM * middle.getX();
+
+        //  check if there is perpendicular endpoint on the left border
+        double yValueAtXBorder = perpM * 0 + perpB;
+        if (yValueAtXBorder <= yLimit || yValueAtXBorder >= 0) {
+            perpendicularEndpoints.add(new Point(0, (int) yValueAtXBorder));
+        }
+
+        //  check if it is on the right border
+        yValueAtXBorder = perpM * xLimit + perpB;
+        if (yValueAtXBorder <= yLimit || yValueAtXBorder >= 0) {
+            perpendicularEndpoints.add(new Point(xLimit, (int) yValueAtXBorder));
+        }
+
+        //  check if it is on the top border
+        double xValueAtYBorder = 0;
+        if (perpendicularEndpoints.size() < 2) {
+            xValueAtYBorder = (0 - perpB) / perpM;
+            if (xValueAtYBorder <= xLimit || xValueAtYBorder >= 0) {
+                perpendicularEndpoints.add(new Point((int) xValueAtYBorder, 0));
+            }
+        }
+
+        //  check if it is on the bottom border
+        if (perpendicularEndpoints.size() < 2) {
+            xValueAtYBorder = (yLimit - perpB) / perpM;
+            if (xValueAtYBorder <= xLimit || xValueAtYBorder >= 0) {
+                perpendicularEndpoints.add(new Point((int) xValueAtYBorder, yLimit));
+            }
+        }
+
+        if (perpendicularEndpoints.size() == 0) {
+            System.out.println("somethings wrong!");
+        }
+
+        //  return perpendicular line
+        return new Line(perpendicularEndpoints.get(0), perpendicularEndpoints.get(1));
+    }
+
+    /**
      * Convert line to the Swing graphics float line
      * @return swing graphics float line
      */
@@ -166,7 +235,7 @@ public class Line {
         //  if line is neither horizontal nor vertical then find if point is on the line via distances check
         } else {
             //  acceptable error
-            double epsilon = 0.001d;
+            double epsilon = 0.0001d;
 
             //  create two lines (let's call them segments): from first line end to point and from second line end to point
             Line firstToPoint = new Line(this.getFirstPoint(), point);
@@ -197,8 +266,12 @@ public class Line {
         return secondPoint;
     }
 
-    public Line2D getGraphicalRepresentation() {
-        return new Line2D.Float(firstPoint.getX(), firstPoint.getY(), secondPoint.getX(), secondPoint.getY());
+    public void setFirstPoint(Point firstPoint) {
+        this.firstPoint = firstPoint;
+    }
+
+    public void setSecondPoint(Point secondPoint) {
+        this.secondPoint = secondPoint;
     }
 
     @Override

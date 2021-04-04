@@ -1,13 +1,18 @@
 package HalfPlaneIntersectionMethod;
 
+import Globals.Parameters;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class VoronoiHalfPlaneIntersection extends JFrame {
     //  reference to all sites of the map/area
     private final ArrayList<Site> sites;
+
+    private static final Parameters parameters = new Parameters(1000, 1000);
 
     /**
      * Constructor, automatically creates locuses for all sites
@@ -22,10 +27,15 @@ public class VoronoiHalfPlaneIntersection extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         if (sites.size() > 0) {
+            long startTime = System.currentTimeMillis();
+
             //  find locus for each site
             for (int i = 0; i < sites.size(); i++) {
-                sites.get(i).findLocus(sites, 1000, 1000);
+                sites.get(i).findLocus(sites, parameters);
             }
+
+            long endTime = System.currentTimeMillis();
+            System.out.println("Execution time is " + (endTime - startTime) + " ms.");
 
             this.sites = sites;
         } else {
@@ -51,25 +61,30 @@ public class VoronoiHalfPlaneIntersection extends JFrame {
 
 
     public static void main(String[] args) throws Exception {
-
-        //  sites for performing test
-        Site firstSite = new Site(100, 100, Color.BLUE);
-        Site secondSite = new Site(200, 210, Color.CYAN);
-        Site thirdSite = new Site(460, 555, Color.GREEN);
-        Site fourthSite = new Site(822, 673, Color.ORANGE);
-        Site fifthSite = new Site(322, 111, Color.RED);
-        Site sixthSite = new Site(999, 222, Color.PINK);
-
         //  store all sites in ArrayList
         ArrayList<Site> sites = new ArrayList<>();
 
-        //  append all sites to the ArrayList
-        sites.add(firstSite);
-        sites.add(secondSite);
-        sites.add(thirdSite);
-        sites.add(fourthSite);
-        sites.add(fifthSite);
-        sites.add(sixthSite);
+//        //  sites for performing test
+//        Site firstSite = new Site(100, 100, Color.BLUE);
+//        Site secondSite = new Site(200, 210, Color.CYAN);
+//        Site thirdSite = new Site(460, 555, Color.GREEN);
+//        Site fourthSite = new Site(822, 673, Color.ORANGE);
+//        Site fifthSite = new Site(322, 111, Color.RED);
+//        Site sixthSite = new Site(999, 222, Color.PINK);
+//
+//        //  append all sites to the ArrayList
+//        sites.add(firstSite);
+//        sites.add(secondSite);
+//        sites.add(thirdSite);
+//        sites.add(fourthSite);
+//        sites.add(fifthSite);
+//        sites.add(sixthSite);
+
+        //  set random generator
+        Random rand = new Random();
+        for (int i = 0; i < 100; i++) {
+            sites.add(new Site(rand.nextInt(1000), rand.nextInt(1000), Color.getColor("s" ,rand.nextInt(16777215))));
+        }
 
         //  create voronoi diagram with perpendicular half planes approach
         VoronoiHalfPlaneIntersection voronoiHalfPlaneIntersection = new VoronoiHalfPlaneIntersection(sites);

@@ -1,5 +1,7 @@
 package HalfPlaneIntersectionMethod;
 
+import Globals.Parameters;
+
 import java.awt.*;
 
 import java.awt.geom.Area;
@@ -8,7 +10,7 @@ import java.util.ArrayList;
 
 //  site is a point for which is required to find locus
 public class Site extends Point {
-    //  color of the site that will be applied for drawing Voronoi diagram by coloring locus
+    //  color of the site that will be applied for drawing PixelByPixelMethod.Voronoi diagram by coloring locus
     private Color color;
 
     //  locus - area each point of which is closer to this site than to any another one
@@ -42,10 +44,9 @@ public class Site extends Point {
     /**
      * Find locus area for this site
      * @param sites array of all sites presented on this sector
-     * @param xLimit X-axis sector size in pixels
-     * @param yLimit Y-axis sector size in pixels
+     * @param parameters parameters of the application
      */
-    public void findLocus(ArrayList<Site> sites, int xLimit, int yLimit) {
+    public void findLocus(ArrayList<Site> sites, Parameters parameters) {
         //  initialize storage for all half planes that were calculated referring to other sites
         ArrayList<Area> halfPlanes = new ArrayList<>();
 
@@ -55,17 +56,17 @@ public class Site extends Point {
             if (!anotherSite.equals(this)) {
                 //  create a line between current site and this one, specify perpendicular
                 Line line = new Line(this, anotherSite);
-                Line perpendicular = line.getPerpendicularLine(xLimit, yLimit);
+                Line perpendicular = line.getPerpendicularByEquation(parameters.getxLimit(), parameters.getyLimit());
 
                 //  save perpendicular that was found
                 perpendiculars.add(perpendicular);
 
                 //  calculate half plane between current site and this one, save it to this site
-                halfPlanes.add(findHalfPlane(perpendicular, xLimit, yLimit));
+                halfPlanes.add(findHalfPlane(perpendicular, parameters));
             }
         }
 
-        //  initialize locus as first calculated lalf plane
+        //  initialize locus as first calculated half plane
         locus = new Area(halfPlanes.get(0));
 
         //  if half planes value is bigger than one then calculate intersection of all half planes
@@ -79,54 +80,25 @@ public class Site extends Point {
     /**
      * Find half plane of this site using perpendicular estimated with another site
      * @param perpendicular perpendicular that was calculated between this site and another one
-     * @param xLimit X-axis sector size
-     * @param yLimit Y-axis sector size
+     * @param parameters parameters of the application
      * @return Half plane area containing this site
      */
-    private Area findHalfPlane(Line perpendicular, int xLimit, int yLimit) {
+    private Area findHalfPlane(Line perpendicular, Parameters parameters) {
         //  initialize borders and corners lists
         ArrayList<Line> borders = new ArrayList<>();
-        ArrayList<Point> corners = new ArrayList<>();
-
-        //  set all corners of the sector
-        Point topLeftCorner = new Point(0, 0);
-        Point topRightCorner = new Point(xLimit, 0);
-        Point bottomLeftCorner = new Point(0, yLimit);
-        Point bottomRightCorner = new Point(xLimit, yLimit);
 
         //  form borders of the sector in clockwise direction
-        borders.add(new Line(topLeftCorner, topRightCorner));     //  top border
-        borders.add(new Line(topRightCorner, bottomRightCorner));   //  right border
-        borders.add(new Line(bottomRightCorner, bottomLeftCorner));   //  bottom border
-        borders.add(new Line(bottomLeftCorner, topLeftCorner));     //  left border
-
-        //  flag that will detect if half plane was completely found
-        int perpendicularPointsMet = 0;
+        borders.add(new Line(parameters.getTopLeftCorner(), parameters.getTopRightCorner()));     //  top border
+        borders.add(new Line(parameters.getTopRightCorner(), parameters.getBottomRightCorner()));   //  right border
+        borders.add(new Line(parameters.getBottomRightCorner(), parameters.getBottomLeftCorner()));   //  bottom border
+        borders.add(new Line(parameters.getBottomLeftCorner(), parameters.getTopLeftCorner()));     //  left border
 
         //  iterate through sector borders in clockwise direction
-        for (Line border : borders) {
-            //  if any of the perpendicular is met -> append it to half plane corners -> show this to the flag
-            if (border.contains(perpendicular.getFirstPoint())) {
-                perpendicularPointsMet++;
-                corners.add(perpendicular.getFirstPoint());
-            } else if (border.contains(perpendicular.getSecondPoint())) {
-                perpendicularPointsMet++;
-                corners.add(perpendicular.getSecondPoint());
-            }
-
-            //  if both ends of perpendicular was checked -> half plane is found
-            if (perpendicularPointsMet == 2) {
-                break;
-
-            //  if corner is a part of half plane -> append it to the half plane corners list
-            } else if (perpendicularPointsMet > 0) {
-                corners.add(border.getSecondPoint());
-            }
-        }
+        ArrayList<Point> halfplaneCorners = findCornersOfHalfplane(borders, perpendicular);
 
         //  form polygon out of estimated corners
         Polygon halfPlane = new Polygon();
-        for (Point corner : corners) {
+        for (Point corner : halfplaneCorners) {
             halfPlane.addPoint(corner.getX(), corner.getY());
         }
 
@@ -137,11 +109,42 @@ public class Site extends Point {
         //  if half plane does not have site then return another half plane from this sector
         } else {
             //  take area of sector and subtract from it area of the half plane that does not have site
-            Area nonSiteArea = new Area(halfPlane);
-            Area siteArea = new Area(new Rectangle(0, 0, xLimit, yLimit));
-            siteArea.subtract(nonSiteArea);
+            Area siteArea = new Area(new Rectangle(0, 0, parameters.getxLimit(), parameters.getyLimit()));
+            siteArea.subtract(new Area(halfPlane));
+            System.out.println("alternate for " + this);
             return siteArea;
         }
+    }
+
+    private ArrayList<Point> findCornersOfHalfplane(ArrayList<Line> borders, Line perpendicular) {
+        //  flag that will detect if half plane was completely found
+        int perpendicularPointsMet = 0;
+
+        //  half plane corners array
+        ArrayList<Point> halfplaneCorners = new ArrayList<>();
+
+        //  iterate through sector borders (works with either clockwise or anti-clockwise direction)
+        for (Line border : borders) {
+            //  if any of the perpendicular is met -> append it to half plane corners -> show this to the flag
+            if (border.contains(perpendicular.getFirstPoint())) {
+                perpendicularPointsMet++;
+                halfplaneCorners.add(perpendicular.getFirstPoint());
+            } else if (border.contains(perpendicular.getSecondPoint())) {
+                perpendicularPointsMet++;
+                halfplaneCorners.add(perpendicular.getSecondPoint());
+            }
+
+            //  if both ends of perpendicular was checked -> half plane is found
+            if (perpendicularPointsMet == 2) {
+                break;
+
+                //  if corner is a part of half plane -> append it to the half plane corners list
+            } else if (perpendicularPointsMet > 0) {
+                halfplaneCorners.add(border.getSecondPoint());
+            }
+        }
+
+        return halfplaneCorners;
     }
 
     //  getters

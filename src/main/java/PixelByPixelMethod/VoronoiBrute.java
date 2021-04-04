@@ -1,3 +1,5 @@
+package PixelByPixelMethod;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -26,7 +28,7 @@ public class VoronoiBrute extends JFrame {
      * constructor
      * @param name name of the figure
      * @param interestPointsValue how many interest points there are
-     * @param imageSize size of section for Voronoi Diagram
+     * @param imageSize size of section for PixelByPixelMethod.Voronoi Diagram
      */
     public VoronoiBrute(String name, int interestPointsValue, int imageSize) {
         //  set name of the graph
@@ -79,6 +81,8 @@ public class VoronoiBrute extends JFrame {
      * generate locusts for all interest points (find nearest points) using colorization via pixel-by-pixel calculation
      */
     public void voronoiLocustsIdentification(boolean isManhattanRequired) {
+        long startTime = System.currentTimeMillis();
+
         //  iterate through all "pixels" of the image
         for (int currentPointX = 0; currentPointX < this.imageSize; currentPointX++) {
             for (int currentPointY = 0; currentPointY < this.imageSize; currentPointY++) {
@@ -102,6 +106,9 @@ public class VoronoiBrute extends JFrame {
                 this.image.setRGB(currentPointX, currentPointY, interestPointsColors[closestInterestPointIndex]);
             }
         }
+
+        long endTime = System.currentTimeMillis();
+        System.out.println("Execution time is " + (endTime - startTime) + " ms.");
     }
 
     /**
