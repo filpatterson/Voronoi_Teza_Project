@@ -28,7 +28,7 @@ public class Line {
      * @param x2 second point x coordinate
      * @param y2 second point y coordinate
      */
-    public Line(int x1, int y1, int x2, int y2) {
+    public Line(float x1, float y1, float x2, float y2) {
         this.firstPoint = new Point(x1, y1);
         this.secondPoint = new Point(x2, y2);
     }
@@ -45,7 +45,7 @@ public class Line {
      * Find line length in Manhattan algorithm
      * @return length in Manhattan algorithm
      */
-    public double lineDistanceManhattan(){
+    public float lineDistanceManhattan(){
         return Math.abs(firstPoint.getX() - secondPoint.getX()) + Math.abs(firstPoint.getY() - secondPoint.getY());
     }
 
@@ -54,8 +54,8 @@ public class Line {
      * @return middle point of the line
      */
     public Point middleOfLine(){
-        int x = (firstPoint.getX() + secondPoint.getX()) / 2;
-        int y = (firstPoint.getY() + secondPoint.getY()) / 2;
+        float x = (firstPoint.getX() + secondPoint.getX()) / 2;
+        float y = (firstPoint.getY() + secondPoint.getY()) / 2;
         return new Point(x, y);
     }
 

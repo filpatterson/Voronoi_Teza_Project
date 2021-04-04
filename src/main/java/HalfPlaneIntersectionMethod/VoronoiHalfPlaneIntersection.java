@@ -12,8 +12,6 @@ public class VoronoiHalfPlaneIntersection extends JFrame {
     //  reference to all sites of the map/area
     private final ArrayList<Site> sites;
 
-    private static final Parameters parameters = new Parameters(1000, 1000);
-
     /**
      * Constructor, automatically creates locuses for all sites
      * @param sites reference to sites ArrayList for which is required locuses estimation
@@ -31,7 +29,7 @@ public class VoronoiHalfPlaneIntersection extends JFrame {
 
             //  find locus for each site
             for (int i = 0; i < sites.size(); i++) {
-                sites.get(i).findLocus(sites, parameters);
+                sites.get(i).findLocus(sites);
             }
 
             long endTime = System.currentTimeMillis();

@@ -24,7 +24,7 @@ public class Site extends Point {
      * @param x X-axis coordinate
      * @param y Y-axis coordinate
      */
-    public Site(int x, int y) {
+    public Site(float x, float y) {
         super(x, y);
         perpendiculars = new ArrayList<>();
     }
@@ -35,7 +35,7 @@ public class Site extends Point {
      * @param y Y-axis coordinate
      * @param color Color that will be used for coloring locus of this site
      */
-    public Site(int x, int y, Color color) {
+    public Site(float x, float y, Color color) {
         super(x, y);
         this.color = color;
         perpendiculars = new ArrayList<>();
@@ -44,9 +44,8 @@ public class Site extends Point {
     /**
      * Find locus area for this site
      * @param sites array of all sites presented on this sector
-     * @param parameters parameters of the application
      */
-    public void findLocus(ArrayList<Site> sites, Parameters parameters) {
+    public void findLocus(ArrayList<Site> sites) {
         //  initialize storage for all half planes that were calculated referring to other sites
         ArrayList<Area> halfPlanes = new ArrayList<>();
 
@@ -56,13 +55,13 @@ public class Site extends Point {
             if (!anotherSite.equals(this)) {
                 //  create a line between current site and this one, specify perpendicular
                 Line line = new Line(this, anotherSite);
-                Line perpendicular = line.getPerpendicularByEquation(parameters.getxLimit(), parameters.getyLimit());
+                Line perpendicular = line.getPerpendicularByEquation(Parameters.xLimit, Parameters.yLimit);
 
                 //  save perpendicular that was found
                 perpendiculars.add(perpendicular);
 
                 //  calculate half plane between current site and this one, save it to this site
-                halfPlanes.add(findHalfPlane(perpendicular, parameters));
+                halfPlanes.add(findHalfPlane(perpendicular));
             }
         }
 
@@ -80,18 +79,17 @@ public class Site extends Point {
     /**
      * Find half plane of this site using perpendicular estimated with another site
      * @param perpendicular perpendicular that was calculated between this site and another one
-     * @param parameters parameters of the application
      * @return Half plane area containing this site
      */
-    private Area findHalfPlane(Line perpendicular, Parameters parameters) {
+    private Area findHalfPlane(Line perpendicular) {
         //  initialize borders and corners lists
         ArrayList<Line> borders = new ArrayList<>();
 
         //  form borders of the sector in clockwise direction
-        borders.add(new Line(parameters.getTopLeftCorner(), parameters.getTopRightCorner()));     //  top border
-        borders.add(new Line(parameters.getTopRightCorner(), parameters.getBottomRightCorner()));   //  right border
-        borders.add(new Line(parameters.getBottomRightCorner(), parameters.getBottomLeftCorner()));   //  bottom border
-        borders.add(new Line(parameters.getBottomLeftCorner(), parameters.getTopLeftCorner()));     //  left border
+        borders.add(new Line(Parameters.topLeftCorner, Parameters.topRightCorner));     //  top border
+        borders.add(new Line(Parameters.topRightCorner, Parameters.bottomRightCorner));   //  right border
+        borders.add(new Line(Parameters.bottomRightCorner, Parameters.bottomLeftCorner));   //  bottom border
+        borders.add(new Line(Parameters.bottomLeftCorner, Parameters.topLeftCorner));     //  left border
 
         //  iterate through sector borders in clockwise direction
         ArrayList<Point> halfplaneCorners = findCornersOfHalfplane(borders, perpendicular);
@@ -99,7 +97,7 @@ public class Site extends Point {
         //  form polygon out of estimated corners
         Polygon halfPlane = new Polygon();
         for (Point corner : halfplaneCorners) {
-            halfPlane.addPoint(corner.getX(), corner.getY());
+            halfPlane.addPoint((int) corner.getX(), (int) corner.getY());
         }
 
         //  if half plane contains site then return this area
@@ -109,7 +107,7 @@ public class Site extends Point {
         //  if half plane does not have site then return another half plane from this sector
         } else {
             //  take area of sector and subtract from it area of the half plane that does not have site
-            Area siteArea = new Area(new Rectangle(0, 0, parameters.getxLimit(), parameters.getyLimit()));
+            Area siteArea = new Area(new Rectangle(0, 0, Parameters.xLimit, Parameters.yLimit));
             siteArea.subtract(new Area(halfPlane));
             System.out.println("alternate for " + this);
             return siteArea;

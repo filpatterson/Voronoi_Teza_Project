@@ -4,15 +4,15 @@ import java.awt.geom.Point2D;
 
 public class Point {
     //  coordinates on the X and Y axis
-    private int x;
-    private int y;
+    private float x;
+    private float y;
 
     /**
      * Constructor, simple point with X and Y coordinates
      * @param x X-axis coordinate
      * @param y Y-axis coordinate
      */
-    public Point(int x, int y) {
+    public Point(float x, float y) {
         this.x = x;
         this.y = y;
     }
@@ -31,7 +31,7 @@ public class Point {
      * @param y Y-axis coordinate to check
      * @return True if point has the same coordinates as transmitted ones, False if not
      */
-    public boolean isEqual(int x, int y) {
+    public boolean isEqual(float x, float y) {
         if (this.x == x) {
             return this.y == y;
         }
@@ -54,7 +54,7 @@ public class Point {
 
     //  getters and setters
 
-    public int getX() {
+    public float getX() {
         return x;
     }
 
@@ -62,7 +62,7 @@ public class Point {
         this.x = x;
     }
 
-    public int getY() {
+    public float getY() {
         return y;
     }
 
