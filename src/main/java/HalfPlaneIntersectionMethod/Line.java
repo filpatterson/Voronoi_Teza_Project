@@ -8,6 +8,9 @@ public class Line {
     private Point firstPoint;
     private Point secondPoint;
 
+    private float m;
+    private float b;
+
     //  perpendicular of the line
     private Line perpendicular;
 
@@ -155,41 +158,40 @@ public class Line {
         //  storage for perpendicular endpoints
         ArrayList<Point> perpendicularEndpoints = new ArrayList<>();
 
-        //  find coefficient of the line, defining its "angle"
-        double m = ((double) secondPoint.getY() - (double) firstPoint.getY()) / ((double) secondPoint.getX() - (double) firstPoint.getX());
+        if (this.m == 0 && this.b == 0) {
+            //  find coefficient of the line, defining its "angle"
+            this.m = (secondPoint.getY() - firstPoint.getY()) / (secondPoint.getX() - firstPoint.getX());
+            this.b = secondPoint.getY() - this.m * secondPoint.getX();
+        }
 
         //  find equation of the perpendicular
-        double perpM = -1 / m;
+        double perpM = -1 / this.m;
         Point middle = middleOfLine();
         double perpB = middle.getY() - perpM * middle.getX();
 
         //  check if there is perpendicular endpoint on the left border
         double yValueAtXBorder = perpM * 0 + perpB;
-        if (yValueAtXBorder <= yLimit || yValueAtXBorder >= 0) {
+        if (yValueAtXBorder <= yLimit && yValueAtXBorder >= 0)
             perpendicularEndpoints.add(new Point(0, (int) yValueAtXBorder));
-        }
 
         //  check if it is on the right border
         yValueAtXBorder = perpM * xLimit + perpB;
-        if (yValueAtXBorder <= yLimit || yValueAtXBorder >= 0) {
+        if (yValueAtXBorder <= yLimit && yValueAtXBorder >= 0)
             perpendicularEndpoints.add(new Point(xLimit, (int) yValueAtXBorder));
-        }
 
         //  check if it is on the top border
         double xValueAtYBorder = 0;
         if (perpendicularEndpoints.size() < 2) {
             xValueAtYBorder = (0 - perpB) / perpM;
-            if (xValueAtYBorder <= xLimit || xValueAtYBorder >= 0) {
+            if (xValueAtYBorder <= xLimit && xValueAtYBorder >= 0)
                 perpendicularEndpoints.add(new Point((int) xValueAtYBorder, 0));
-            }
         }
 
         //  check if it is on the bottom border
         if (perpendicularEndpoints.size() < 2) {
             xValueAtYBorder = (yLimit - perpB) / perpM;
-            if (xValueAtYBorder <= xLimit || xValueAtYBorder >= 0) {
+            if (xValueAtYBorder <= xLimit && xValueAtYBorder >= 0)
                 perpendicularEndpoints.add(new Point((int) xValueAtYBorder, yLimit));
-            }
         }
 
         if (perpendicularEndpoints.size() == 0) {
@@ -214,26 +216,12 @@ public class Line {
      * @return True if point is on the line, False if not
      */
     public boolean contains(Point point) {
-        //  check if line is vertical and if point has the same X coordinate
-        if (this.getFirstPoint().getX() == this.getSecondPoint().getX() && this.getSecondPoint().getX() == point.getX()) {
-            //  find which end of line is lower, which end is higher, and if point is between ends
-            if(this.getFirstPoint().getY() < this.getSecondPoint().getY()) {
-                return point.getY() > this.getFirstPoint().getY() || point.getY() < this.getSecondPoint().getY();
-            } else {
-                return point.getY() < this.getFirstPoint().getY() || point.getY() > this.getSecondPoint().getY();
-            }
-
-        //  check if line is horizontal and if point has the same Y coordinate
-        } else if (this.getFirstPoint().getY() == this.getSecondPoint().getY() && this.getFirstPoint().getY() == point.getY()) {
-            //  find which end of line if left, which end is right, and if point is between ends
-            if(this.getFirstPoint().getX() < this.getSecondPoint().getX()) {
-                return point.getX() > this.getFirstPoint().getX() || point.getX() < this.getSecondPoint().getX();
-            } else {
-                return point.getX() < this.getFirstPoint().getX() || point.getX() > this.getSecondPoint().getX();
-            }
+        //  if line is vertical or horizontal -> find if it contains the point
+        if (innerHorizontalAndVerticalContainsCheck(point))
+            return true;
 
         //  if line is neither horizontal nor vertical then find if point is on the line via distances check
-        } else {
+        else {
             //  acceptable error
             double epsilon = 0.0001d;
 
@@ -250,10 +238,58 @@ public class Line {
 
             //  if sum of segments is the same as line or negation between line and sum of segments is lower than
             // acceptable error
-            if (firstToSecondDistance == firstToPointDistance + secondToPointDistance) {
+            if (firstToSecondDistance == firstToPointDistance + secondToPointDistance)
                 return true;
-            } else return Math.abs(firstToSecondDistance - firstToPointDistance - secondToPointDistance) < epsilon;
+            else
+                return Math.abs(firstToSecondDistance - firstToPointDistance - secondToPointDistance) < epsilon;
         }
+    }
+
+    /**
+     * Find out if current line contains point using first degree polynomial check: y = mx + b
+     * @param point point presence of which must be checked
+     * @return true if point is on the line, false if not
+     */
+    public boolean containsByEquation(Point point) {
+        //  if line is vertical or horizontal -> find if it contains the point
+        if (innerHorizontalAndVerticalContainsCheck(point))
+            return true;
+
+        //  if m and b coefficients have not been calculated -> calculate them
+        if (this.m == 0 && this.b == 0) {
+            this.m = (secondPoint.getY() - firstPoint.getY()) / (secondPoint.getX() - firstPoint.getX());
+            this.b = secondPoint.getY() - this.m * secondPoint.getX();
+        }
+
+        // check if point is on the line
+        Point checkPoint = new Point(point.getX(), this.m * point.getX() + this.b);
+        return checkPoint.isEqual(point);
+    }
+
+    /**
+     * Checks presence of point on the line if the line is horizontal or vertical
+     * @param point point presence of which is requested to check
+     * @return true if point is present on the line, false if not
+     */
+    private boolean innerHorizontalAndVerticalContainsCheck(Point point) {
+        //  check if line is vertical and if point has the same X coordinate
+        if (this.getFirstPoint().getX() == this.getSecondPoint().getX() && this.getSecondPoint().getX() == point.getX())
+            //  find which end of line is lower, which end is higher, and if point is between ends
+            if(this.getFirstPoint().getY() < this.getSecondPoint().getY())
+                return point.getY() > this.getFirstPoint().getY() || point.getY() < this.getSecondPoint().getY();
+            else
+                return point.getY() < this.getFirstPoint().getY() || point.getY() > this.getSecondPoint().getY();
+
+            //  check if line is horizontal and if point has the same Y coordinate
+        else if (this.getFirstPoint().getY() == this.getSecondPoint().getY() && this.getFirstPoint().getY() == point.getY())
+            //  find which end of line if left, which end is right, and if point is between ends
+            if (this.getFirstPoint().getX() < this.getSecondPoint().getX())
+                return point.getX() > this.getFirstPoint().getX() || point.getX() < this.getSecondPoint().getX();
+            else
+                return point.getX() < this.getFirstPoint().getX() || point.getX() > this.getSecondPoint().getX();
+
+        //  presence is not detected, line may be not horizontal or vertical, more precise check is required
+        return false;
     }
 
     //  getters

@@ -36,9 +36,8 @@ public class VoronoiHalfPlaneIntersection extends JFrame {
             System.out.println("Execution time is " + (endTime - startTime) + " ms.");
 
             this.sites = sites;
-        } else {
+        } else
             throw new Exception("Empty list of sites was transmitted");
-        }
     }
 
     public void paint(Graphics g) {
@@ -80,9 +79,8 @@ public class VoronoiHalfPlaneIntersection extends JFrame {
 
         //  set random generator
         Random rand = new Random();
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 100; i++)
             sites.add(new Site(rand.nextInt(1000), rand.nextInt(1000), Color.getColor("s" ,rand.nextInt(16777215))));
-        }
 
         //  create voronoi diagram with perpendicular half planes approach
         VoronoiHalfPlaneIntersection voronoiHalfPlaneIntersection = new VoronoiHalfPlaneIntersection(sites);

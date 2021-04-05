@@ -50,7 +50,7 @@ public class Site extends Point {
         ArrayList<Area> halfPlanes = new ArrayList<>();
 
         //  iterate through each site
-        for (Site anotherSite : sites) {
+        for (Site anotherSite : sites)
             //  if current site is the same as this one
             if (!anotherSite.equals(this)) {
                 //  create a line between current site and this one, specify perpendicular
@@ -63,17 +63,14 @@ public class Site extends Point {
                 //  calculate half plane between current site and this one, save it to this site
                 halfPlanes.add(findHalfPlane(perpendicular));
             }
-        }
 
         //  initialize locus as first calculated half plane
         locus = new Area(halfPlanes.get(0));
 
         //  if half planes value is bigger than one then calculate intersection of all half planes
-        if (halfPlanes.size() > 1) {
-            for (Area halfPlane : halfPlanes) {
+        if (halfPlanes.size() > 1)
+            for (Area halfPlane : halfPlanes)
                 locus.intersect(new Area(halfPlane));
-            }
-        }
     }
 
     /**
@@ -96,24 +93,28 @@ public class Site extends Point {
 
         //  form polygon out of estimated corners
         Polygon halfPlane = new Polygon();
-        for (Point corner : halfplaneCorners) {
+        for (Point corner : halfplaneCorners)
             halfPlane.addPoint((int) corner.getX(), (int) corner.getY());
-        }
 
         //  if half plane contains site then return this area
-        if (halfPlane.contains(this.getX(), this.getY())) {
+        if (halfPlane.contains(this.getX(), this.getY()))
             return new Area(halfPlane);
 
         //  if half plane does not have site then return another half plane from this sector
-        } else {
+        else {
             //  take area of sector and subtract from it area of the half plane that does not have site
             Area siteArea = new Area(new Rectangle(0, 0, Parameters.xLimit, Parameters.yLimit));
             siteArea.subtract(new Area(halfPlane));
-            System.out.println("alternate for " + this);
             return siteArea;
         }
     }
 
+    /**
+     * finds all corners of the halfplane by iterating through area borders (requires setting borders in clockwise direction)
+     * @param borders borders of the area defined in clockwise direction
+     * @param perpendicular perpendicular of the line
+     * @return list of points defining halfplane corners
+     */
     private ArrayList<Point> findCornersOfHalfplane(ArrayList<Line> borders, Line perpendicular) {
         //  flag that will detect if half plane was completely found
         int perpendicularPointsMet = 0;
@@ -124,22 +125,21 @@ public class Site extends Point {
         //  iterate through sector borders (works with either clockwise or anti-clockwise direction)
         for (Line border : borders) {
             //  if any of the perpendicular is met -> append it to half plane corners -> show this to the flag
-            if (border.contains(perpendicular.getFirstPoint())) {
+            if (border.containsByEquation(perpendicular.getFirstPoint())) {
                 perpendicularPointsMet++;
                 halfplaneCorners.add(perpendicular.getFirstPoint());
-            } else if (border.contains(perpendicular.getSecondPoint())) {
+            } else if (border.containsByEquation(perpendicular.getSecondPoint())) {
                 perpendicularPointsMet++;
                 halfplaneCorners.add(perpendicular.getSecondPoint());
             }
 
             //  if both ends of perpendicular was checked -> half plane is found
-            if (perpendicularPointsMet == 2) {
+            if (perpendicularPointsMet == 2)
                 break;
 
                 //  if corner is a part of half plane -> append it to the half plane corners list
-            } else if (perpendicularPointsMet > 0) {
+            else if (perpendicularPointsMet > 0)
                 halfplaneCorners.add(border.getSecondPoint());
-            }
         }
 
         return halfplaneCorners;

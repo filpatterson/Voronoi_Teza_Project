@@ -52,6 +52,14 @@ public class Point {
         return false;
     }
 
+    public boolean isOnTheSameXLevel(float x) {
+        return this.x == x;
+    }
+
+    public boolean isOnTheSameYLevel(float y) {
+        return this.y == y;
+    }
+
     //  getters and setters
 
     public float getX() {

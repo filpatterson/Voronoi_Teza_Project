@@ -84,28 +84,23 @@ public class VoronoiBrute extends JFrame {
         long startTime = System.currentTimeMillis();
 
         //  iterate through all "pixels" of the image
-        for (int currentPointX = 0; currentPointX < this.imageSize; currentPointX++) {
+        for (int currentPointX = 0; currentPointX < this.imageSize; currentPointX++)
             for (int currentPointY = 0; currentPointY < this.imageSize; currentPointY++) {
                 int closestInterestPointIndex = 0;
 
                 //  iterate through all cells of the image
-                for (byte currentInteresPoint = 0; currentInteresPoint < this.interestPointsValue; currentInteresPoint++) {
+                for (byte currentInteresPoint = 0; currentInteresPoint < this.interestPointsValue; currentInteresPoint++)
                     //  choose distance calculation method between Manhattan algorithm and Euclidean
-                    if(isManhattanRequired) {
-                        if (manhattanDistance2D(this.interestPointsX[currentInteresPoint], currentPointX, this.interestPointsY[currentInteresPoint], currentPointY) < manhattanDistance2D(this.interestPointsX[closestInterestPointIndex], currentPointX, this.interestPointsY[closestInterestPointIndex], currentPointY)) {
+                    if(isManhattanRequired)
+                        if (manhattanDistance2D(this.interestPointsX[currentInteresPoint], currentPointX, this.interestPointsY[currentInteresPoint], currentPointY) < manhattanDistance2D(this.interestPointsX[closestInterestPointIndex], currentPointX, this.interestPointsY[closestInterestPointIndex], currentPointY))
                             closestInterestPointIndex = currentInteresPoint;
-                        }
-                    } else {
-                        if (euclideanDistance2D(this.interestPointsX[currentInteresPoint], currentPointX, this.interestPointsY[currentInteresPoint], currentPointY) < euclideanDistance2D(this.interestPointsX[closestInterestPointIndex], currentPointX, this.interestPointsY[closestInterestPointIndex], currentPointY)) {
+                    else
+                        if (euclideanDistance2D(this.interestPointsX[currentInteresPoint], currentPointX, this.interestPointsY[currentInteresPoint], currentPointY) < euclideanDistance2D(this.interestPointsX[closestInterestPointIndex], currentPointX, this.interestPointsY[closestInterestPointIndex], currentPointY))
                             closestInterestPointIndex = currentInteresPoint;
-                        }
-                    }
-                }
 
                 //  apply color of the cell to current "pixel"
                 this.image.setRGB(currentPointX, currentPointY, interestPointsColors[closestInterestPointIndex]);
             }
-        }
 
         long endTime = System.currentTimeMillis();
         System.out.println("Execution time is " + (endTime - startTime) + " ms.");
@@ -122,9 +117,8 @@ public class VoronoiBrute extends JFrame {
         graphics2D.setColor(Color.BLACK);
 
         //  color all areas matched conform parameters
-        for (int i = 0; i < this.interestPointsValue; i++) {
+        for (int i = 0; i < this.interestPointsValue; i++)
             graphics2D.fill(new Ellipse2D.Double(this.interestPointsX[i] - 2.5, this.interestPointsY[i] - 2.5, 5, 5));
-        }
 
         //  try to create image
         try {
