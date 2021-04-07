@@ -8,6 +8,9 @@ import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * Voronoi diagram class that builds locus for each site using perpendicular method.
+ */
 public class VoronoiHalfPlaneIntersection extends JFrame {
     //  reference to all sites of the map/area
     private final ArrayList<Site> sites;
@@ -21,16 +24,15 @@ public class VoronoiHalfPlaneIntersection extends JFrame {
         //  initialize panel for sites and locuses drawing, setting window size and how to close program
         JPanel panel = new JPanel();
         getContentPane().add(panel);
-        setSize(1000, 1000);
+        setSize(Parameters.xLimit, Parameters.yLimit);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         if (sites.size() > 0) {
             long startTime = System.currentTimeMillis();
 
             //  find locus for each site
-            for (int i = 0; i < sites.size(); i++) {
-                sites.get(i).findLocus(sites);
-            }
+            for (Site site : sites)
+                site.findLocus(sites);
 
             long endTime = System.currentTimeMillis();
             System.out.println("Execution time is " + (endTime - startTime) + " ms.");
@@ -48,7 +50,8 @@ public class VoronoiHalfPlaneIntersection extends JFrame {
         for (Site site : this.sites) {
             //  fill locus of the site with site color
             g2.setColor(site.getColor());
-            g2.fill(site.getLocus());
+//            g2.fill(site.getLocus());
+            g2.draw(site.getLocus());
 
             //  display each site as small black ellipsoid
             g2.setColor(Color.BLACK);
@@ -80,7 +83,7 @@ public class VoronoiHalfPlaneIntersection extends JFrame {
         //  set random generator
         Random rand = new Random();
         for (int i = 0; i < 100; i++)
-            sites.add(new Site(rand.nextInt(1000), rand.nextInt(1000), Color.getColor("s" ,rand.nextInt(16777215))));
+            sites.add(new Site(rand.nextInt(Parameters.xLimit), rand.nextInt(Parameters.yLimit), Color.getColor("s" ,rand.nextInt(16777215))));
 
         //  create voronoi diagram with perpendicular half planes approach
         VoronoiHalfPlaneIntersection voronoiHalfPlaneIntersection = new VoronoiHalfPlaneIntersection(sites);

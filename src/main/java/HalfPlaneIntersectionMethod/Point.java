@@ -2,6 +2,9 @@ package HalfPlaneIntersectionMethod;
 
 import java.awt.geom.Point2D;
 
+/**
+ * Custom class that stores location of the point on 2-dimensional space, supports convertion to Point2D from Swing
+ */
 public class Point {
     //  coordinates on the X and Y axis
     private float x;
@@ -32,11 +35,7 @@ public class Point {
      * @return True if point has the same coordinates as transmitted ones, False if not
      */
     public boolean isEqual(float x, float y) {
-        if (this.x == x) {
-            return this.y == y;
-        }
-
-        return false;
+        return this.x == x && this.y == y;
     }
 
     /**
@@ -45,11 +44,7 @@ public class Point {
      * @return True if points have the same coordinates, False if not
      */
     public boolean isEqual(Point anotherPoint) {
-        if (this.x == anotherPoint.getX()) {
-            return this.y == anotherPoint.getY();
-        }
-
-        return false;
+        return this.x == anotherPoint.getX() && this.y == anotherPoint.getY();
     }
 
     public boolean isOnTheSameXLevel(float x) {

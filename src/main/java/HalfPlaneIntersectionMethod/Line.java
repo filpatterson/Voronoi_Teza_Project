@@ -1,13 +1,22 @@
 package HalfPlaneIntersectionMethod;
 
+import Globals.Parameters;
+
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
 
+/**
+ *  Custom class defining line with specification of two endpoints of this line. Supports definition of first-degree
+ * polynomial describing shape of line, definition of the perpendicular, distance estimation by Euclidean and Manhattan
+ * algorithms, has "exact" and "epsilon-error-based" algorithms of finding point in line. Supports conversion into
+ * Line2D from Swing
+ */
 public class Line {
     //  ending points of the line
     private Point firstPoint;
     private Point secondPoint;
 
+    //  coefficients for equation of the line in the format: y = mx + b
     private float m;
     private float b;
 
@@ -93,11 +102,9 @@ public class Line {
     /**
      *  Find perpendicular of the line using differential approach (find line angle, perpendicular angle, iterate in
      * both directions via angular differentials). Primitive approach.
-     * @param xLimit limit of X axis
-     * @param yLimit limit of Y axis
      * @return perpendicular line
      */
-    public Line getPerpendicularByAngleIteration(int xLimit, int yLimit){
+    public Line getPerpendicularByAngleIteration(){
         //  find angle of perpendicular: get line angle and turn it by 90 deg
         double perpendicularAngleInRadians = angleOfLineInRadians() + Math.PI/2;
 
@@ -115,15 +122,15 @@ public class Line {
         double difY = Math.sin(perpendicularAngleInRadians);
 
         //  iterate in one direction until reaching axis limits
-        while((perpendicularFirstPointX > 0 && perpendicularFirstPointX < xLimit) &&
-                (perpendicularFirstPointY > 0 && perpendicularFirstPointY < yLimit)){
+        while((perpendicularFirstPointX > 0 && perpendicularFirstPointX < Parameters.xLimit) &&
+                (perpendicularFirstPointY > 0 && perpendicularFirstPointY < Parameters.yLimit)){
             perpendicularFirstPointX += difX;
             perpendicularFirstPointY += difY;
         }
 
         //  iterate in another direction until reaching axis limits
-        while((perpendicularSecondPointX > 0 && perpendicularSecondPointX < xLimit) &&
-                (perpendicularSecondPointY > 0 && perpendicularSecondPointY < yLimit)){
+        while((perpendicularSecondPointX > 0 && perpendicularSecondPointX < Parameters.xLimit) &&
+                (perpendicularSecondPointY > 0 && perpendicularSecondPointY < Parameters.yLimit)){
             perpendicularSecondPointX -= difX;
             perpendicularSecondPointY -= difY;
         }
@@ -138,21 +145,19 @@ public class Line {
 
     /**
      * Finds perpendicular of the line basing on first degree polynomial calculations.
-     * @param xLimit limit of the area in X
-     * @param yLimit limit of the area in Y
      * @return perpendicular of the line limited by area
      */
-    public Line getPerpendicularByEquation(int xLimit, int yLimit) {
+    public Line getPerpendicularByEquation() {
         //  if line is horizontal, then get vertical perpendicular
         if (firstPoint.getY() == secondPoint.getY()) {
             Point middle = middleOfLine();
-            return new Line(new Point(middle.getX(), 0), new Point(middle.getX(), yLimit));
+            return new Line(new Point(middle.getX(), 0), new Point(middle.getX(), Parameters.yLimit));
         }
 
         //  if line is vertical, then get horizontal perpendicular
-        if (firstPoint.getX() == secondPoint.getX()) {
+        else if (firstPoint.getX() == secondPoint.getX()) {
             Point middle = middleOfLine();
-            return new Line(new Point(0, middle.getY()), new Point(xLimit, middle.getY()));
+            return new Line(new Point(0, middle.getY()), new Point(Parameters.xLimit, middle.getY()));
         }
 
         //  storage for perpendicular endpoints
@@ -171,27 +176,27 @@ public class Line {
 
         //  check if there is perpendicular endpoint on the left border
         double yValueAtXBorder = perpM * 0 + perpB;
-        if (yValueAtXBorder <= yLimit && yValueAtXBorder >= 0)
+        if (yValueAtXBorder <= Parameters.yLimit && yValueAtXBorder >= 0)
             perpendicularEndpoints.add(new Point(0, (int) yValueAtXBorder));
 
         //  check if it is on the right border
-        yValueAtXBorder = perpM * xLimit + perpB;
-        if (yValueAtXBorder <= yLimit && yValueAtXBorder >= 0)
-            perpendicularEndpoints.add(new Point(xLimit, (int) yValueAtXBorder));
+        yValueAtXBorder = perpM * Parameters.xLimit + perpB;
+        if (yValueAtXBorder <= Parameters.yLimit && yValueAtXBorder >= 0)
+            perpendicularEndpoints.add(new Point(Parameters.xLimit, (int) yValueAtXBorder));
 
         //  check if it is on the top border
         double xValueAtYBorder = 0;
         if (perpendicularEndpoints.size() < 2) {
             xValueAtYBorder = (0 - perpB) / perpM;
-            if (xValueAtYBorder <= xLimit && xValueAtYBorder >= 0)
+            if (xValueAtYBorder <= Parameters.xLimit && xValueAtYBorder >= 0)
                 perpendicularEndpoints.add(new Point((int) xValueAtYBorder, 0));
         }
 
         //  check if it is on the bottom border
         if (perpendicularEndpoints.size() < 2) {
-            xValueAtYBorder = (yLimit - perpB) / perpM;
-            if (xValueAtYBorder <= xLimit && xValueAtYBorder >= 0)
-                perpendicularEndpoints.add(new Point((int) xValueAtYBorder, yLimit));
+            xValueAtYBorder = (Parameters.yLimit - perpB) / perpM;
+            if (xValueAtYBorder <= Parameters.xLimit && xValueAtYBorder >= 0)
+                perpendicularEndpoints.add(new Point((int) xValueAtYBorder, Parameters.yLimit));
         }
 
         if (perpendicularEndpoints.size() == 0) {
@@ -200,14 +205,6 @@ public class Line {
 
         //  return perpendicular line
         return new Line(perpendicularEndpoints.get(0), perpendicularEndpoints.get(1));
-    }
-
-    /**
-     * Convert line to the Swing graphics float line
-     * @return swing graphics float line
-     */
-    public Line2D convertLineToGraphics(){
-        return new Line2D.Float(firstPoint.getX(), firstPoint.getY(), secondPoint.getX(), secondPoint.getY());
     }
 
     /**
@@ -290,6 +287,14 @@ public class Line {
 
         //  presence is not detected, line may be not horizontal or vertical, more precise check is required
         return false;
+    }
+
+    /**
+     * Convert line to the Swing graphics float line
+     * @return swing graphics float line
+     */
+    public Line2D convertLineToGraphics(){
+        return new Line2D.Float(firstPoint.getX(), firstPoint.getY(), secondPoint.getX(), secondPoint.getY());
     }
 
     //  getters
