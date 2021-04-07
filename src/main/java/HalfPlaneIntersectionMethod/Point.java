@@ -1,15 +1,13 @@
 package HalfPlaneIntersectionMethod;
 
+import Globals.Parameters;
+
 import java.awt.geom.Point2D;
 
 /**
  * Custom class that stores location of the point on 2-dimensional space, supports convertion to Point2D from Swing
  */
-public class Point {
-    //  coordinates on the X and Y axis
-    private float x;
-    private float y;
-
+public class Point extends Point2D.Float {
     /**
      * Constructor, simple point with X and Y coordinates
      * @param x X-axis coordinate
@@ -18,14 +16,6 @@ public class Point {
     public Point(float x, float y) {
         this.x = x;
         this.y = y;
-    }
-
-    /**
-     * Convert point to Swing graphics float Point entity
-     * @return Swing graphics formatted float Point entity
-     */
-    public Point2D convertToGraphics() {
-        return new Point2D.Float(this.x, this.y);
     }
 
     /**
@@ -55,22 +45,40 @@ public class Point {
         return this.y == y;
     }
 
-    //  getters and setters
+    public boolean incrementX() {
+        if (this.x < Parameters.xLimit)
+            this.x += 1;
+        else
+            return false;
 
-    public float getX() {
-        return x;
+        return true;
     }
 
-    public void setX(int x) {
-        this.x = x;
+    public boolean incrementY() {
+        if (this.y < Parameters.yLimit)
+            this.y += 1;
+        else
+            return false;
+
+        return true;
     }
 
-    public float getY() {
-        return y;
+    public boolean decrementX() {
+        if (this.x > 0)
+            this.x -= 1;
+        else
+            return false;
+
+        return true;
     }
 
-    public void setY(int y) {
-        this.y = y;
+    public boolean decrementY() {
+        if (this.x > 0)
+            this.x -= 1;
+        else
+            return false;
+
+        return true;
     }
 
     @Override

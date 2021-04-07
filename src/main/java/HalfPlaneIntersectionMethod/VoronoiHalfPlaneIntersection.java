@@ -26,6 +26,7 @@ public class VoronoiHalfPlaneIntersection extends JFrame {
         getContentPane().add(panel);
         setSize(Parameters.xLimit, Parameters.yLimit);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.sites = sites;
 
         if (sites.size() > 0) {
             long startTime = System.currentTimeMillis();
@@ -36,8 +37,6 @@ public class VoronoiHalfPlaneIntersection extends JFrame {
 
             long endTime = System.currentTimeMillis();
             System.out.println("Execution time is " + (endTime - startTime) + " ms.");
-
-            this.sites = sites;
         } else
             throw new Exception("Empty list of sites was transmitted");
     }
@@ -49,12 +48,12 @@ public class VoronoiHalfPlaneIntersection extends JFrame {
         //  iterate through all sites
         for (Site site : this.sites) {
             //  fill locus of the site with site color
-            g2.setColor(site.getColor());
+            g2.setColor(Color.BLACK);
 //            g2.fill(site.getLocus());
             g2.draw(site.getLocus());
 
             //  display each site as small black ellipsoid
-            g2.setColor(Color.BLACK);
+            g2.setColor(Color.RED);
             g2.fill(new Ellipse2D.Double(site.getX() - 2.5, site.getY() - 2.5, 6, 6));
         }
     }

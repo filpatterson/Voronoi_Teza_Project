@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * algorithms, has "exact" and "epsilon-error-based" algorithms of finding point in line. Supports conversion into
  * Line2D from Swing
  */
-public class Line {
+public class Line extends Line2D.Float {
     //  ending points of the line
     private Point firstPoint;
     private Point secondPoint;
@@ -58,7 +58,7 @@ public class Line {
      * @return length in Manhattan algorithm
      */
     public float lineDistanceManhattan(){
-        return Math.abs(firstPoint.getX() - secondPoint.getX()) + Math.abs(firstPoint.getY() - secondPoint.getY());
+        return (float) (Math.abs(firstPoint.getX() - secondPoint.getX()) + Math.abs(firstPoint.getY() - secondPoint.getY()));
     }
 
     /**
@@ -66,8 +66,8 @@ public class Line {
      * @return middle point of the line
      */
     public Point middleOfLine(){
-        float x = (firstPoint.getX() + secondPoint.getX()) / 2;
-        float y = (firstPoint.getY() + secondPoint.getY()) / 2;
+        float x = (float) ((firstPoint.getX() + secondPoint.getX()) / 2);
+        float y = (float) ((firstPoint.getY() + secondPoint.getY()) / 2);
         return new Point(x, y);
     }
 
@@ -151,13 +151,13 @@ public class Line {
         //  if line is horizontal, then get vertical perpendicular
         if (firstPoint.getY() == secondPoint.getY()) {
             Point middle = middleOfLine();
-            return new Line(new Point(middle.getX(), 0), new Point(middle.getX(), Parameters.yLimit));
+            return new Line(new Point((float) middle.getX(), 0), new Point((float) middle.getX(), Parameters.yLimit));
         }
 
         //  if line is vertical, then get horizontal perpendicular
         else if (firstPoint.getX() == secondPoint.getX()) {
             Point middle = middleOfLine();
-            return new Line(new Point(0, middle.getY()), new Point(Parameters.xLimit, middle.getY()));
+            return new Line(new Point(0, (float) middle.getY()), new Point(Parameters.xLimit, (float) middle.getY()));
         }
 
         //  storage for perpendicular endpoints
@@ -165,8 +165,8 @@ public class Line {
 
         if (this.m == 0 && this.b == 0) {
             //  find coefficient of the line, defining its "angle"
-            this.m = (secondPoint.getY() - firstPoint.getY()) / (secondPoint.getX() - firstPoint.getX());
-            this.b = secondPoint.getY() - this.m * secondPoint.getX();
+            this.m = (float) ((secondPoint.getY() - firstPoint.getY()) / (secondPoint.getX() - firstPoint.getX()));
+            this.b = (float) (secondPoint.getY() - this.m * secondPoint.getX());
         }
 
         //  find equation of the perpendicular
@@ -254,12 +254,12 @@ public class Line {
 
         //  if m and b coefficients have not been calculated -> calculate them
         if (this.m == 0 && this.b == 0) {
-            this.m = (secondPoint.getY() - firstPoint.getY()) / (secondPoint.getX() - firstPoint.getX());
-            this.b = secondPoint.getY() - this.m * secondPoint.getX();
+            this.m = (float) ((secondPoint.getY() - firstPoint.getY()) / (secondPoint.getX() - firstPoint.getX()));
+            this.b = (float) (secondPoint.getY() - this.m * secondPoint.getX());
         }
 
         // check if point is on the line
-        Point checkPoint = new Point(point.getX(), this.m * point.getX() + this.b);
+        Point checkPoint = new Point((float) point.getX(), (float) (this.m * point.getX() + this.b));
         return checkPoint.isEqual(point);
     }
 
@@ -287,14 +287,6 @@ public class Line {
 
         //  presence is not detected, line may be not horizontal or vertical, more precise check is required
         return false;
-    }
-
-    /**
-     * Convert line to the Swing graphics float line
-     * @return swing graphics float line
-     */
-    public Line2D convertLineToGraphics(){
-        return new Line2D.Float(firstPoint.getX(), firstPoint.getY(), secondPoint.getX(), secondPoint.getY());
     }
 
     //  getters
