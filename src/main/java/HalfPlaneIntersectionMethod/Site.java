@@ -23,12 +23,14 @@ public class Site extends Point {
 
     //  borders of the reviewed area, common for all sites
     private static final ArrayList<Line> borders = new ArrayList<>();
+    private static final Rectangle screenArea;
     static {
         //  form borders of the sector in clockwise direction
         borders.add(new Line(Parameters.topLeftCorner, Parameters.topRightCorner));     //  top border
         borders.add(new Line(Parameters.topRightCorner, Parameters.bottomRightCorner));   //  right border
         borders.add(new Line(Parameters.bottomRightCorner, Parameters.bottomLeftCorner));   //  bottom border
         borders.add(new Line(Parameters.bottomLeftCorner, Parameters.topLeftCorner));     //  left border
+        screenArea = new Rectangle(0, 0, Parameters.xLimit, Parameters.yLimit);
     }
 
     /**
@@ -56,25 +58,13 @@ public class Site extends Point {
      * @param sites array of all sites presented on this sector
      */
     public void findLocus(ArrayList<Site> sites) {
-        //  initialize storage for all half planes that were calculated referring to other sites
-        ArrayList<Area> halfPlanes = new ArrayList<>();
+        locus = new Area(screenArea);
 
         //  iterate through each site
         for (Site anotherSite : sites)
             //  if current site is the same as this one
-            if (!anotherSite.equals(this)) {
-                //  calculate half plane between current site and another one using estimated perpendicular for line
-                // connecting those sites
-                halfPlanes.add(findHalfPlane(new Line(this, anotherSite).getPerpendicularByEquation(), true));
-            }
-
-        //  initialize locus as first calculated half plane
-        locus = new Area(halfPlanes.get(0));
-
-        //  if half planes value is bigger than one then calculate intersection of all half planes
-        if (halfPlanes.size() > 1)
-            for (Area halfPlane : halfPlanes)
-                locus.intersect(new Area(halfPlane));
+            if (!anotherSite.equals(this))
+                locus.intersect(findHalfPlane(new Line(this, anotherSite).getPerpendicularByEquation(), true));
     }
 
     /**
