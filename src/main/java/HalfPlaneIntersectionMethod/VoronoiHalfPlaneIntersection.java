@@ -28,6 +28,7 @@ public class VoronoiHalfPlaneIntersection extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.sites = sites;
 
+        //  perform calculation of locuses for sites
         if (sites.size() > 0) {
             long startTime = System.currentTimeMillis();
 
@@ -54,7 +55,7 @@ public class VoronoiHalfPlaneIntersection extends JFrame {
 
             //  display each site as small black ellipsoid
             g2.setColor(Color.RED);
-            g2.fill(new Ellipse2D.Double(site.getX() - 2.5, site.getY() - 2.5, 6, 6));
+            g2.fill(new Ellipse2D.Float(site.x - 2.5f, site.y - 2.5f, 5, 5));
         }
     }
 
@@ -63,26 +64,15 @@ public class VoronoiHalfPlaneIntersection extends JFrame {
         //  store all sites in ArrayList
         ArrayList<Site> sites = new ArrayList<>();
 
-//        //  sites for performing test
-//        Site firstSite = new Site(100, 100, Color.BLUE);
-//        Site secondSite = new Site(200, 210, Color.CYAN);
-//        Site thirdSite = new Site(460, 555, Color.GREEN);
-//        Site fourthSite = new Site(822, 673, Color.ORANGE);
-//        Site fifthSite = new Site(322, 111, Color.RED);
-//        Site sixthSite = new Site(999, 222, Color.PINK);
-//
-//        //  append all sites to the ArrayList
-//        sites.add(firstSite);
-//        sites.add(secondSite);
-//        sites.add(thirdSite);
-//        sites.add(fourthSite);
-//        sites.add(fifthSite);
-//        sites.add(sixthSite);
-
-        //  set random generator
+        //  set random generator and generate 100 random points for constructing Voronoi diagram
         Random rand = new Random();
-        for (int i = 0; i < 100; i++)
+        for (int i = 0; i < 10000; i++)
             sites.add(new Site(rand.nextInt(Parameters.xLimit), rand.nextInt(Parameters.yLimit), Color.getColor("s" ,rand.nextInt(16777215))));
+
+//          perform quick sort of all sites comparing by their "weight"
+//        Site[] sitesArray = sites.toArray(new Site[0]);
+//        QuickSort.performSort(sitesArray, 0, sitesArray.length - 1);
+//        sites = new ArrayList<>(Arrays.asList(sitesArray));
 
         //  create voronoi diagram with perpendicular half planes approach
         VoronoiHalfPlaneIntersection voronoiHalfPlaneIntersection = new VoronoiHalfPlaneIntersection(sites);

@@ -3,7 +3,6 @@ package HalfPlaneIntersectionMethod;
 import Globals.Parameters;
 
 import java.awt.geom.Line2D;
-import java.util.ArrayList;
 
 /**
  *  Custom class defining line with specification of two endpoints of this line. Supports definition of first-degree
@@ -12,16 +11,20 @@ import java.util.ArrayList;
  * Line2D from Swing
  */
 public class Line extends Line2D.Float {
-    //  ending points of the line
+    //  another form of points of line
     private Point firstPoint;
     private Point secondPoint;
 
     //  coefficients for equation of the line in the format: y = mx + b
-    private float m;
-    private float b;
+    public float m;
+    public float b;
 
-    //  perpendicular of the line
-    private Line perpendicular;
+    //  code of line defining its property: vertical (2) for x1 = x2, horizontal (1) for y1 = y2
+    // and simple (0) for other case
+    public byte codeOfLine;
+
+    //  coordinates of the middle
+    private Point middle;
 
     /**
      * Constructor, creates line basing on given points
@@ -29,8 +32,29 @@ public class Line extends Line2D.Float {
      * @param secondPoint second point
      */
     public Line(Point firstPoint, Point secondPoint) {
+        //  set x and y values for each point
+        x1 = firstPoint.x;
+        x2 = secondPoint.x;
+        y1 = firstPoint.y;
+        y2 = secondPoint.y;
+
+        //  set points
         this.firstPoint = firstPoint;
         this.secondPoint = secondPoint;
+
+        //  find if line is vertical, horizontal or simple
+        if (x1 == x2)
+            codeOfLine = Parameters.VERTICAL_LINE_CODE;
+        else if (y1 == y2)
+            codeOfLine = Parameters.HORIZONTAL_LINE_CODE;
+        else
+            codeOfLine = Parameters.SIMPLE_LINE_CODE;
+
+        //  if line is simple, then find coefficients for formula describing line (y = mx + b)
+        if (codeOfLine == Parameters.SIMPLE_LINE_CODE) {
+            m = (y2 - y1) / (x2 - x1);
+            b = y2 - m * x2;
+        }
     }
 
     /**
@@ -41,34 +65,85 @@ public class Line extends Line2D.Float {
      * @param y2 second point y coordinate
      */
     public Line(float x1, float y1, float x2, float y2) {
-        this.firstPoint = new Point(x1, y1);
-        this.secondPoint = new Point(x2, y2);
+        //  set x and y values for each point
+        this.x1 = x1;
+        this.x2 = x2;
+        this.y1 = y1;
+        this.y2 = y2;
+
+        //  set points
+        firstPoint = new Point(x1, y1);
+        secondPoint = new Point(x2, y2);
+
+        //  find if line is vertical, horizontal or simple
+        if (this.x1 == this.x2)
+            codeOfLine = Parameters.VERTICAL_LINE_CODE;
+        else if (this.y1 == this.y2)
+            codeOfLine = Parameters.HORIZONTAL_LINE_CODE;
+        else
+            codeOfLine = Parameters.SIMPLE_LINE_CODE;
+
+        //  if line is simple, then find coefficients for formula describing line (y = mx + b)
+        if (codeOfLine == Parameters.SIMPLE_LINE_CODE) {
+            m = (this.y2 - this.y1) / (this.x2 - this.x1);
+            b = this.y2 - m * this.x2;
+        }
     }
+
+    private Line(float x1, float y1, float x2, float y2, float m, float b) {
+        //  set x and y values for each point
+        this.x1 = x1;
+        this.x2 = x2;
+        this.y1 = y1;
+        this.y2 = y2;
+
+        //  set points
+        firstPoint = new Point(x1, y1);
+        secondPoint = new Point(x2, y2);
+
+        this.m = m;
+        this.b = b;
+
+        codeOfLine = Parameters.SIMPLE_LINE_CODE;
+    }
+
+
 
     /**
      * Find line length in Euclidean algorithm
      * @return length in Euclidean algorithm
      */
-    public double lineDistanceEuclidean(){
-        return Math.sqrt(Math.pow((firstPoint.getX() - secondPoint.getX()), 2) + Math.pow((firstPoint.getY() - secondPoint.getY()), 2));
+    public float lengthEuclidean(){
+        return (float) Math.sqrt(Math.pow((x1 - x2), 2) + Math.pow((y1 - y2), 2));
     }
 
     /**
      * Find line length in Manhattan algorithm
      * @return length in Manhattan algorithm
      */
-    public float lineDistanceManhattan(){
-        return (float) (Math.abs(firstPoint.getX() - secondPoint.getX()) + Math.abs(firstPoint.getY() - secondPoint.getY()));
+    public float lengthManhattan(){
+        return Math.abs(x1 - x2) + Math.abs(y1 - y2);
     }
 
     /**
      * Find middle point of the line
      * @return middle point of the line
      */
-    public Point middleOfLine(){
-        float x = (float) ((firstPoint.getX() + secondPoint.getX()) / 2);
-        float y = (float) ((firstPoint.getY() + secondPoint.getY()) / 2);
-        return new Point(x, y);
+    public Point middleOfLine() {
+        //  if line has not been already found
+        if (middle == null)
+            middle = new Point((x1 + x2) / 2, (y1 + y2) / 2);
+
+        //  give middle of the line
+        return middle;
+    }
+
+    public float getXOfMiddle() {
+        return (x1 + x2) / 2;
+    }
+
+    public float getYOfMiddle() {
+        return (y1 + y2) / 2;
     }
 
     /**
@@ -76,7 +151,7 @@ public class Line extends Line2D.Float {
      * @return line angle in degrees
      */
     public double angleOfLineInDegrees(){
-        return Math.toDegrees(Math.atan2(secondPoint.getY() - firstPoint.getY(), secondPoint.getX() - firstPoint.getX()));
+        return Math.toDegrees(Math.atan2(y2 - y1, x2 - x1));
     }
 
     /**
@@ -84,162 +159,58 @@ public class Line extends Line2D.Float {
      * @return line angle in radians
      */
     public double angleOfLineInRadians(){
-        return Math.atan2(secondPoint.getY() - firstPoint.getY(), secondPoint.getX() - firstPoint.getX());
-    }
-
-    /**
-     * Find angle between the line and its perpendicular (use for testing)
-     * @return angle between the line and its perpendicular in degrees
-     */
-    public double angleOfPerpendicularToLine(){
-        Point middle = middleOfLine();
-        return Math.toDegrees(
-                Math.atan2(middle.getY() - perpendicular.getFirstPoint().getY(), middle.getX() - perpendicular.getFirstPoint().getX()) -
-                Math.atan2(middle.getY() - firstPoint.getY(), middle.getX() - firstPoint.getX())
-        );
-    }
-
-    /**
-     *  Find perpendicular of the line using differential approach (find line angle, perpendicular angle, iterate in
-     * both directions via angular differentials). Primitive approach.
-     * @return perpendicular line
-     */
-    public Line getPerpendicularByAngleIteration(){
-        //  find angle of perpendicular: get line angle and turn it by 90 deg
-        double perpendicularAngleInRadians = angleOfLineInRadians() + Math.PI/2;
-
-        //  get middle of the line
-        Point middle = middleOfLine();
-
-        //  set coordinates of perpendicular points to be the center of line
-        double perpendicularFirstPointX = middle.getX();
-        double perpendicularFirstPointY = middle.getY();
-        double perpendicularSecondPointX = middle.getX();
-        double perpendicularSecondPointY = middle.getY();
-
-        //  calculate differentials for each axis that will be applied for finding perpendicular endpoints
-        double difX = Math.cos(perpendicularAngleInRadians);
-        double difY = Math.sin(perpendicularAngleInRadians);
-
-        //  iterate in one direction until reaching axis limits
-        while((perpendicularFirstPointX > 0 && perpendicularFirstPointX < Parameters.xLimit) &&
-                (perpendicularFirstPointY > 0 && perpendicularFirstPointY < Parameters.yLimit)){
-            perpendicularFirstPointX += difX;
-            perpendicularFirstPointY += difY;
-        }
-
-        //  iterate in another direction until reaching axis limits
-        while((perpendicularSecondPointX > 0 && perpendicularSecondPointX < Parameters.xLimit) &&
-                (perpendicularSecondPointY > 0 && perpendicularSecondPointY < Parameters.yLimit)){
-            perpendicularSecondPointX -= difX;
-            perpendicularSecondPointY -= difY;
-        }
-
-        //  set reference to perpendicular in current line to estimated perpendicular
-        this.perpendicular = new Line((int) perpendicularFirstPointX, (int) perpendicularFirstPointY,
-                (int) perpendicularSecondPointX, (int) perpendicularSecondPointY);
-
-        //  return perpendicular line
-        return perpendicular;
+        return Math.atan2(y2 - y1, x2 - x1);
     }
 
     /**
      * Finds perpendicular of the line basing on first degree polynomial calculations.
      * @return perpendicular of the line limited by area
      */
-    public Line getPerpendicularByEquation() {
+    public Line getPerpendicularOfLine() {
+        Point middle = middleOfLine();
+
         //  if line is horizontal, then get vertical perpendicular
-        if (firstPoint.getY() == secondPoint.getY()) {
-            Point middle = middleOfLine();
-            return new Line(new Point((float) middle.getX(), 0), new Point((float) middle.getX(), Parameters.yLimit));
-        }
+        if (y1 == y2)
+            return new Line(new Point(middle.x, 0), new Point(middle.x, Parameters.yLimit));
 
         //  if line is vertical, then get horizontal perpendicular
-        else if (firstPoint.getX() == secondPoint.getX()) {
-            Point middle = middleOfLine();
-            return new Line(new Point(0, (float) middle.getY()), new Point(Parameters.xLimit, (float) middle.getY()));
-        }
+        else if (x1 == x2)
+            return new Line(new Point(0, middle.y), new Point(Parameters.xLimit, middle.y));
 
-        //  storage for perpendicular endpoints
-        ArrayList<Point> perpendicularEndpoints = new ArrayList<>();
+        //  find equation of the perpendicular (perpY = perpM * perpX + perpB)
+        float perpM = -1 / m;
+        float perpB = middle.y - perpM * middle.x;
 
-        if (this.m == 0 && this.b == 0) {
-            //  find coefficient of the line, defining its "angle"
-            this.m = (float) ((secondPoint.getY() - firstPoint.getY()) / (secondPoint.getX() - firstPoint.getX()));
-            this.b = (float) (secondPoint.getY() - this.m * secondPoint.getX());
-        }
-
-        //  find equation of the perpendicular
-        double perpM = -1 / this.m;
-        Point middle = middleOfLine();
-        double perpB = middle.getY() - perpM * middle.getX();
-
-        //  check if there is perpendicular endpoint on the left border
-        double yValueAtXBorder = perpM * 0 + perpB;
-        if (yValueAtXBorder <= Parameters.yLimit && yValueAtXBorder >= 0)
-            perpendicularEndpoints.add(new Point(0, (int) yValueAtXBorder));
-
-        //  check if it is on the right border
-        yValueAtXBorder = perpM * Parameters.xLimit + perpB;
-        if (yValueAtXBorder <= Parameters.yLimit && yValueAtXBorder >= 0)
-            perpendicularEndpoints.add(new Point(Parameters.xLimit, (int) yValueAtXBorder));
-
-        //  check if it is on the top border
-        double xValueAtYBorder = 0;
-        if (perpendicularEndpoints.size() < 2) {
-            xValueAtYBorder = (0 - perpB) / perpM;
-            if (xValueAtYBorder <= Parameters.xLimit && xValueAtYBorder >= 0)
-                perpendicularEndpoints.add(new Point((int) xValueAtYBorder, 0));
-        }
-
-        //  check if it is on the bottom border
-        if (perpendicularEndpoints.size() < 2) {
-            xValueAtYBorder = (Parameters.yLimit - perpB) / perpM;
-            if (xValueAtYBorder <= Parameters.xLimit && xValueAtYBorder >= 0)
-                perpendicularEndpoints.add(new Point((int) xValueAtYBorder, Parameters.yLimit));
-        }
-
-        if (perpendicularEndpoints.size() == 0) {
-            System.out.println("somethings wrong!");
-        }
-
-        //  return perpendicular line
-        return new Line(perpendicularEndpoints.get(0), perpendicularEndpoints.get(1));
+        //  return the line that will be limited conform limits of x-axis
+        return new Line(0, perpM * 0 + perpB, Parameters.xLimit, perpM * Parameters.xLimit + perpB, perpM, perpB);
     }
 
     /**
-     * Find out if current line contains point
-     * @param point point
-     * @return True if point is on the line, False if not
+     * finds perpendicular of line between two points without constructing the line itself
+     * @param firstPoint first point of "virtual" line
+     * @param secondPoint second point of "virtual" line
+     * @return perpendicular for those points
      */
-    public boolean contains(Point point) {
-        //  if line is vertical or horizontal -> find if it contains the point
-        if (innerHorizontalAndVerticalContainsCheck(point))
-            return true;
+    public static Line getPerpendicularOfPoints(Point firstPoint, Point secondPoint) {
+        //  find middle between two points
+        Point middle = new Point((firstPoint.x + secondPoint.x) / 2, (firstPoint.y + secondPoint.y) / 2);
 
-        //  if line is neither horizontal nor vertical then find if point is on the line via distances check
-        else {
-            //  acceptable error
-            double epsilon = 0.0001d;
+        //  if line is horizontal, then get vertical perpendicular
+        if (firstPoint.y == secondPoint.y)
+            return new Line(new Point(middle.x, 0), new Point(middle.x, Parameters.yLimit));
+            //  if line is vertical, then get horizontal perpendicular
+        else if (firstPoint.x == secondPoint.x)
+            return new Line(new Point(0, middle.y), new Point(Parameters.xLimit, middle.y));
 
-            //  create two lines (let's call them segments): from first line end to point and from second line end to point
-            Line firstToPoint = new Line(this.getFirstPoint(), point);
-            Line secondToPoint = new Line(this.getSecondPoint(), point);
+        //  find m of original line
+        float m = (secondPoint.y - firstPoint.y) / (secondPoint.x - firstPoint.x);
 
-            //  find lengths of segments
-            double firstToPointDistance = firstToPoint.lineDistanceEuclidean();
-            double secondToPointDistance = secondToPoint.lineDistanceEuclidean();
+        //  find equation of the perpendicular (perpY = perpM * perpX + perpB)
+        float perpM = -1 / m;
+        float perpB = middle.y - perpM * middle.x;
 
-            //  find length of the original line
-            double firstToSecondDistance = this.lineDistanceEuclidean();
-
-            //  if sum of segments is the same as line or negation between line and sum of segments is lower than
-            // acceptable error
-            if (firstToSecondDistance == firstToPointDistance + secondToPointDistance)
-                return true;
-            else
-                return Math.abs(firstToSecondDistance - firstToPointDistance - secondToPointDistance) < epsilon;
-        }
+        //  return the line that will be limited conform limits of x-axis
+        return new Line(0, perpM * 0 + perpB, Parameters.xLimit, perpM * Parameters.xLimit + perpB, perpM, perpB);
     }
 
     /**
@@ -249,18 +220,20 @@ public class Line extends Line2D.Float {
      */
     public boolean containsByEquation(Point point) {
         //  if line is vertical or horizontal -> find if it contains the point
-        if (innerHorizontalAndVerticalContainsCheck(point))
-            return true;
-
-        //  if m and b coefficients have not been calculated -> calculate them
-        if (this.m == 0 && this.b == 0) {
-            this.m = (float) ((secondPoint.getY() - firstPoint.getY()) / (secondPoint.getX() - firstPoint.getX()));
-            this.b = (float) (secondPoint.getY() - this.m * secondPoint.getX());
-        }
+        if (codeOfLine != Parameters.SIMPLE_LINE_CODE)
+            return innerHorizontalAndVerticalContainsCheck(point);
 
         // check if point is on the line
-        Point checkPoint = new Point((float) point.getX(), (float) (this.m * point.getX() + this.b));
-        return checkPoint.isEqual(point);
+        return point.isEqual(point.x, m * point.x + b);
+    }
+
+    public boolean containsByEquation(float x, float y) {
+        //  if line is vertical or horizontal -> find if it contains the point
+        if (codeOfLine != Parameters.SIMPLE_LINE_CODE)
+            return innerHorizontalAndVerticalContainsCheck(x, y);
+
+        // check if point is on the line
+        return m * x + b == y;
     }
 
     /**
@@ -270,26 +243,106 @@ public class Line extends Line2D.Float {
      */
     private boolean innerHorizontalAndVerticalContainsCheck(Point point) {
         //  check if line is vertical and if point has the same X coordinate
-        if (this.getFirstPoint().getX() == this.getSecondPoint().getX() && this.getSecondPoint().getX() == point.getX())
+        if (codeOfLine == Parameters.VERTICAL_LINE_CODE && x2 == point.x)
             //  find which end of line is lower, which end is higher, and if point is between ends
-            if(this.getFirstPoint().getY() < this.getSecondPoint().getY())
-                return point.getY() > this.getFirstPoint().getY() || point.getY() < this.getSecondPoint().getY();
-            else
-                return point.getY() < this.getFirstPoint().getY() || point.getY() > this.getSecondPoint().getY();
+            return (y1 < y2) ? point.y > y1 || point.y < y2 : point.y < y1 || point.y > y2;
+
+        //  check if line is horizontal and if point has the same Y coordinate
+        else if (codeOfLine == Parameters.HORIZONTAL_LINE_CODE && y1 == point.y)
+            //  find which end of line if left, which end is right, and if point is between ends
+            return (x1 < x2) ? point.x > x1 || point.x < x2 : point.x < x1 || point.x > x2;
+
+        else
+            return false;
+    }
+
+    private boolean innerHorizontalAndVerticalContainsCheck(float x, float y) {
+        //  check if line is vertical and if point has the same X coordinate
+        if (codeOfLine == Parameters.VERTICAL_LINE_CODE && x2 == x)
+            //  find which end of line is lower, which end is higher, and if point is between ends
+            return (y1 < y2) ? y > y1 || y < y2 : y < y1 || y > y2;
 
             //  check if line is horizontal and if point has the same Y coordinate
-        else if (this.getFirstPoint().getY() == this.getSecondPoint().getY() && this.getFirstPoint().getY() == point.getY())
+        else if (codeOfLine == Parameters.HORIZONTAL_LINE_CODE && y1 == y)
             //  find which end of line if left, which end is right, and if point is between ends
-            if (this.getFirstPoint().getX() < this.getSecondPoint().getX())
-                return point.getX() > this.getFirstPoint().getX() || point.getX() < this.getSecondPoint().getX();
-            else
-                return point.getX() < this.getFirstPoint().getX() || point.getX() > this.getSecondPoint().getX();
+            return (x1 < x2) ? x > x1 || x < x2 : x < x1 || x > x2;
 
-        //  presence is not detected, line may be not horizontal or vertical, more precise check is required
-        return false;
+        else
+            return false;
+    }
+
+    /**
+     * find point of two lines intersection
+     * @param perpendicular perpendicular line
+     * @return point of two lines intersection
+     */
+    public Point findIntersection(Line perpendicular) {
+        //  if lines are identical by their type
+        if (codeOfLine == perpendicular.codeOfLine) {
+            //  if lines are simple
+            if (codeOfLine == Parameters.SIMPLE_LINE_CODE) {
+                //  if lines have the same formulas
+                if (perpendicular.m == m && perpendicular.b == b) {
+                    System.err.println("Perp = " + perpendicular + "; " +
+                            "edge = " + this + "; " +
+                            "perp = {m = " + perpendicular.m + ", b = " + perpendicular.b + "}; " +
+                            "edge = {m = " + m + ", b = " + b + "}");
+                    return null;
+                //  if lines have different formulas
+                } else {
+                    float intersectionX = Math.abs((perpendicular.b - this.b) / (this.m - perpendicular.m));
+                    return new Point(intersectionX, this.m * intersectionX + this.b);
+                }
+            //  lines are both vertical or horizontal, no intersection possible
+            } else
+                return null;
+        } else if (codeOfLine == Parameters.HORIZONTAL_LINE_CODE) {
+            if (perpendicular.codeOfLine == Parameters.VERTICAL_LINE_CODE)
+                return new Point(perpendicular.x1, y1);
+            else
+                return new Point(Math.abs((perpendicular.b - y1) / perpendicular.m), y1);
+        } else if (codeOfLine == Parameters.VERTICAL_LINE_CODE) {
+            if (perpendicular.codeOfLine == Parameters.HORIZONTAL_LINE_CODE)
+                return new Point(x1, perpendicular.y1);
+            else
+                return new Point(x1, perpendicular.m * x1 + perpendicular.b);
+        } else if (perpendicular.codeOfLine == Parameters.HORIZONTAL_LINE_CODE)
+            return new Point(Math.abs((b - perpendicular.y1) / m), perpendicular.y1);
+        //  perpendicular is vertical and another line is simple -> find intersection for this scenario
+        else
+            return new Point(perpendicular.x1, m * perpendicular.x1 + b);
+
+
+//        if ((codeOfLine == Parameters.HORIZONTAL_LINE_CODE && perpendicular.codeOfLine == Parameters.HORIZONTAL_LINE_CODE) ||
+//                (codeOfLine == Parameters.VERTICAL_LINE_CODE && perpendicular.codeOfLine == Parameters.VERTICAL_LINE_CODE))
+//            return null;
+//        else if (codeOfLine == Parameters.HORIZONTAL_LINE_CODE && perpendicular.codeOfLine == Parameters.VERTICAL_LINE_CODE)
+//            return new Point(perpendicular.x1, y1);
+//        else if (codeOfLine == Parameters.VERTICAL_LINE_CODE && perpendicular.codeOfLine == Parameters.HORIZONTAL_LINE_CODE)
+//            return new Point(x1, perpendicular.y1);
+//        else if (codeOfLine == Parameters.HORIZONTAL_LINE_CODE)
+//            return new Point(Math.abs((perpendicular.b - y1) / perpendicular.m), y1);
+//        else if (codeOfLine == Parameters.VERTICAL_LINE_CODE)
+//            return new Point(x1, perpendicular.m * x1 + perpendicular.b);
+//        else if (perpendicular.codeOfLine == Parameters.HORIZONTAL_LINE_CODE)
+//            return new Point(Math.abs((b - perpendicular.y1) / m), perpendicular.y1);
+//        else if (perpendicular.codeOfLine == Parameters.VERTICAL_LINE_CODE)
+//            return new Point(perpendicular.x1, m * perpendicular.x1 + b);
+//        else if (perpendicular.m == m && perpendicular.b == b) {
+//            System.err.println("Perp = " + perpendicular + "; " +
+//                    "edge = " + this + "; " +
+//                    "perp = {m = " + perpendicular.m + ", b = " + perpendicular.b + "}; " +
+//                    "edge = {m = " + m + ", b = " + b + "}");
+//            return null;
+//        }
+//        else {
+//            float intersectionX = Math.abs((perpendicular.b - this.b) / (this.m - perpendicular.m));
+//            return new Point(intersectionX, this.m * intersectionX + this.b);
+//        }
     }
 
     //  getters
+
 
     public Point getFirstPoint() {
         return firstPoint;
@@ -299,19 +352,11 @@ public class Line extends Line2D.Float {
         return secondPoint;
     }
 
-    public void setFirstPoint(Point firstPoint) {
-        this.firstPoint = firstPoint;
-    }
-
-    public void setSecondPoint(Point secondPoint) {
-        this.secondPoint = secondPoint;
-    }
-
     @Override
     public String toString() {
         return "Line{" +
-                "firstPoint=" + firstPoint +
-                ", secondPoint=" + secondPoint +
+                "firstPoint=" + x1 + ", " + y1 +
+                ", secondPoint=" + x2 + ", " + y2 +
                 '}';
     }
 }

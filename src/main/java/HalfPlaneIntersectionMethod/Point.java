@@ -34,51 +34,15 @@ public class Point extends Point2D.Float {
      * @return True if points have the same coordinates, False if not
      */
     public boolean isEqual(Point anotherPoint) {
-        return this.x == anotherPoint.getX() && this.y == anotherPoint.getY();
+        return x == anotherPoint.x && y == anotherPoint.y;
     }
 
-    public boolean isOnTheSameXLevel(float x) {
-        return this.x == x;
-    }
-
-    public boolean isOnTheSameYLevel(float y) {
-        return this.y == y;
-    }
-
-    public boolean incrementX() {
-        if (this.x < Parameters.xLimit)
-            this.x += 1;
-        else
-            return false;
-
-        return true;
-    }
-
-    public boolean incrementY() {
-        if (this.y < Parameters.yLimit)
-            this.y += 1;
-        else
-            return false;
-
-        return true;
-    }
-
-    public boolean decrementX() {
-        if (this.x > 0)
-            this.x -= 1;
-        else
-            return false;
-
-        return true;
-    }
-
-    public boolean decrementY() {
-        if (this.x > 0)
-            this.x -= 1;
-        else
-            return false;
-
-        return true;
+    /**
+     * find "weight" of the line basing on its coordinates
+     * @return "weight" of the point
+     */
+    public float getWeight() {
+        return y * Parameters.xLimit + x;
     }
 
     @Override

@@ -1,9 +1,7 @@
-package Globals;
-
-import HalfPlaneIntersectionMethod.Point;
+package HalfPlaneIntersectionOld;
 
 //  class for storing application settings
-public class Parameters {
+public class ParametersOld {
     //  displayable/analyzable area size in X and Y
     public static short xLimit = 700;
     public static short yLimit = 700;
@@ -13,8 +11,8 @@ public class Parameters {
     public static final byte SIMPLE_LINE_CODE = 0;
 
     //  corners of the displayable/analyzable area
-    public static final Point topLeftCorner = new Point(0, 0);
-    public static final Point topRightCorner = new Point(xLimit, 0);
-    public static final Point bottomLeftCorner = new Point(0, yLimit);
-    public static final Point bottomRightCorner = new Point(xLimit, yLimit);
+    public static final PointOld topLeftCorner = new PointOld(0, 0);
+    public static final PointOld topRightCorner = new PointOld(xLimit, 0);
+    public static final PointOld bottomLeftCorner = new PointOld(0, yLimit);
+    public static final PointOld bottomRightCorner = new PointOld(xLimit, yLimit);
 }
