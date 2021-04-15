@@ -36,7 +36,7 @@ public class Site extends Point {
      * @param x X-axis coordinate
      * @param y Y-axis coordinate
      */
-    public Site(float x, float y) {
+    public Site(double x, double y) {
         super(x, y);
     }
 
@@ -46,7 +46,7 @@ public class Site extends Point {
      * @param y Y-axis coordinate
      * @param color Color that will be used for coloring locus of this site
      */
-    public Site(float x, float y, Color color) {
+    public Site(double x, double y, Color color) {
         super(x, y);
         this.color = color;
     }

@@ -7,13 +7,13 @@ import java.awt.geom.Point2D;
 /**
  * Custom class that stores location of the point on 2-dimensional space, supports convertion to Point2D from Swing
  */
-public class Point extends Point2D.Float {
+public class Point extends Point2D.Double {
     /**
      * Constructor, simple point with X and Y coordinates
      * @param x X-axis coordinate
      * @param y Y-axis coordinate
      */
-    public Point(float x, float y) {
+    public Point(double x, double y) {
         this.x = x;
         this.y = y;
     }
@@ -24,7 +24,7 @@ public class Point extends Point2D.Float {
      * @param y Y-axis coordinate to check
      * @return True if point has the same coordinates as transmitted ones, False if not
      */
-    public boolean isEqual(float x, float y) {
+    public boolean isEqual(double x, double y) {
         return this.x == x && this.y == y;
     }
 
@@ -41,7 +41,7 @@ public class Point extends Point2D.Float {
      * find "weight" of the line basing on its coordinates
      * @return "weight" of the point
      */
-    public float getWeight() {
+    public double getWeight() {
         return y * Parameters.xLimit + x;
     }
 

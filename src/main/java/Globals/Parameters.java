@@ -4,9 +4,9 @@ import HalfPlaneIntersectionMethod.Point;
 
 //  class for storing application settings
 public class Parameters {
-    //  displayable/analyzable area size in X and Y
-    public static short xLimit = 700;
-    public static short yLimit = 700;
+    //  displayable/analyzable area size in X and Y (WARNING: conform Yandex Maps limit there can be only 450 by 450
+    public static short xLimit = 450;
+    public static short yLimit = 450;
 
     public static final byte HORIZONTAL_LINE_CODE = 1;
     public static final byte VERTICAL_LINE_CODE = 2;
