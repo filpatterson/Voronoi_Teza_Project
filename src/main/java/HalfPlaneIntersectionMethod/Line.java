@@ -20,9 +20,6 @@ public class Line extends Line2D.Double {
     // and simple (0) for other case
     public byte codeOfLine;
 
-    //  coordinates of the middle
-    private Point middle;
-
     /**
      * Constructor, creates line basing on given points
      * @param firstPoint first point
@@ -40,11 +37,9 @@ public class Line extends Line2D.Double {
             codeOfLine = Parameters.VERTICAL_LINE_CODE;
         else if (y1 == y2)
             codeOfLine = Parameters.HORIZONTAL_LINE_CODE;
-        else
+        else {
+            //  if line is simple, then find coefficients for formula describing line (y = mx + b)
             codeOfLine = Parameters.SIMPLE_LINE_CODE;
-
-        //  if line is simple, then find coefficients for formula describing line (y = mx + b)
-        if (codeOfLine == Parameters.SIMPLE_LINE_CODE) {
             m = (y2 - y1) / (x2 - x1);
             b = y2 - m * x2;
         }
@@ -65,17 +60,15 @@ public class Line extends Line2D.Double {
         this.y2 = y2;
 
         //  find if line is vertical, horizontal or simple
-        if (this.x1 == this.x2)
+        if (x1 == x2)
             codeOfLine = Parameters.VERTICAL_LINE_CODE;
-        else if (this.y1 == this.y2)
+        else if (y1 == y2)
             codeOfLine = Parameters.HORIZONTAL_LINE_CODE;
-        else
+        else {
+            //  if line is simple, then find coefficients for formula describing line (y = mx + b)
             codeOfLine = Parameters.SIMPLE_LINE_CODE;
-
-        //  if line is simple, then find coefficients for formula describing line (y = mx + b)
-        if (codeOfLine == Parameters.SIMPLE_LINE_CODE) {
-            m = (this.y2 - this.y1) / (this.x2 - this.x1);
-            b = this.y2 - m * this.x2;
+            m = (y2 - y1) / (x2 - x1);
+            b = y2 - m * x2;
         }
     }
 
@@ -92,14 +85,12 @@ public class Line extends Line2D.Double {
         codeOfLine = Parameters.SIMPLE_LINE_CODE;
     }
 
-
-
     /**
      * Find line length in Euclidean algorithm
      * @return length in Euclidean algorithm
      */
     public double lengthEuclidean(){
-        return (double) Math.sqrt(Math.pow((x1 - x2), 2) + Math.pow((y1 - y2), 2));
+        return Math.sqrt(Math.pow((x1 - x2), 2) + Math.pow((y1 - y2), 2));
     }
 
     /**
@@ -115,12 +106,7 @@ public class Line extends Line2D.Double {
      * @return middle point of the line
      */
     public Point middleOfLine() {
-        //  if line has not been already found
-        if (middle == null)
-            middle = new Point((x1 + x2) / 2, (y1 + y2) / 2);
-
-        //  give middle of the line
-        return middle;
+        return new Point((x1 + x2) / 2, (y1 + y2) / 2);
     }
 
     public double getXOfMiddle() {
@@ -152,22 +138,29 @@ public class Line extends Line2D.Double {
      * @return perpendicular of the line limited by area
      */
     public Line getPerpendicularOfLine() {
-        Point middle = middleOfLine();
+        //  find middle between two points
+        double middleX = (x1 + x2) / 2;
 
         //  if line is horizontal, then get vertical perpendicular
         if (y1 == y2)
-            return new Line(new Point(middle.x, 0), new Point(middle.x, Parameters.yLimit));
+            return new Line(new Point(middleX, 0), new Point(middleX, Parameters.yLimit));
+
+        double middleY = (y1 + y2) / 2;
 
         //  if line is vertical, then get horizontal perpendicular
-        else if (x1 == x2)
-            return new Line(new Point(0, middle.y), new Point(Parameters.xLimit, middle.y));
+        if (x1 == x2)
+            return new Line(new Point(0, middleY), new Point(Parameters.xLimit, middleY));
 
         //  find equation of the perpendicular (perpY = perpM * perpX + perpB)
         double perpM = -1 / m;
-        double perpB = middle.y - perpM * middle.x;
+        double perpB = middleY - perpM * middleX;
 
         //  return the line that will be limited conform limits of x-axis
-        return new Line(0, perpM * 0 + perpB, Parameters.xLimit, perpM * Parameters.xLimit + perpB, perpM, perpB);
+        return new Line(
+                0, perpM * 0 + perpB,                               // first point coordinates
+                Parameters.xLimit, perpM * Parameters.xLimit + perpB,   // second point coordinates
+                perpM, perpB                                                // m and b coefficients of the line
+        );
     }
 
     /**
@@ -190,15 +183,16 @@ public class Line extends Line2D.Double {
         if (firstPoint.x == secondPoint.x)
             return new Line(new Point(0, middleY), new Point(Parameters.xLimit, middleY));
 
-        //  find m of original line
-        double m = (secondPoint.y - firstPoint.y) / (secondPoint.x - firstPoint.x);
-
         //  find equation of the perpendicular (perpY = perpM * perpX + perpB)
-        double perpM = -1 / m;
+        double perpM = -1 / ((secondPoint.y - firstPoint.y) / (secondPoint.x - firstPoint.x));
         double perpB = middleY - perpM * middleX;
 
         //  return the line that will be limited conform limits of x-axis
-        return new Line(0, perpM * 0 + perpB, Parameters.xLimit, perpM * Parameters.xLimit + perpB, perpM, perpB);
+        return new Line(
+                0, perpM * 0 + perpB,
+                Parameters.xLimit, perpM * Parameters.xLimit + perpB,
+                perpM, perpB
+        );
     }
 
     /**
@@ -233,12 +227,12 @@ public class Line extends Line2D.Double {
         //  check if line is vertical and if point has the same X coordinate
         if (codeOfLine == Parameters.VERTICAL_LINE_CODE && x2 == point.x)
             //  find which end of line is lower, which end is higher, and if point is between ends
-            return (y1 < y2) ? point.y > y1 || point.y < y2 : point.y < y1 || point.y > y2;
+            return (y1 < y2) ? (point.y > y1 || point.y < y2) : (point.y < y1 || point.y > y2);
 
         //  check if line is horizontal and if point has the same Y coordinate
         else if (codeOfLine == Parameters.HORIZONTAL_LINE_CODE && y1 == point.y)
             //  find which end of line if left, which end is right, and if point is between ends
-            return (x1 < x2) ? point.x > x1 || point.x < x2 : point.x < x1 || point.x > x2;
+            return (x1 < x2) ? (point.x > x1 || point.x < x2) : (point.x < x1 || point.x > x2);
 
         else
             return false;
@@ -248,12 +242,12 @@ public class Line extends Line2D.Double {
         //  check if line is vertical and if point has the same X coordinate
         if (codeOfLine == Parameters.VERTICAL_LINE_CODE && x2 == x)
             //  find which end of line is lower, which end is higher, and if point is between ends
-            return (y1 < y2) ? y > y1 || y < y2 : y < y1 || y > y2;
+            return (y1 < y2) ? (y > y1 || y < y2) : (y < y1 || y > y2);
 
             //  check if line is horizontal and if point has the same Y coordinate
         else if (codeOfLine == Parameters.HORIZONTAL_LINE_CODE && y1 == y)
             //  find which end of line if left, which end is right, and if point is between ends
-            return (x1 < x2) ? x > x1 || x < x2 : x < x1 || x > x2;
+            return (x1 < x2) ? (x > x1 || x < x2) : (x < x1 || x > x2);
 
         else
             return false;
@@ -266,9 +260,9 @@ public class Line extends Line2D.Double {
      */
     public Point findIntersection(Line perpendicular) {
         //  if lines are identical by their type
-        if (codeOfLine == perpendicular.codeOfLine) {
+        if (codeOfLine == perpendicular.codeOfLine)
             //  if lines are simple
-            if (codeOfLine == Parameters.SIMPLE_LINE_CODE) {
+            if (codeOfLine == Parameters.SIMPLE_LINE_CODE)
                 //  if lines have the same formulas
                 if (perpendicular.m == m && perpendicular.b == b) {
                     System.err.println("Perp = " + perpendicular + "; " +
@@ -282,19 +276,19 @@ public class Line extends Line2D.Double {
                     return new Point(intersectionX, this.m * intersectionX + this.b);
                 }
             //  lines are both vertical or horizontal, no intersection possible
-            } else
+            else
                 return null;
-        } else if (codeOfLine == Parameters.HORIZONTAL_LINE_CODE) {
+        else if (codeOfLine == Parameters.HORIZONTAL_LINE_CODE)
             if (perpendicular.codeOfLine == Parameters.VERTICAL_LINE_CODE)
                 return new Point(perpendicular.x1, y1);
             else
                 return new Point(Math.abs((perpendicular.b - y1) / perpendicular.m), y1);
-        } else if (codeOfLine == Parameters.VERTICAL_LINE_CODE) {
+        else if (codeOfLine == Parameters.VERTICAL_LINE_CODE)
             if (perpendicular.codeOfLine == Parameters.HORIZONTAL_LINE_CODE)
                 return new Point(x1, perpendicular.y1);
             else
                 return new Point(x1, perpendicular.m * x1 + perpendicular.b);
-        } else if (perpendicular.codeOfLine == Parameters.HORIZONTAL_LINE_CODE)
+        else if (perpendicular.codeOfLine == Parameters.HORIZONTAL_LINE_CODE)
             return new Point(Math.abs((b - perpendicular.y1) / m), perpendicular.y1);
         //  perpendicular is vertical and another line is simple -> find intersection for this scenario
         else

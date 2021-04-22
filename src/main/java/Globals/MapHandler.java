@@ -1,6 +1,11 @@
 package Globals;
 
-public class YandexMapsRequester {
+public class MapHandler {
+    public static double centerLatitude;
+    public static double centerLongitude;
+    public static double latitudeLength;
+    public static double longitudeLength;
+
     //  link to the Yandex Maps static API
     public static final String YANDEX_STATIC_MAPS_LINK = "https://static-maps.yandex.ru/1.x/?";
 
@@ -20,6 +25,11 @@ public class YandexMapsRequester {
     public static final String BORDERS = "spn=";
 
     public static String getCompleteRequestURL(double latitude, double longitude, double latitudeLength, double longitudeLength, int imageSizeX, int imageSizeY) {
+        MapHandler.centerLatitude = latitude;
+        MapHandler.centerLongitude = longitude;
+        MapHandler.latitudeLength = latitudeLength;
+        MapHandler.longitudeLength = longitudeLength;
+
         return YANDEX_STATIC_MAPS_LINK +
                 COORDINATES + longitude + "," + latitude +
                 SEPARATOR +

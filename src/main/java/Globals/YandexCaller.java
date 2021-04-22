@@ -9,7 +9,7 @@ import java.net.URL;
 
 public class YandexCaller {
     public static void main(String[] args) throws Exception {
-        URL imageURL = new URL(YandexMapsRequester.getCompleteRequestURL(47.024512, 28.832157, 0.1, 0.1, 450, 450));
+        URL imageURL = new URL(MapHandler.getCompleteRequestURL(47.024512, 28.832157, 0.1, 0.1, 450, 450));
         BufferedImage img = ImageIO.read(imageURL);
         System.out.println(img);
 

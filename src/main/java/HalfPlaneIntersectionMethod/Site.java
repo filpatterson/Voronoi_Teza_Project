@@ -14,11 +14,14 @@ import java.util.ArrayList;
  * for finding locus.
  */
 public class Site extends Point {
+
     //  color of the site that will be applied for drawing PixelByPixelMethod.Voronoi diagram by coloring locus
     private Color color;
 
     //  locus - area each point of which is closer to this site than to any another one
     private VoronoiPolygon locus;
+
+    private static ArrayList<Line> allLines = new ArrayList<>();
 
     //  corners of the analyzable area
     private static final ArrayList<Point> corners = new ArrayList<>();

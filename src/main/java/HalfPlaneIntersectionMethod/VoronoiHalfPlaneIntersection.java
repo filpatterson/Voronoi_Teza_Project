@@ -1,13 +1,12 @@
 package HalfPlaneIntersectionMethod;
 
 import Globals.Parameters;
-import Globals.YandexMapsRequester;
+import Globals.MapHandler;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
-import java.awt.image.BufferedImage;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Random;
@@ -18,7 +17,7 @@ import java.util.Random;
 public class VoronoiHalfPlaneIntersection extends JFrame {
     //  reference to all sites of the map/area
     private final ArrayList<Site> sites;
-    private BufferedImage image;
+    private Image image;
 
     /**
      * Constructor, automatically creates loci for all sites
@@ -33,15 +32,15 @@ public class VoronoiHalfPlaneIntersection extends JFrame {
 //        setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.sites = sites;
 
-        URL imageURL = new URL(YandexMapsRequester.getCompleteRequestURL(47.024512, 28.832157, 0.1, 0.1, Parameters.xLimit, Parameters.yLimit));
-        BufferedImage img = ImageIO.read(imageURL);
-        this.image = img;
+        URL imageURL = new URL(MapHandler.getCompleteRequestURL(47.024512, 28.832157, 0.1, 0.1, 450, 450));
+        Image img = ImageIO.read(imageURL);
+        this.image = img.getScaledInstance(Parameters.xLimit, Parameters.yLimit, Image.SCALE_AREA_AVERAGING);
         System.out.println(img);
 
         JPanel panel = new JPanel();
         getContentPane().add(panel);
 //        frame.getContentPane().add(labelImage, BorderLayout.CENTER);
-        setSize(Parameters.xLimit, Parameters.yLimit);
+        setSize(Parameters.xLimit + 8, Parameters.yLimit + 8);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         //  perform calculation of locuses for sites
@@ -61,8 +60,11 @@ public class VoronoiHalfPlaneIntersection extends JFrame {
     public void paint(Graphics g) {
         super.paint(g);  // fixes the immediate problem.
         Graphics2D g2 = (Graphics2D) g.create();
+
+        //  apply additional enhancements for graphics
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-//        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f));
+        g2.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+        g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
         g.drawImage(image, 0, 0, null);
 
         //  iterate through all sites
@@ -85,7 +87,7 @@ public class VoronoiHalfPlaneIntersection extends JFrame {
 
         //  set random generator and generate 100 random points for constructing Voronoi diagram
         Random rand = new Random();
-        for (int i = 0; i < 100; i++)
+        for (int i = 0; i < 50; i++)
             sites.add(new Site(rand.nextDouble() * Parameters.xLimit, rand.nextDouble() * Parameters.yLimit, Color.getColor("s" ,rand.nextInt(16777215))));
 
 //          perform quick sort of all sites comparing by their "weight"

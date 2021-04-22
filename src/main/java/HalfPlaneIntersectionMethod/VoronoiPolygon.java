@@ -37,13 +37,12 @@ public class VoronoiPolygon extends Polygon {
         short intersectionCounter = 0;
 
         //  iterate through each edge and check if it intersects with line
-        for (Line edge : edges) {
+        for (Line edge : edges)
             if (edge.intersectsLine(line)) {
                 intersectionCounter++;
                 if (intersectionCounter == 2)
                     return true;
             }
-        }
 
         //  line either does not intersect polygon or intersects only once
         return false;
@@ -58,6 +57,7 @@ public class VoronoiPolygon extends Polygon {
     public VoronoiPolygon findHalfPolygon(Line perpendicular, Site site) {
         //  counter of found slices
         short foundSlices = 0;
+        Point intersection;
 
         //  array list for vertices of half plane and new polygon reference
         ArrayList<Point> newVertices = new ArrayList<>();
@@ -67,7 +67,7 @@ public class VoronoiPolygon extends Polygon {
             //  if current edge intersects line
             if (edge.intersectsLine(perpendicular)) {
                 //  find intersection point, add it to vertices list if no error detected and increment slice counter
-                Point intersection = edge.findIntersection(perpendicular);
+                intersection = edge.findIntersection(perpendicular);
                 if (intersection != null) {
                     newVertices.add(intersection);
                     foundSlices++;
@@ -97,7 +97,7 @@ public class VoronoiPolygon extends Polygon {
         //  come again through starting point to form second half polygon
         for(Line edge : edges) {
             if (edge.intersectsLine(perpendicular)) {
-                Point intersection = edge.findIntersection(perpendicular);
+                intersection = edge.findIntersection(perpendicular);
                 if (intersection != null) {
                     newVertices.add(intersection);
                     return new VoronoiPolygon(newVertices);
