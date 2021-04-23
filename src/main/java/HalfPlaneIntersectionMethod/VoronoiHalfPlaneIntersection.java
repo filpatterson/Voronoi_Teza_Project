@@ -43,6 +43,25 @@ public class VoronoiHalfPlaneIntersection extends JFrame {
         setSize(Parameters.xLimit + 8, Parameters.yLimit + 8);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
+//        for (Site site : sites) {
+//            MapHandler.pointToGeographical(site);
+//            System.out.println(site + " --> {" + site.latitude + ", " + site.longitude + "}");
+//        }
+
+        //  test of geographical to cartesian
+        Site testSite = new Site();
+        testSite.latitude = 47.024512;
+        testSite.longitude = 28.832157 + 0.05;
+        testSite.toCartesian();
+        System.out.println(testSite);
+
+        //  test of cartesian to geographical
+        Site anotherTestSite = new Site(300 + 150, 300 + 150, Color.RED);
+        anotherTestSite.toGeographical();
+        System.out.println(anotherTestSite.longitude + ", " + anotherTestSite.latitude);
+
+
+
         //  perform calculation of locuses for sites
         if (sites.size() > 0) {
             long startTime = System.currentTimeMillis();

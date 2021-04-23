@@ -34,6 +34,8 @@ public class Site extends Point {
 
     public static final VoronoiPolygon areaBorders = new VoronoiPolygon(corners);
 
+    public Site() {}
+
     /**
      * Constructor, create site with coordinates, no color attached
      * @param x X-axis coordinate

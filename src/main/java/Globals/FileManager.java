@@ -16,17 +16,25 @@ public class FileManager {
      * @return arraylist of sites
      */
     public static ArrayList<Site> readSitesFromFile(String filePath) {
-        Gson gson = new Gson();
-
+        //  try reading file content
         Reader reader = null;
         try {
             reader = new FileReader(filePath);
         } catch (FileNotFoundException e) {
+            System.err.println("Error opening file for reading");
             e.printStackTrace();
         }
 
+        //  take data from json as list of sites using Gson
         assert reader != null;
-        ArrayList<Site> sites = gson.fromJson(reader, new TypeToken<ArrayList<Site>>() {}.getType());
+        ArrayList<Site> sites = new Gson().fromJson(reader, new TypeToken<ArrayList<Site>>() {}.getType());
+
+        try {
+            reader.close();
+        } catch (IOException e) {
+            System.err.println("Error closing file");
+            e.printStackTrace();
+        }
         return sites;
 
     }
@@ -36,8 +44,7 @@ public class FileManager {
      * @param sites
      */
     public static void writeSitesToFile(ArrayList<Site> sites, String filePath) {
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-
+        //  try opening file
         FileWriter file;
         try {
             file = new FileWriter(filePath);
@@ -47,8 +54,10 @@ public class FileManager {
             return;
         }
 
-        gson.toJson(sites, file);
+        //  create Gson object with "pretty pringing" and write arrayList into file
+        new GsonBuilder().setPrettyPrinting().create().toJson(sites, file);
 
+        //  close stream of work with file
         try {
             file.close();
         } catch (IOException e) {

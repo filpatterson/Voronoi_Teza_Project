@@ -1,5 +1,6 @@
 package HalfPlaneIntersectionMethod;
 
+import Globals.MapHandler;
 import Globals.Parameters;
 
 import java.awt.geom.Point2D;
@@ -8,6 +9,12 @@ import java.awt.geom.Point2D;
  * Custom class that stores location of the point on 2-dimensional space, supports convertion to Point2D from Swing
  */
 public class Point extends Point2D.Double {
+    //  point geographical coordinates
+    public double latitude;
+    public double longitude;
+
+    public Point(){}
+
     /**
      * Constructor, simple point with X and Y coordinates
      * @param x X-axis coordinate
@@ -43,6 +50,22 @@ public class Point extends Point2D.Double {
      */
     public double getWeight() {
         return y * Parameters.xLimit + x;
+    }
+
+    /**
+     * calculate point geographical coordinates from cartesian coordinates
+     */
+    public void toGeographical() {
+        longitude = (MapHandler.centerLongitude - MapHandler.longitudeRadius) + x * MapHandler.longitudeResolution;
+        latitude = MapHandler.centerLatitude + MapHandler.latitudeRadius - y * MapHandler.latitudeResolution;
+    }
+
+    /**
+     * calculate point cartesian coordinates from geographical coordinates
+     */
+    public void toCartesian() {
+        x = (longitude + MapHandler.longitudeRadius - MapHandler.centerLongitude) / MapHandler.longitudeResolution;
+        y = (MapHandler.centerLatitude + MapHandler.latitudeRadius - latitude) / MapHandler.latitudeResolution;
     }
 
     @Override
