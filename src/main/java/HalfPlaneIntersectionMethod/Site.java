@@ -1,6 +1,6 @@
 package HalfPlaneIntersectionMethod;
 
-import Globals.CartesianUtils;
+import Globals.Utils;
 
 import java.awt.*;
 
@@ -17,6 +17,7 @@ public class Site extends Point {
 
     //  color of the site that will be applied for drawing PixelByPixelMethod.Voronoi diagram by coloring locus
     private Color color;
+    private String name;
 
     //  locus - area each point of which is closer to this site than to any another one
     private VoronoiPolygon locus;
@@ -26,23 +27,25 @@ public class Site extends Point {
     //  corners of the analyzable area
     private static final ArrayList<Point> corners = new ArrayList<>();
     static {
-        corners.add(CartesianUtils.topLeftCorner);
-        corners.add(CartesianUtils.topRightCorner);
-        corners.add(CartesianUtils.bottomRightCorner);
-        corners.add(CartesianUtils.bottomLeftCorner);
+        corners.add(Utils.topLeftCorner);
+        corners.add(Utils.topRightCorner);
+        corners.add(Utils.bottomRightCorner);
+        corners.add(Utils.bottomLeftCorner);
     }
 
     public static final VoronoiPolygon areaBorders = new VoronoiPolygon(corners);
 
     public Site() {}
 
-    /**
-     * Constructor, create site with coordinates, no color attached
-     * @param x X-axis coordinate
-     * @param y Y-axis coordinate
-     */
-    public Site(double x, double y) {
-        super(x, y);
+    public Site(double latitude, double longitude, Color color, String name,boolean isCartesianTransformRequired) {
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.color = color;
+        this.name = name;
+
+        if (isCartesianTransformRequired) {
+            this.toCartesian();
+        }
     }
 
     /**
@@ -51,25 +54,30 @@ public class Site extends Point {
      * @param y Y-axis coordinate
      * @param color Color that will be used for coloring locus of this site
      */
-    public Site(double x, double y, Color color) {
+    public Site(double x, double y, Color color, String name) {
         super(x, y);
         this.color = color;
+        this.name = name;
     }
 
     /**
      * Find locus area for this site
-     * @param sites array of all sites presented on this sector
      */
-    public void findLocus(ArrayList<Site> sites) {
+    public void findLocus() {
         locus = areaBorders;
         Line currentPerpendicular;
 
-        for (Site anotherSite : sites)
-            if (!anotherSite.isEqual(this)) {
-                currentPerpendicular = Line.getPerpendicularOfPoints(this, anotherSite);
-                if (locus.checkSliceByLine(currentPerpendicular))
-                    locus = locus.findHalfPolygon(currentPerpendicular, this);
+        if (this.toCartesian()) {
+            for (Site anotherSite : Utils.sitesStorage) {
+                if (anotherSite.toCartesian() && !anotherSite.isEqual(this)) {
+                    currentPerpendicular = Line.getPerpendicularOfPoints(this, anotherSite);
+                    if (locus.checkSliceByLine(currentPerpendicular))
+                        locus = locus.findHalfPolygon(currentPerpendicular, this);
+                }
             }
+        }
+
+        return;
     }
 
     //  getters
@@ -87,11 +95,24 @@ public class Site extends Point {
         return locus;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     @Override
     public String toString() {
         return "Site{" +
-                "color=" + color +
-                ", " + super.toString() +
+                "latitude=" + latitude +
+                ", longitude=" + longitude +
+                ", color=" + color +
+                ", name='" + name + '\'' +
+                ", locus=" + locus +
+                ", x=" + x +
+                ", y=" + y +
                 '}';
     }
 }

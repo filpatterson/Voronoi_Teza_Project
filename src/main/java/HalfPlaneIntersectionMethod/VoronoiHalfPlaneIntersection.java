@@ -1,6 +1,6 @@
 package HalfPlaneIntersectionMethod;
 
-import Globals.CartesianUtils;
+import Globals.Utils;
 import Globals.MapUtils;
 
 import javax.imageio.ImageIO;
@@ -16,60 +16,31 @@ import java.util.Random;
  */
 public class VoronoiHalfPlaneIntersection extends JFrame {
     //  reference to all sites of the map/area
-    private final ArrayList<Site> sites;
     private Image image;
 
     /**
      * Constructor, automatically creates loci for all sites
-     * @param sites reference to sites ArrayList for which is required loci estimation
      * @throws Exception error of sending empty list of sites or any another
      */
-    public VoronoiHalfPlaneIntersection(ArrayList<Site> sites) throws Exception {
-//        //  initialize panel for sites and loci drawing, setting window size and how to close program
-//        JPanel panel = new JPanel();
-//        getContentPane().add(panel);
-//        setSize(Parameters.xLimit, Parameters.yLimit);
-//        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        this.sites = sites;
-
-        MapUtils.setMapHandlerParameters(47.024512, 28.832157, 0.1, 0.1);
+    public VoronoiHalfPlaneIntersection() throws Exception {
         URL imageURL = new URL(MapUtils.getCompleteRequestURL());
         Image img = ImageIO.read(imageURL);
-        this.image = img.getScaledInstance(CartesianUtils.xLimit, CartesianUtils.yLimit, Image.SCALE_AREA_AVERAGING);
+        this.image = img.getScaledInstance(Utils.xLimit, Utils.yLimit, Image.SCALE_AREA_AVERAGING);
         System.out.println(img);
 
         JPanel panel = new JPanel();
         getContentPane().add(panel);
-//        frame.getContentPane().add(labelImage, BorderLayout.CENTER);
-        setSize(CartesianUtils.xLimit + 8, CartesianUtils.yLimit + 8);
+        setSize(Utils.xLimit + 8, Utils.yLimit + 8);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-//        for (Site site : sites) {
-//            MapHandler.pointToGeographical(site);
-//            System.out.println(site + " --> {" + site.latitude + ", " + site.longitude + "}");
-//        }
-
-        //  test of geographical to cartesian
-        Site testSite = new Site();
-        testSite.latitude = 47.024512;
-        testSite.longitude = 28.832157 + 0.05;
-        testSite.toCartesian();
-        System.out.println(testSite);
-
-        //  test of cartesian to geographical
-        Site anotherTestSite = new Site(300 + 150, 300 + 150, Color.RED);
-        anotherTestSite.toGeographical();
-        System.out.println(anotherTestSite.longitude + ", " + anotherTestSite.latitude);
-
-
-
         //  perform calculation of locuses for sites
-        if (sites.size() > 0) {
+        if (Utils.sitesStorage.size() > 0) {
             long startTime = System.currentTimeMillis();
 
             //  find locus for each site
-            for (Site site : sites)
-                site.findLocus(sites);
+            for (Site site : Utils.sitesStorage) {
+                site.findLocus();
+            }
 
             long endTime = System.currentTimeMillis();
             System.out.println("Execution time is " + (endTime - startTime) + " ms.");
@@ -88,7 +59,7 @@ public class VoronoiHalfPlaneIntersection extends JFrame {
         g.drawImage(image, 0, 0, null);
 
         //  iterate through all sites
-        for (Site site : this.sites) {
+        for (Site site : Utils.sitesStorage) {
             //  fill locus of the site with site color
             g2.setColor(Color.BLACK);
 //            g2.fill(site.getLocus());
@@ -102,13 +73,16 @@ public class VoronoiHalfPlaneIntersection extends JFrame {
 
 
     public static void main(String[] args) throws Exception {
-        //  store all sites in ArrayList
-        ArrayList<Site> sites = new ArrayList<>();
+        //  coordinates of the Chisinau are considered as default values
+        MapUtils.setMapHandlerParameters(47.024512, 28.832157, 0.1, 0.1);
 
         //  set random generator and generate 100 random points for constructing Voronoi diagram
         Random rand = new Random();
-        for (int i = 0; i < 50; i++)
-            sites.add(new Site(rand.nextDouble() * CartesianUtils.xLimit, rand.nextDouble() * CartesianUtils.yLimit, Color.getColor("s" ,rand.nextInt(16777215))));
+        for (int i = 0; i < 50; i++) {
+            Site newPoint = new Site(rand.nextDouble() * Utils.xLimit, rand.nextDouble() * Utils.yLimit, Color.getColor("s", rand.nextInt(16777215)), "name" + rand.nextDouble());
+            newPoint.toGeographical();
+            Utils.sitesStorage.add(newPoint);
+        }
 
 //          perform quick sort of all sites comparing by their "weight"
 //        Site[] sitesArray = sites.toArray(new Site[0]);
@@ -116,7 +90,7 @@ public class VoronoiHalfPlaneIntersection extends JFrame {
 //        sites = new ArrayList<>(Arrays.asList(sitesArray));
 
         //  create voronoi diagram with perpendicular half planes approach
-        VoronoiHalfPlaneIntersection voronoiHalfPlaneIntersection = new VoronoiHalfPlaneIntersection(sites);
+        VoronoiHalfPlaneIntersection voronoiHalfPlaneIntersection = new VoronoiHalfPlaneIntersection();
 
         //  show it
         voronoiHalfPlaneIntersection.setVisible(true);

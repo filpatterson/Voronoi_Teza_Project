@@ -27,12 +27,13 @@ class QuickSort {
         //  smaller element index, indicates right position of pivot so far
         int i = (low - 1);
 
-        for(int j = low; j <= high - 1; j++)
+        for(int j = low; j <= high - 1; j++) {
             //  if current element is smaller than pivot
             if (arr[j].getWeight() < pivot.getWeight()) {
                 i++;
                 swap(arr, i, j);
             }
+        }
 
         swap(arr, i + 1, high);
         return (i + 1);

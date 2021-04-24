@@ -15,7 +15,7 @@ public class FileManager {
      * read array list of sites from JSON formatted file
      * @return array list of sites
      */
-    public static ArrayList<Site> readSitesFromFile(String filePath) {
+    public static boolean readSitesFromFile(String filePath) {
         //  try reading file content
         Reader reader = null;
         try {
@@ -23,27 +23,27 @@ public class FileManager {
         } catch (FileNotFoundException e) {
             System.err.println("Error opening file for reading");
             e.printStackTrace();
+            return false;
         }
 
         //  take data from json as list of sites using Gson
-        assert reader != null;
-        ArrayList<Site> sites = new Gson().fromJson(reader, new TypeToken<ArrayList<Site>>() {}.getType());
+        Utils.sitesStorage = new Gson().fromJson(reader, new TypeToken<ArrayList<Site>>() {}.getType());
 
         try {
             reader.close();
         } catch (IOException e) {
             System.err.println("Error closing file");
             e.printStackTrace();
+            return false;
         }
-        return sites;
 
+        return true;
     }
 
     /**
      * write sites to JSON formatted file
-     * @param sites
      */
-    public static void writeSitesToFile(ArrayList<Site> sites, String filePath) {
+    public static boolean writeSitesToFile(String filePath) {
         //  try opening file
         FileWriter file;
         try {
@@ -51,11 +51,11 @@ public class FileManager {
         } catch (IOException e) {
             System.err.println("Error in creating/reading file");
             e.printStackTrace();
-            return;
+            return false;
         }
 
         //  create Gson object with "pretty printing" and write arrayList into file
-        new GsonBuilder().setPrettyPrinting().create().toJson(sites, file);
+        new GsonBuilder().setPrettyPrinting().create().toJson(Utils.sitesStorage, file);
 
         //  close stream of work with file
         try {
@@ -63,21 +63,22 @@ public class FileManager {
         } catch (IOException e) {
             System.err.println("Error while closing file stream");
             e.printStackTrace();
+            return false;
         }
+
+        return true;
     }
 
     public static void main(String[] args) {
-        //  store all sites in ArrayList
-        ArrayList<Site> sites = new ArrayList<>();
-
         //  set random generator and generate 100 random points for constructing Voronoi diagram
         Random rand = new Random();
-        for (int i = 0; i < 50; i++)
-            sites.add(new Site(rand.nextDouble() * CartesianUtils.xLimit, rand.nextDouble() * CartesianUtils.yLimit, Color.getColor("s" ,rand.nextInt(16777215))));
+        for (int i = 0; i < 50; i++) {
+            Utils.sitesStorage.add(new Site(rand.nextDouble() * Utils.xLimit, rand.nextDouble() * Utils.yLimit, Color.getColor("s", rand.nextInt(16777215)), "name" + rand.nextDouble()));
+        }
 
-        writeSitesToFile(sites, "E:/output.json");
-        sites.clear();
-        sites = readSitesFromFile("E:/output.json");
-        System.out.println(sites);
+        writeSitesToFile("d:/output.json");
+        Utils.sitesStorage.clear();
+        readSitesFromFile("d:/output.json");
+        System.out.println(Utils.sitesStorage);
     }
 }

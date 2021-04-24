@@ -1,6 +1,6 @@
 package HalfPlaneIntersectionOld;
 
-import Globals.CartesianUtils;
+import Globals.Utils;
 
 import java.awt.geom.Point2D;
 
@@ -46,7 +46,7 @@ public class PointOld extends Point2D.Float {
     }
 
     public boolean incrementX() {
-        if (this.x < CartesianUtils.xLimit)
+        if (this.x < Utils.xLimit)
             this.x += 1;
         else
             return false;
@@ -55,7 +55,7 @@ public class PointOld extends Point2D.Float {
     }
 
     public boolean incrementY() {
-        if (this.y < CartesianUtils.yLimit)
+        if (this.y < Utils.yLimit)
             this.y += 1;
         else
             return false;

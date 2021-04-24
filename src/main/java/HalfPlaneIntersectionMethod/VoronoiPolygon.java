@@ -21,8 +21,9 @@ public class VoronoiPolygon extends Polygon {
         int lastIndex = vertices.size() - 1;
 
         //  construct edges of the polygon
-        for (int i = 0; i < lastIndex; i++)
+        for (int i = 0; i < lastIndex; i++) {
             this.edges.add(new Line(vertices.get(i), vertices.get(i + 1)));
+        }
 
         this.edges.add(new Line(vertices.get(lastIndex), vertices.get(0)));
     }
@@ -37,12 +38,13 @@ public class VoronoiPolygon extends Polygon {
         short intersectionCounter = 0;
 
         //  iterate through each edge and check if it intersects with line
-        for (Line edge : edges)
+        for (Line edge : edges) {
             if (edge.intersectsLine(line)) {
                 intersectionCounter++;
                 if (intersectionCounter == 2)
                     return true;
             }
+        }
 
         //  line either does not intersect polygon or intersects only once
         return false;
@@ -77,11 +79,11 @@ public class VoronoiPolygon extends Polygon {
                     //  create half polygon based on found vertices and check if site is inside
                     foundHalfVoronoiPolygon = new VoronoiPolygon(newVertices);
                     foundHalfVoronoiPolygon.setDrawable();
-                    if(foundHalfVoronoiPolygon.contains(site))
+                    if(foundHalfVoronoiPolygon.contains(site)) {
                         return foundHalfVoronoiPolygon;
 
                         //  else reset half polygon and start forming half polygon from second half
-                    else {
+                    } else {
                         foundSlices++;
                         newVertices.clear();
                         newVertices.add(intersection);
@@ -90,8 +92,9 @@ public class VoronoiPolygon extends Polygon {
             }
 
             //  add each vertice that is a part of half polygon
-            if (foundSlices > 0)
+            if (foundSlices > 0) {
                 newVertices.add(edge.getSecondPoint());
+            }
         }
 
         //  come again through starting point to form second half polygon
