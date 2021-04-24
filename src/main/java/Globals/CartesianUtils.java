@@ -3,7 +3,7 @@ package Globals;
 import HalfPlaneIntersectionMethod.Point;
 
 //  class for storing application settings
-public class Parameters {
+public class CartesianUtils {
     //  displayable/analyzable area size in X and Y (WARNING: conform Yandex Maps limit there can be only 450 by 450
     public static short xLimit = 600;
     public static short yLimit = 600;

@@ -1,6 +1,6 @@
 package HalfPlaneIntersectionOld;
 
-import Globals.Parameters;
+import Globals.CartesianUtils;
 
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
@@ -122,15 +122,15 @@ public class LineOld extends Line2D.Float {
         double difY = Math.sin(perpendicularAngleInRadians);
 
         //  iterate in one direction until reaching axis limits
-        while((perpendicularFirstPointX > 0 && perpendicularFirstPointX < Parameters.xLimit) &&
-                (perpendicularFirstPointY > 0 && perpendicularFirstPointY < Parameters.yLimit)){
+        while((perpendicularFirstPointX > 0 && perpendicularFirstPointX < CartesianUtils.xLimit) &&
+                (perpendicularFirstPointY > 0 && perpendicularFirstPointY < CartesianUtils.yLimit)){
             perpendicularFirstPointX += difX;
             perpendicularFirstPointY += difY;
         }
 
         //  iterate in another direction until reaching axis limits
-        while((perpendicularSecondPointX > 0 && perpendicularSecondPointX < Parameters.xLimit) &&
-                (perpendicularSecondPointY > 0 && perpendicularSecondPointY < Parameters.yLimit)){
+        while((perpendicularSecondPointX > 0 && perpendicularSecondPointX < CartesianUtils.xLimit) &&
+                (perpendicularSecondPointY > 0 && perpendicularSecondPointY < CartesianUtils.yLimit)){
             perpendicularSecondPointX -= difX;
             perpendicularSecondPointY -= difY;
         }
@@ -151,13 +151,13 @@ public class LineOld extends Line2D.Float {
         //  if line is horizontal, then get vertical perpendicular
         if (firstPointOld.getY() == secondPointOld.getY()) {
             PointOld middle = middleOfLine();
-            return new LineOld(new PointOld((float) middle.getX(), 0), new PointOld((float) middle.getX(), Parameters.yLimit));
+            return new LineOld(new PointOld((float) middle.getX(), 0), new PointOld((float) middle.getX(), CartesianUtils.yLimit));
         }
 
         //  if line is vertical, then get horizontal perpendicular
         else if (firstPointOld.getX() == secondPointOld.getX()) {
             PointOld middle = middleOfLine();
-            return new LineOld(new PointOld(0, (float) middle.getY()), new PointOld(Parameters.xLimit, (float) middle.getY()));
+            return new LineOld(new PointOld(0, (float) middle.getY()), new PointOld(CartesianUtils.xLimit, (float) middle.getY()));
         }
 
         //  storage for perpendicular endpoints
@@ -176,27 +176,27 @@ public class LineOld extends Line2D.Float {
 
         //  check if there is perpendicular endpoint on the left border
         double yValueAtXBorder = perpM * 0 + perpB;
-        if (yValueAtXBorder <= Parameters.yLimit && yValueAtXBorder >= 0)
+        if (yValueAtXBorder <= CartesianUtils.yLimit && yValueAtXBorder >= 0)
             perpendicularEndpoints.add(new PointOld(0, (int) yValueAtXBorder));
 
         //  check if it is on the right border
-        yValueAtXBorder = perpM * Parameters.xLimit + perpB;
-        if (yValueAtXBorder <= Parameters.yLimit && yValueAtXBorder >= 0)
-            perpendicularEndpoints.add(new PointOld(Parameters.xLimit, (int) yValueAtXBorder));
+        yValueAtXBorder = perpM * CartesianUtils.xLimit + perpB;
+        if (yValueAtXBorder <= CartesianUtils.yLimit && yValueAtXBorder >= 0)
+            perpendicularEndpoints.add(new PointOld(CartesianUtils.xLimit, (int) yValueAtXBorder));
 
         //  check if it is on the top border
         double xValueAtYBorder = 0;
         if (perpendicularEndpoints.size() < 2) {
             xValueAtYBorder = (0 - perpB) / perpM;
-            if (xValueAtYBorder <= Parameters.xLimit && xValueAtYBorder >= 0)
+            if (xValueAtYBorder <= CartesianUtils.xLimit && xValueAtYBorder >= 0)
                 perpendicularEndpoints.add(new PointOld((int) xValueAtYBorder, 0));
         }
 
         //  check if it is on the bottom border
         if (perpendicularEndpoints.size() < 2) {
-            xValueAtYBorder = (Parameters.yLimit - perpB) / perpM;
-            if (xValueAtYBorder <= Parameters.xLimit && xValueAtYBorder >= 0)
-                perpendicularEndpoints.add(new PointOld((int) xValueAtYBorder, Parameters.yLimit));
+            xValueAtYBorder = (CartesianUtils.yLimit - perpB) / perpM;
+            if (xValueAtYBorder <= CartesianUtils.xLimit && xValueAtYBorder >= 0)
+                perpendicularEndpoints.add(new PointOld((int) xValueAtYBorder, CartesianUtils.yLimit));
         }
 
         if (perpendicularEndpoints.size() == 0) {

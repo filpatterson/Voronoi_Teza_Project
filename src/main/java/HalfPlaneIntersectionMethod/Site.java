@@ -1,6 +1,6 @@
 package HalfPlaneIntersectionMethod;
 
-import Globals.Parameters;
+import Globals.CartesianUtils;
 
 import java.awt.*;
 
@@ -26,10 +26,10 @@ public class Site extends Point {
     //  corners of the analyzable area
     private static final ArrayList<Point> corners = new ArrayList<>();
     static {
-        corners.add(Parameters.topLeftCorner);
-        corners.add(Parameters.topRightCorner);
-        corners.add(Parameters.bottomRightCorner);
-        corners.add(Parameters.bottomLeftCorner);
+        corners.add(CartesianUtils.topLeftCorner);
+        corners.add(CartesianUtils.topRightCorner);
+        corners.add(CartesianUtils.bottomRightCorner);
+        corners.add(CartesianUtils.bottomLeftCorner);
     }
 
     public static final VoronoiPolygon areaBorders = new VoronoiPolygon(corners);

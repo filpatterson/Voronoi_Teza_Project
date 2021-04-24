@@ -13,7 +13,7 @@ import java.util.Random;
 public class FileManager {
     /**
      * read array list of sites from JSON formatted file
-     * @return arraylist of sites
+     * @return array list of sites
      */
     public static ArrayList<Site> readSitesFromFile(String filePath) {
         //  try reading file content
@@ -54,7 +54,7 @@ public class FileManager {
             return;
         }
 
-        //  create Gson object with "pretty pringing" and write arrayList into file
+        //  create Gson object with "pretty printing" and write arrayList into file
         new GsonBuilder().setPrettyPrinting().create().toJson(sites, file);
 
         //  close stream of work with file
@@ -73,7 +73,7 @@ public class FileManager {
         //  set random generator and generate 100 random points for constructing Voronoi diagram
         Random rand = new Random();
         for (int i = 0; i < 50; i++)
-            sites.add(new Site(rand.nextDouble() * Parameters.xLimit, rand.nextDouble() * Parameters.yLimit, Color.getColor("s" ,rand.nextInt(16777215))));
+            sites.add(new Site(rand.nextDouble() * CartesianUtils.xLimit, rand.nextDouble() * CartesianUtils.yLimit, Color.getColor("s" ,rand.nextInt(16777215))));
 
         writeSitesToFile(sites, "E:/output.json");
         sites.clear();

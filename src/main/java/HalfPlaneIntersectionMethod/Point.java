@@ -1,7 +1,7 @@
 package HalfPlaneIntersectionMethod;
 
-import Globals.MapHandler;
-import Globals.Parameters;
+import Globals.MapUtils;
+import Globals.CartesianUtils;
 
 import java.awt.geom.Point2D;
 
@@ -13,6 +13,7 @@ public class Point extends Point2D.Double {
     public double latitude;
     public double longitude;
 
+    //  default constructor, testing purposes 
     public Point(){}
 
     /**
@@ -49,23 +50,36 @@ public class Point extends Point2D.Double {
      * @return "weight" of the point
      */
     public double getWeight() {
-        return y * Parameters.xLimit + x;
+        return y * CartesianUtils.xLimit + x;
     }
 
     /**
      * calculate point geographical coordinates from cartesian coordinates
      */
     public void toGeographical() {
-        longitude = (MapHandler.centerLongitude - MapHandler.longitudeRadius) + x * MapHandler.longitudeResolution;
-        latitude = MapHandler.centerLatitude + MapHandler.latitudeRadius - y * MapHandler.latitudeResolution;
+        longitude = (MapUtils.centerLongitude - MapUtils.longitudeRadius) + x * MapUtils.longitudeResolution;
+        latitude = MapUtils.centerLatitude + MapUtils.latitudeRadius - y * MapUtils.latitudeResolution;
     }
 
     /**
      * calculate point cartesian coordinates from geographical coordinates
+     * @return true if point can be transformed to cartesian considering map parameters, false if not
      */
-    public void toCartesian() {
-        x = (longitude + MapHandler.longitudeRadius - MapHandler.centerLongitude) / MapHandler.longitudeResolution;
-        y = (MapHandler.centerLatitude + MapHandler.latitudeRadius - latitude) / MapHandler.latitudeResolution;
+    public boolean toCartesian() {
+        //  first check if point is inside of geographical bounds of the map (first latitude bounds, then longitude ones)
+        if(latitude > MapUtils.centerLatitude + MapUtils.latitudeRadius ||
+                latitude < MapUtils.centerLatitude - MapUtils.latitudeRadius) {
+            System.err.println("Point is out of latitude bounds");
+            return false;
+        } else if (longitude > MapUtils.centerLongitude + MapUtils.longitudeRadius ||
+                longitude < MapUtils.centerLongitude - MapUtils.longitudeRadius) {
+            System.err.println("Point is out of longitude bounds");
+            return false;
+        }
+
+        x = (longitude + MapUtils.longitudeRadius - MapUtils.centerLongitude) / MapUtils.longitudeResolution;
+        y = (MapUtils.centerLatitude + MapUtils.latitudeRadius - latitude) / MapUtils.latitudeResolution;
+        return true;
     }
 
     @Override

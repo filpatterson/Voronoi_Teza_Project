@@ -1,6 +1,6 @@
 package HalfPlaneIntersectionOld;
 
-import Globals.Parameters;
+import Globals.CartesianUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,7 +24,7 @@ public class VoronoiHalfPlaneIntersectionOld extends JFrame {
         //  initialize panel for sites and locuses drawing, setting window size and how to close program
         JPanel panel = new JPanel();
         getContentPane().add(panel);
-        setSize(Parameters.xLimit, Parameters.yLimit);
+        setSize(CartesianUtils.xLimit, CartesianUtils.yLimit);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.siteOlds = siteOlds;
 
@@ -82,7 +82,7 @@ public class VoronoiHalfPlaneIntersectionOld extends JFrame {
         //  set random generator
         Random rand = new Random();
         for (int i = 0; i < 100; i++)
-            siteOlds.add(new SiteOld(rand.nextInt(Parameters.xLimit), rand.nextInt(Parameters.yLimit), Color.getColor("s" ,rand.nextInt(16777215))));
+            siteOlds.add(new SiteOld(rand.nextInt(CartesianUtils.xLimit), rand.nextInt(CartesianUtils.yLimit), Color.getColor("s" ,rand.nextInt(16777215))));
 
         //  create voronoi diagram with perpendicular half planes approach
         VoronoiHalfPlaneIntersectionOld voronoiHalfPlaneIntersectionOld = new VoronoiHalfPlaneIntersectionOld(siteOlds);

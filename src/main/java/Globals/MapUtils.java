@@ -1,6 +1,6 @@
 package Globals;
 
-public class MapHandler {
+public class MapUtils {
     //  center geographical coordinates
     public static double centerLatitude;
     public static double centerLongitude;
@@ -31,38 +31,31 @@ public class MapHandler {
     //  show sector length in longitude and latitude
     public static final String BORDERS = "spn=";
 
-    /**
-     * Form string-formatted URL that will be used for performing request
-     * @param latitude center latitude
-     * @param longitude center longitude
-     * @param latitudeCenterToBorder latitude distance from center to border
-     * @param longitudeCenterToBorder longitude distance from center to border
-     * @param imageSizeX X image size
-     * @param imageSizeY Y image size
-     * @return
-     */
-    public static String getCompleteRequestURL(
-            double latitude, double longitude,
-            double latitudeCenterToBorder, double longitudeCenterToBorder,
-            int imageSizeX, int imageSizeY
-    ) {
+    public static void setMapHandlerParameters(double latitude, double longitude,
+                                               double latitudeCenterToBorder, double longitudeCenterToBorder) {
         //  init all characteristics of the area
-        MapHandler.centerLatitude = latitude;
-        MapHandler.centerLongitude = longitude;
-        MapHandler.latitudeRadius = latitudeCenterToBorder;
-        MapHandler.longitudeRadius = longitudeCenterToBorder;
+        MapUtils.centerLatitude = latitude;
+        MapUtils.centerLongitude = longitude;
+        MapUtils.latitudeRadius = latitudeCenterToBorder;
+        MapUtils.longitudeRadius = longitudeCenterToBorder;
 
         //  find "resolution"
-        MapHandler.latitudeResolution = (latitudeCenterToBorder * 2) / Parameters.yLimit;
-        MapHandler.longitudeResolution = (longitudeCenterToBorder * 2) / Parameters.xLimit;
+        MapUtils.latitudeResolution = (latitudeCenterToBorder * 2) / CartesianUtils.yLimit;
+        MapUtils.longitudeResolution = (longitudeCenterToBorder * 2) / CartesianUtils.xLimit;
+    }
 
+    /**
+     * Form string-formatted URL that will be used for performing request
+     * @return string-formatted URL for making request to the Yandex.Maps Static API
+     */
+    public static String getCompleteRequestURL() {
         //  give string-formatted URL that will take all given characteristics
         return YANDEX_STATIC_MAPS_LINK +
-                COORDINATES + longitude + "," + latitude +
+                COORDINATES + centerLongitude + "," + centerLatitude +  //  center of the map coordinates
                 SEPARATOR +
-                BORDERS + longitudeCenterToBorder + "," + latitudeCenterToBorder +
+                BORDERS + longitudeRadius + "," + latitudeRadius +  //  radius of coverage by map
                 SEPARATOR +
-                SIZE + imageSizeX + "," + imageSizeY +
+                SIZE + 450 + "," + 450 +    //  size of the image (optimal value - 450x450, possible - 650x450
                 SEPARATOR +
                 SCHEMA_MAP_TYPE;
     }

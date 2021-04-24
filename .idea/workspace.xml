@@ -23,17 +23,30 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2c445b88-c921-4aed-9f23-98fdae96b852" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/HalfPlaneIntersectionMethod/CommandLineControl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Globals/FileManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Globals/FileManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Globals/MapHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Globals/MapHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Globals/MapHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Globals/MapUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Globals/Parameters.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Globals/CartesianUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Globals/YandexCaller.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/HalfPlaneIntersectionMethod/Line.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/HalfPlaneIntersectionMethod/Line.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/HalfPlaneIntersectionMethod/Point.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/HalfPlaneIntersectionMethod/Point.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/HalfPlaneIntersectionMethod/Site.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/HalfPlaneIntersectionMethod/Site.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/HalfPlaneIntersectionMethod/VoronoiHalfPlaneIntersection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/HalfPlaneIntersectionMethod/VoronoiHalfPlaneIntersection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Globals/FileManager$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Globals/FileManager$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/HalfPlaneIntersectionOld/LineOld.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/HalfPlaneIntersectionOld/LineOld.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/HalfPlaneIntersectionOld/PointOld.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/HalfPlaneIntersectionOld/PointOld.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/HalfPlaneIntersectionOld/VoronoiHalfPlaneIntersectionOld.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/HalfPlaneIntersectionOld/VoronoiHalfPlaneIntersectionOld.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Globals/FileManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Globals/FileManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Globals/MapHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Globals/MapHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Globals/MapHandler.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Globals/Parameters.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Globals/YandexCaller.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/HalfPlaneIntersectionMethod/Line.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/HalfPlaneIntersectionMethod/Line.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/HalfPlaneIntersectionMethod/Point.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/HalfPlaneIntersectionMethod/Point.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/HalfPlaneIntersectionMethod/Site.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/HalfPlaneIntersectionMethod/Site.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/HalfPlaneIntersectionMethod/VoronoiHalfPlaneIntersection.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/HalfPlaneIntersectionMethod/VoronoiHalfPlaneIntersection.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/HalfPlaneIntersectionOld/LineOld.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/HalfPlaneIntersectionOld/LineOld.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/HalfPlaneIntersectionOld/PointOld.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/HalfPlaneIntersectionOld/PointOld.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/HalfPlaneIntersectionOld/VoronoiHalfPlaneIntersectionOld.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/HalfPlaneIntersectionOld/VoronoiHalfPlaneIntersectionOld.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,20 +95,20 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Color Scheme Font" />
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="HalfPlaneIntersectionOld" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.VoronoiHalfPlaneIntersection (1)">
-    <configuration name="FileManager" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Globals.FileManager" />
+  <component name="RunManager" selected="Application.CommandLineControl">
+    <configuration name="CommandLineControl" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="HalfPlaneIntersectionMethod.CommandLineControl" />
       <module name="voronoi_project" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="Globals.*" />
+          <option name="PATTERN" value="HalfPlaneIntersectionMethod.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -103,12 +116,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="VoronoiFortuneMethod" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="FortuneMethod.VoronoiFortuneMethod" />
+    <configuration name="FileManager" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Globals.FileManager" />
       <module name="voronoi_project" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="FortuneMethod.*" />
+          <option name="PATTERN" value="Globals.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -157,11 +170,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.CommandLineControl" />
         <item itemvalue="Application.VoronoiHalfPlaneIntersection (1)" />
         <item itemvalue="Application.FileManager" />
         <item itemvalue="Application.YandexCaller" />
         <item itemvalue="Application.VoronoiHalfPlaneIntersectionOld" />
-        <item itemvalue="Application.VoronoiFortuneMethod" />
       </list>
     </recent_temporary>
   </component>
@@ -196,7 +209,9 @@
       <workItem from="1619016932022" duration="2987000" />
       <workItem from="1619083582296" duration="5481000" />
       <workItem from="1619104775794" duration="9853000" />
-      <workItem from="1619165278823" duration="2485000" />
+      <workItem from="1619165278823" duration="5511000" />
+      <workItem from="1619244203150" duration="2431000" />
+      <workItem from="1619247082991" duration="5757000" />
     </task>
     <servers />
   </component>
@@ -236,92 +251,92 @@
     </state>
     <state x="626" y="186" key="FileChooserDialogImpl/0.0.1536.834@0.0.1536.834" timestamp="1616625342662" />
     <state x="663" y="193" key="FileChooserDialogImpl/62.0.1474.864@62.0.1474.864" timestamp="1617869024179" />
-    <state width="1497" height="171" key="GridCell.Tab.0.bottom" timestamp="1619169154612">
+    <state width="1497" height="171" key="GridCell.Tab.0.bottom" timestamp="1619252912204">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1497" height="171" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1619169154612" />
+    <state width="1497" height="171" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1619252912204" />
     <state width="1497" height="174" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1619117610313" />
     <state width="1030" height="203" key="GridCell.Tab.0.bottom/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1619089072648" />
     <state width="1330" height="319" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1619107525758" />
     <state width="1431" height="183" key="GridCell.Tab.0.bottom/62.0.1474.864@62.0.1474.864" timestamp="1618413941850" />
     <state width="1193" height="105" key="GridCell.Tab.0.bottom/62.0.1858.1080@62.0.1858.1080" timestamp="1617819632791" />
     <state width="1428" height="183" key="GridCell.Tab.0.bottom/66.0.1470.864@66.0.1470.864" timestamp="1618552932404" />
-    <state width="1497" height="171" key="GridCell.Tab.0.center" timestamp="1619169154612">
+    <state width="1497" height="171" key="GridCell.Tab.0.center" timestamp="1619252912201">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1497" height="171" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1619169154612" />
+    <state width="1497" height="171" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1619252912201" />
     <state width="1497" height="174" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1619117610313" />
     <state width="1030" height="203" key="GridCell.Tab.0.center/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1619089072648" />
     <state width="1330" height="319" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1619107525757" />
     <state width="1431" height="183" key="GridCell.Tab.0.center/62.0.1474.864@62.0.1474.864" timestamp="1618413941849" />
     <state width="1193" height="105" key="GridCell.Tab.0.center/62.0.1858.1080@62.0.1858.1080" timestamp="1617819632790" />
     <state width="1428" height="183" key="GridCell.Tab.0.center/66.0.1470.864@66.0.1470.864" timestamp="1618552932404" />
-    <state width="1497" height="171" key="GridCell.Tab.0.left" timestamp="1619169154612">
+    <state width="1497" height="171" key="GridCell.Tab.0.left" timestamp="1619252912201">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1497" height="171" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1619169154612" />
+    <state width="1497" height="171" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1619252912201" />
     <state width="1497" height="174" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1619117610312" />
     <state width="1030" height="203" key="GridCell.Tab.0.left/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1619089072648" />
     <state width="1330" height="319" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1619107525757" />
     <state width="1431" height="183" key="GridCell.Tab.0.left/62.0.1474.864@62.0.1474.864" timestamp="1618413941849" />
     <state width="1193" height="105" key="GridCell.Tab.0.left/62.0.1858.1080@62.0.1858.1080" timestamp="1617819632790" />
     <state width="1428" height="183" key="GridCell.Tab.0.left/66.0.1470.864@66.0.1470.864" timestamp="1618552932404" />
-    <state width="1497" height="171" key="GridCell.Tab.0.right" timestamp="1619169154612">
+    <state width="1497" height="171" key="GridCell.Tab.0.right" timestamp="1619252912202">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1497" height="171" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1619169154612" />
+    <state width="1497" height="171" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1619252912202" />
     <state width="1497" height="174" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1619117610313" />
     <state width="1030" height="203" key="GridCell.Tab.0.right/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1619089072648" />
     <state width="1330" height="319" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1619107525758" />
     <state width="1431" height="183" key="GridCell.Tab.0.right/62.0.1474.864@62.0.1474.864" timestamp="1618413941849" />
     <state width="1193" height="105" key="GridCell.Tab.0.right/62.0.1858.1080@62.0.1858.1080" timestamp="1617819632790" />
     <state width="1428" height="183" key="GridCell.Tab.0.right/66.0.1470.864@66.0.1470.864" timestamp="1618552932404" />
-    <state width="1497" height="204" key="GridCell.Tab.1.bottom" timestamp="1619127654463">
+    <state width="1497" height="200" key="GridCell.Tab.1.bottom" timestamp="1619250578846">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1497" height="204" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1619127654463" />
+    <state width="1497" height="200" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1619250578846" />
     <state width="1497" height="204" key="GridCell.Tab.1.bottom/0.0.1536.834@0.0.1536.834" timestamp="1619116302968" />
     <state width="1431" height="277" key="GridCell.Tab.1.bottom/62.0.1474.864@62.0.1474.864" timestamp="1618407374045" />
     <state width="1815" height="364" key="GridCell.Tab.1.bottom/62.0.1858.1080@62.0.1858.1080" timestamp="1617611849468" />
     <state width="1431" height="277" key="GridCell.Tab.1.bottom/66.0.1470.864@66.0.1470.864" timestamp="1618437098510" />
-    <state width="1497" height="204" key="GridCell.Tab.1.center" timestamp="1619127654463">
+    <state width="1497" height="200" key="GridCell.Tab.1.center" timestamp="1619250578846">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1497" height="204" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1619127654463" />
+    <state width="1497" height="200" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1619250578846" />
     <state width="1497" height="204" key="GridCell.Tab.1.center/0.0.1536.834@0.0.1536.834" timestamp="1619116302968" />
     <state width="1431" height="277" key="GridCell.Tab.1.center/62.0.1474.864@62.0.1474.864" timestamp="1618407374045" />
     <state width="1815" height="364" key="GridCell.Tab.1.center/62.0.1858.1080@62.0.1858.1080" timestamp="1617611849468" />
     <state width="1431" height="277" key="GridCell.Tab.1.center/66.0.1470.864@66.0.1470.864" timestamp="1618437098510" />
-    <state width="1497" height="204" key="GridCell.Tab.1.left" timestamp="1619127654462">
+    <state width="1497" height="200" key="GridCell.Tab.1.left" timestamp="1619250578846">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1497" height="204" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1619127654462" />
+    <state width="1497" height="200" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1619250578846" />
     <state width="1497" height="204" key="GridCell.Tab.1.left/0.0.1536.834@0.0.1536.834" timestamp="1619116302968" />
     <state width="1431" height="277" key="GridCell.Tab.1.left/62.0.1474.864@62.0.1474.864" timestamp="1618407374044" />
     <state width="1815" height="364" key="GridCell.Tab.1.left/62.0.1858.1080@62.0.1858.1080" timestamp="1617611849468" />
     <state width="1431" height="277" key="GridCell.Tab.1.left/66.0.1470.864@66.0.1470.864" timestamp="1618437098510" />
-    <state width="1497" height="204" key="GridCell.Tab.1.right" timestamp="1619127654463">
+    <state width="1497" height="200" key="GridCell.Tab.1.right" timestamp="1619250578846">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1497" height="204" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1619127654463" />
+    <state width="1497" height="200" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1619250578846" />
     <state width="1497" height="204" key="GridCell.Tab.1.right/0.0.1536.834@0.0.1536.834" timestamp="1619116302968" />
     <state width="1431" height="277" key="GridCell.Tab.1.right/62.0.1474.864@62.0.1474.864" timestamp="1618407374045" />
     <state width="1815" height="364" key="GridCell.Tab.1.right/62.0.1858.1080@62.0.1858.1080" timestamp="1617611849468" />
     <state width="1431" height="277" key="GridCell.Tab.1.right/66.0.1470.864@66.0.1470.864" timestamp="1618437098510" />
-    <state x="277" y="0" key="SettingsEditor" timestamp="1619165307769">
+    <state x="277" y="0" key="SettingsEditor" timestamp="1619251290367">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="277" y="0" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1619165307769" />
+    <state x="277" y="0" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1619251290367" />
     <state x="277" y="0" key="SettingsEditor/0.0.1536.834@0.0.1536.834" timestamp="1619115533108" />
     <state x="346" y="78" key="SettingsEditor/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1619087688983" />
     <state x="346" y="78" key="SettingsEditor/0.0.1920.1050@0.0.1920.1050" timestamp="1619109350853" />
     <state x="328" y="64" key="SettingsEditor/62.0.1474.864@62.0.1474.864" timestamp="1617869165238" />
     <state x="397" y="80" key="SettingsEditor/62.0.1858.1080@62.0.1858.1080" timestamp="1617607851940" />
     <state x="331" y="64" key="SettingsEditor/66.0.1470.864@66.0.1470.864" timestamp="1618502476039" />
-    <state x="452" y="244" key="com.intellij.ide.util.TipDialog" timestamp="1619165279320">
+    <state x="452" y="244" key="com.intellij.ide.util.TipDialog" timestamp="1619247136537">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="452" y="244" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1619165279320" />
+    <state x="452" y="244" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1619247136537" />
     <state x="452" y="247" key="com.intellij.ide.util.TipDialog/0.0.1536.834@0.0.1536.834" timestamp="1618595357931" />
     <state x="565" y="311" key="com.intellij.ide.util.TipDialog/0.0.1920.1050/1920.0.1920.1050@0.0.1920.1050" timestamp="1619083588663" />
     <state x="565" y="311" key="com.intellij.ide.util.TipDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1619104776407" />
