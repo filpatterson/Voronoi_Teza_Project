@@ -40,8 +40,8 @@ public class MapUtils {
         MapUtils.longitudeRadius = longitudeCenterToBorder;
 
         //  find "resolution"
-        MapUtils.latitudeResolution = latitudeCenterToBorder * 2 / Utils.yLimit;
-        MapUtils.longitudeResolution = longitudeCenterToBorder * 2 / Utils.xLimit;
+        MapUtils.latitudeResolution = (latitudeCenterToBorder * 2) / Utils.yLimit;
+        MapUtils.longitudeResolution = (longitudeCenterToBorder * 2) / Utils.xLimit;
     }
 
     /**

@@ -67,7 +67,7 @@ public class VoronoiHalfPlaneIntersection extends JFrame {
 
             //  display each site as small black ellipsoid
             g2.setColor(Color.RED);
-            g2.fill(new Ellipse2D.Double(site.x - 2.5, site.y - 2.5, 5, 5));
+            g2.fill(new Ellipse2D.Double(site.x - 5, site.y - 5, 5, 5));
         }
     }
 

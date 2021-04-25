@@ -1,5 +1,6 @@
 package HalfPlaneIntersectionMethod;
 
+import Globals.ConsoleColors;
 import Globals.FileManager;
 import Globals.MapUtils;
 import Globals.Utils;
@@ -9,7 +10,45 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class CommandLineControl {
+    //  flag for 'while' loop, true value of which will close program entirely
     private static boolean isExitCalled = false;
+
+    //  string with all available commands
+    private static String commandsList = "\n\t1.  'add cartesian ?x ?y ?redValue ?greenValue ?blueValue ?name'" +
+            "\n\t     add new site using cartesian coordinates and automatically finds geographical" +
+            "\n\t     coordinates considering provided map area;" +
+
+            "\n\t2.  'add geographical ?latitude ?longitude ?redValue ?greenValue ?blueValue ?name'" +
+            "\n\t     add new site using geographical coordinates;" +
+
+            "\n\t3.  'change ?name coordinates cartesian ?x ?y'" +
+            "\n\t     change cartesian coordinates of the site and automatically find geographical ones " +
+            "\n\t     considering provided map area;" +
+
+            "\n\t4.  'change ?name coordinates geographical ?latitude ?longitude'" +
+            "\n\t     change geographical coordinates of the site;" +
+
+            "\n\t5.  'change ?name name ?newName'" +
+            "\n\t     change name of the site to the new one;" +
+
+            "\n\t6.  'change ?name color ?redValue ?greenValue ?blueValue'" +
+            "\n\t     change color of the site;" +
+
+            "\n\t7.  'remove ?name'" +
+            "\n\t     remove site from the storage;" +
+
+            "\n\t8.  'map ?latitude ?longitude ?latitudeRadius ?longitudeRadius'" +
+            "\n\t     change coordinates of the center of the map and set new radius of area to be " +
+            "\n\t     reviewed;" +
+
+            "\n\t9.  'draw'" +
+            "\n\t     show voronoi diagram" +
+
+            "\n\t10. 'exit'" +
+            "\n\t     exit from the program" +
+
+            "\n\t11. 'help'" +
+            "\n\t     show again all commands and their arguments";
 
     /**
      * decompose received string command into tokens (words and numbers)
@@ -17,6 +56,13 @@ public class CommandLineControl {
      * @return array of tokens
      */
     public String[] commandToTokens(String command) {
+        if (command == null || command.isEmpty()) {
+            System.out.println(ConsoleColors.RED +
+                    "\tno command received, do not try to break the program :)" +
+                    ConsoleColors.RESET);
+            return null;
+        }
+
         //  make all letters lowercase and remove repeating dots
         command = command.toLowerCase().replaceAll("\\.+", ".");
 
@@ -48,6 +94,13 @@ public class CommandLineControl {
      * @return true if all tokens are valid, false if not
      */
     public boolean isCommandValid(String[] commandTokens) {
+        if (commandTokens == null || commandTokens.length == 0) {
+            System.out.println(ConsoleColors.RED +
+                    "\tcommand has no tokens, cancel" +
+                    ConsoleColors.RESET);
+            return false;
+        }
+
         //  array must have all valid String objects and they must not be empty
         for (String commandToken : commandTokens) {
             if (commandToken == null || commandToken.isEmpty()) {
@@ -67,6 +120,20 @@ public class CommandLineControl {
 
             //  if user wants to add new site
             case "add":
+
+                //  if there are too small amount of arguments or too big -> cancel operation
+                if (commandTokens.length < 8) {
+                    System.out.println(ConsoleColors.RED +
+                            "\tthere are not enough arguments; type 'help' if you want more info" +
+                            ConsoleColors.RESET);
+                    return;
+                } else if (commandTokens.length > 8) {
+                    System.out.println(ConsoleColors.RED +
+                            "\tthere are too many arguments; type 'help' if you want more info" +
+                            ConsoleColors.RESET);
+                    return;
+                }
+
                 switch (commandTokens[1]) {
 
                     //  if user wants to add cartesian site
@@ -77,41 +144,54 @@ public class CommandLineControl {
                         int red = Integer.parseInt(commandTokens[4]);
                         int green = Integer.parseInt(commandTokens[5]);
                         int blue = Integer.parseInt(commandTokens[6]);
+                        String name = commandTokens[7];
 
-                        Site newCartesianSite = new Site(x, y, new Color(red, green, blue), commandTokens[7]);
+                        Site newCartesianSite = new Site(x, y, new Color(red, green, blue), name);
 
                         //  find geographical location of point basing on its cartesian coordinates on given map sector
                         newCartesianSite.toGeographical();
                         Utils.sitesStorage.add(newCartesianSite);
                         System.out.println("added cartesian point '" + newCartesianSite.getName() + "' to storage");
-                        break;
+                        return;
 
                     //  if user wants to add geographical site
                     case "geographical":
+                        double latitude = Double.parseDouble(commandTokens[2]);
+                        double longitude = Double.parseDouble(commandTokens[3]);
+                        red = Integer.parseInt(commandTokens[4]);
+                        green = Integer.parseInt(commandTokens[5]);
+                        blue = Integer.parseInt(commandTokens[6]);
+                        name = commandTokens[7];
 
-                        //  function takes arguments as: latitude, longitude, redIntensity, greenIntensity, blueIntensity, name
-                        Site newGeographicalSite = new Site(
-                                Double.parseDouble(commandTokens[2]), Double.parseDouble(commandTokens[3]),
-                                new Color(
-                                        Integer.parseInt(commandTokens[4]), Integer.parseInt(commandTokens[5]), Integer.parseInt(commandTokens[6])
-                                ),
-                                commandTokens[7], true
-                        );
+                        Site newGeographicalSite = new Site(latitude, longitude, new Color(red, green, blue), name, true);
 
                         //  register new point and try to find cartesian coordinates for point on given map sector
                         Utils.sitesStorage.add(newGeographicalSite);
                         System.out.println("added geographical point '" + newGeographicalSite.getName() +"' to storage");
                         if (newGeographicalSite.toCartesian()) {
                             System.out.println("successful point transformation to cartesian one on given map sector");
+                            return;
                         } else {
-                            System.out.println("failed point transformation to cartesian, it is out of map sector");
+                            System.out.println(ConsoleColors.YELLOW +
+                                    "failed point transformation to cartesian, it is out of map sector" +
+                                    ConsoleColors.RESET);
+                            return;
                         }
-                        break;
+                    default:
+                        System.out.println(ConsoleColors.RED +
+                                "\tneither cartesian nor geographical point chosen, operation cancelled" +
+                                ConsoleColors.RESET);
+                        return;
                 }
-                break;
 
             //  if user wants to change coordinates of existing site
             case "change":
+                if (commandTokens.length < 3) {
+                    System.out.println(ConsoleColors.RED +
+                            "\tnot enough arguments even to define command, operation cancel" +
+                            ConsoleColors.RESET);
+                    return;
+                }
 
                 //  search for site with such a name as second command token
                 Site siteToChange = null;
@@ -122,79 +202,141 @@ public class CommandLineControl {
                     }
                 }
 
-                //  if site with such name was found
-                if (siteToChange != null) {
-                    switch (commandTokens[2]) {
-
-                        //  if user wants to change coordinates
-                        case "coordinates":
-                            switch (commandTokens[3]) {
-
-                                //  if user wants to change cartesian coordinates
-                                case "cartesian":
-
-                                    //  take new coordinates as: x, y
-                                    double oldCoordX = siteToChange.x;
-                                    double oldCoordY = siteToChange.y;
-                                    siteToChange.x = Double.parseDouble(commandTokens[4]);
-                                    siteToChange.y = Double.parseDouble(commandTokens[5]);
-
-                                    System.out.println("changed cartesian coordinates from x=" + oldCoordX + ", y=" + oldCoordY +
-                                            " to x=" + siteToChange.x + ", y=" + siteToChange.y);
-
-                                    siteToChange.toGeographical();
-                                    break;
-
-                                //  if user wants to change geographical coordinates
-                                case "geographical":
-
-                                    //  take new coordinates as: latitude, longitude
-                                    double oldLon = siteToChange.longitude;
-                                    double oldLat = siteToChange.latitude;
-                                    siteToChange.latitude = Double.parseDouble(commandTokens[4]);
-                                    siteToChange.longitude = Double.parseDouble(commandTokens[5]);
-
-                                    System.out.println("changed geographical coordinates from long.=" + oldLon + ", lat.=" + oldLat +
-                                            " to long.=" + siteToChange.x + ", lat.=" + siteToChange.y);
-
-                                    //  check if point can be transformed to cartesian one on given map sector
-                                    if (siteToChange.toCartesian()) {
-                                        System.out.println("successful point transformation to cartesian one on given map sector");
-                                    } else {
-                                        System.out.println("failed point transformation to cartesian, it is out of map sector");
-                                    }
-                                    break;
-                            }
-                            break;
-
-                        //  if user wants to change name of site
-                        case "name":
-                            String oldName = siteToChange.getName();
-                            siteToChange.setName(commandTokens[4]);
-
-                            System.out.println("changed name from '" + oldName + "' to '" + siteToChange.getName() + "'");
-                            break;
-
-                        //  if user wants to change color of site
-                        case "color":
-
-                            //  take new color as: redIntensity, greenIntensity, blueIntensity
-                            Color oldColor = siteToChange.getColor();
-                            siteToChange.setColor(
-                                    new Color(Integer.parseInt(commandTokens[4]), Integer.parseInt(commandTokens[5]), Integer.parseInt(commandTokens[6]))
-                            );
-                            System.out.println("changed color from " + oldColor + " to " + siteToChange.getColor());
-                            break;
-                    }
+                if (siteToChange == null) {
+                    System.out.println(ConsoleColors.YELLOW +
+                            "\tthere is no site with such name, check name or request all sites to find name" +
+                            ConsoleColors.RESET);
+                    return;
                 }
-                break;
+
+                //  if site with such name was found
+                switch (commandTokens[2]) {
+
+                    //  if user wants to change coordinates
+                    case "coordinates":
+                        if (commandTokens.length < 6) {
+                            System.out.println(ConsoleColors.RED +
+                                    "\tthere are not enough arguments, operation cancelled" +
+                                    ConsoleColors.RESET);
+                            return;
+                        } else if (commandTokens.length > 6) {
+                            System.out.println(ConsoleColors.RED +
+                                    "\ttoo big amount of arguments, operation cancelled" +
+                                    ConsoleColors.RESET);
+                            return;
+                        }
+
+                        switch (commandTokens[3]) {
+
+                            //  if user wants to change cartesian coordinates
+                            case "cartesian":
+
+                                //  take new coordinates as: x, y
+                                double oldCoordX = siteToChange.x;
+                                double oldCoordY = siteToChange.y;
+                                siteToChange.x = Double.parseDouble(commandTokens[4]);
+                                siteToChange.y = Double.parseDouble(commandTokens[5]);
+
+                                System.out.println("changed cartesian coordinates from " +
+                                        "x=" + oldCoordX + ", y=" + oldCoordY +
+                                        " to x=" + siteToChange.x + ", y=" + siteToChange.y);
+
+                                siteToChange.toGeographical();
+                                return;
+
+                            //  if user wants to change geographical coordinates
+                            case "geographical":
+
+                                //  take new coordinates as: latitude, longitude
+                                double oldLon = siteToChange.longitude;
+                                double oldLat = siteToChange.latitude;
+                                siteToChange.latitude = Double.parseDouble(commandTokens[4]);
+                                siteToChange.longitude = Double.parseDouble(commandTokens[5]);
+
+                                System.out.println("changed geographical coordinates from " +
+                                        "long.=" + oldLon + ", lat.=" + oldLat +
+                                        " to long.=" + siteToChange.x + ", lat.=" + siteToChange.y);
+
+                                //  check if point can be transformed to cartesian one on given map sector
+                                if (siteToChange.toCartesian()) {
+                                    System.out.println("\tsuccessful point transformation to cartesian one on given map sector");
+                                } else {
+                                    System.out.println(ConsoleColors.YELLOW +
+                                            "\tfailed point transformation to cartesian, it is out of map sector" +
+                                            ConsoleColors.RESET);
+                                }
+                                return;
+
+                            default:
+                                System.out.println(ConsoleColors.RED +
+                                        "\tneither cartesian nor geographical coordinates where chosen, operation cancelled" +
+                                        ConsoleColors.RESET);
+                                return;
+                        }
+
+                    //  if user wants to change name of site
+                    case "name":
+                        if (commandTokens.length < 4) {
+                            System.out.println(ConsoleColors.RED +
+                                    "\tthere are not enough arguments, operation cancelled" +
+                                    ConsoleColors.RESET);
+                            return;
+                        } else if (commandTokens.length > 4) {
+                            System.out.println(ConsoleColors.RED +
+                                    "\tthere are too many arguments, operation cancelled" +
+                                    ConsoleColors.RESET);
+                            return;
+                        }
+                        String oldName = siteToChange.getName();
+                        siteToChange.setName(commandTokens[3]);
+
+                        System.out.println("changed name from '" + oldName + "' to '" + siteToChange.getName() + "'");
+                        return;
+
+                    //  if user wants to change color of site
+                    case "color":
+                        if (commandTokens.length < 7) {
+                            System.out.println(ConsoleColors.RED +
+                                    "\tthere are not enough arguments, operation cancelled" +
+                                    ConsoleColors.RESET);
+                            return;
+                        } else if (commandTokens.length > 7) {
+                            System.out.println(ConsoleColors.RED +
+                                    "\tthere are too many arguments, operation cancelled" +
+                                    ConsoleColors.RESET);
+                            return;
+                        }
+
+                        //  take new color as: redIntensity, greenIntensity, blueIntensity
+                        Color oldColor = siteToChange.getColor();
+                        int red = Integer.parseInt(commandTokens[4]);
+                        int green = Integer.parseInt(commandTokens[5]);
+                        int blue = Integer.parseInt(commandTokens[6]);
+                        siteToChange.setColor(new Color(red, green, blue));
+
+                        System.out.println("changed color from " + oldColor + " to " + siteToChange.getColor());
+                        return;
+                }
+                return;
 
             case "show":
+                if (commandTokens.length < 2) {
+                    System.out.println(ConsoleColors.RED +
+                            "\tnot enough arguments, operation cancelled" +
+                            ConsoleColors.RESET);
+                    return;
+                } else if (commandTokens.length > 2) {
+                    System.out.println(ConsoleColors.RED +
+                            "\ttoo many arguments, operation cancelled" +
+                            ConsoleColors.RESET);
+                    return;
+                }
+
                 if (commandTokens[1].equals("all")) {
                     for (Site site : Utils.sitesStorage) {
                         System.out.println(site);
                     }
-                    break;
+                    return;
                 }
 
                 Site siteToShow = null;
@@ -204,11 +346,31 @@ public class CommandLineControl {
                         break;
                     }
                 }
+
+                if (siteToShow == null) {
+                    System.out.println(ConsoleColors.YELLOW +
+                            "\tno site with such name was found" +
+                            ConsoleColors.RESET);
+                    return;
+                }
+
                 System.out.println("you requested - " + siteToShow);
-                break;
+                return;
 
             //  if user wants to remove site from the storage
             case "remove":
+                if (commandTokens.length < 2) {
+                    System.out.println(ConsoleColors.RED +
+                            "\tnot enough arguments, operation cancelled" +
+                            ConsoleColors.RESET);
+                    return;
+                } else if (commandTokens.length > 2) {
+                    System.out.println(ConsoleColors.RED +
+                            "\ttoo many arguments, operation cancelled" +
+                            ConsoleColors.RESET);
+                    return;
+                }
+
                 Site siteToDelete = null;
                 for (Site site : Utils.sitesStorage) {
                     if (site.getName().equals(commandTokens[1])) {
@@ -216,12 +378,31 @@ public class CommandLineControl {
                         break;
                     }
                 }
+
+                if (siteToDelete == null) {
+                    System.out.println(ConsoleColors.YELLOW +
+                            "\tno site with such name, operation cancelled" +
+                            ConsoleColors.RESET);
+                    return;
+                }
+
                 Utils.sitesStorage.remove(siteToDelete);
                 System.out.println("removed '" + commandTokens[1] + "' site from storage");
-                break;
+                return;
 
             //  if user requests changes in map
             case "map":
+                if (commandTokens.length < 5) {
+                    System.out.println(ConsoleColors.RED +
+                            "\tnot enough arguments, operation cancelled" +
+                            ConsoleColors.RESET);
+                    return;
+                } else if (commandTokens.length > 5) {
+                    System.out.println(ConsoleColors.RED +
+                            "\ttoo many arguments, operation cancelled" +
+                            ConsoleColors.RESET);
+                    return;
+                }
 
                 //  take changes as: latitude, longitude, latitudeRadius, longitudeRadius
                 double oldCenterLat = MapUtils.centerLatitude;
@@ -229,23 +410,33 @@ public class CommandLineControl {
                 double oldLatRad = MapUtils.latitudeRadius;
                 double oldLonRad = MapUtils.longitudeRadius;
 
-                MapUtils.setMapHandlerParameters(
-                        Double.parseDouble(commandTokens[1]), Double.parseDouble(commandTokens[2]),
-                        Double.parseDouble(commandTokens[3]), Double.parseDouble(commandTokens[4])
-                );
+                double newCenterLat = Double.parseDouble(commandTokens[1]);
+                double newCenterLon = Double.parseDouble(commandTokens[2]);
+                double newLatRad = Double.parseDouble(commandTokens[3]);
+                double newLonRad = Double.parseDouble(commandTokens[4]);
 
-                System.out.println("changed map center from lat.=" + oldCenterLat + ", long.=" + oldCenterLon + " to" +
+                MapUtils.setMapHandlerParameters(newCenterLat, newCenterLon, newLatRad, newLonRad);
+
+                System.out.println("changed map center from " +
+                        "lat.=" + oldCenterLat + ", long.=" + oldCenterLon + " to" +
                         " lat.=" + MapUtils.centerLatitude + ", long.=" + MapUtils.centerLongitude);
+
                 System.out.println("radius changed from " + oldLatRad + " to " + MapUtils.latitudeRadius);
 
                 //  remap all points to their cartesian representation basing on their geographical coordinates
                 for (Site site : Utils.sitesStorage) {
                     site.toCartesian();
                 }
-                break;
+                return;
 
             //  if user wants to draw voronoi diagram
             case "draw":
+                if (Utils.sitesStorage.size() == 0) {
+                    System.out.println(ConsoleColors.RED +
+                            "\tthere are no sites to draw map for, operation cancelled" +
+                            ConsoleColors.RESET);
+                    return;
+                }
                 VoronoiHalfPlaneIntersection voronoiDiagram;
                 try {
                     voronoiDiagram = new VoronoiHalfPlaneIntersection();
@@ -253,43 +444,74 @@ public class CommandLineControl {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                break;
+                return;
 
             //  if user wants to read/write file storage
             case "file":
+                if (commandTokens.length < 4) {
+                    System.out.println(ConsoleColors.RED +
+                            "\tnot enough arguments, operation cancelled" +
+                            ConsoleColors.RESET);
+                    return;
+                } else if (commandTokens.length > 4) {
+                    System.out.println(ConsoleColors.RED +
+                            "\ttoo many arguments, operation cancelled" +
+                            ConsoleColors.RESET);
+                    return;
+                } else if (!commandTokens[2].equals("-p")) {
+                    System.out.println(ConsoleColors.RED +
+                            "\tno path flag detected, operation cancelled" +
+                            ConsoleColors.RESET);
+                    return;
+                }
+
                 switch (commandTokens[1]) {
                     //  if user wants to write to the file storage
                     case "export":
                         //  takes string after '-p' flag as path to file
                         if (FileManager.writeSitesToFile(commandTokens[3])) {
                             System.out.println("successfully written sites to the storage file");
+                            return;
                         } else {
-                            System.out.println("error occurred during saving process, check error info");
+                            System.out.println(ConsoleColors.RED +
+                                    "error occurred during saving process, check error info" +
+                                    ConsoleColors.RESET);
+                            return;
                         }
-                        break;
 
                     //  if user wants to read from file storage
                     case "import":
                         //  takes string after '-p' flag as path to file
                         if (FileManager.readSitesFromFile(commandTokens[3])) {
                             System.out.println("successfully imported all sites from the storage file");
+                            return;
                         } else {
-                            System.out.println("error occurred during import process, check error info");
+                            System.out.println(ConsoleColors.RED +
+                                    "error occurred during import process, check error info" +
+                                    ConsoleColors.RESET);
+                            return;
                         }
-                        break;
                 }
-                break;
+                return;
 
             //  if user wants to exit from the program
             case "exit":
                 isExitCalled = true;
-                break;
+                return;
+            case "help":
+                System.out.println("\tavailable commands at the moment:");
+                System.out.println(commandsList);
+                return;
             default:
-                System.out.println("there is no such command, try again");
+                System.out.println(ConsoleColors.RED +
+                        "there is no such command, try again" +
+                        ConsoleColors.RESET);
+                return;
         }
     }
 
     public static void main(String[] args) {
+        //  initialize command line control
         CommandLineControl cmd = new CommandLineControl();
 
         //  coordinates of the Chisinau are considered as default values
@@ -298,45 +520,7 @@ public class CommandLineControl {
         //  read input from user
         Scanner scanner = new Scanner(System.in);
         System.out.println("Type commands. List of available commands at the moment:");
-
-        System.out.println("\t1.  'add cartesian ?x ?y ?redValue ?greenValue ?blueValue ?name'");
-        System.out.println("\t     add new site using cartesian coordinates and automatically finds geographical");
-        System.out.println("\t     coordinates considering provided map area;");
-
-        System.out.println("\t2.  'add geographical ?latitude ?longitude ?redValue ?greenValue ?blueValue ?name'");
-        System.out.println("\t     add new site using geographical coordinates;");
-
-        System.out.println("\t3.  'change ?name coordinates cartesian ?x ?y'");
-        System.out.println("\t     change cartesian coordinates of the site and automatically find geographical ones ");
-        System.out.println("\t     considering provided map area;");
-
-        System.out.println("\t4.  'change ?name coordinates geographical ?latitude ?longitude'");
-        System.out.println("\t     change geographical coordinates of the site;");
-
-        System.out.println("\t5.  'change ?name name ?newName'");
-        System.out.println("\t     change name of the site to the new one;");
-
-        System.out.println("\t6.  'change ?name color ?redValue ?greenValue ?blueValue'");
-        System.out.println("\t     change color of the site;");
-
-        System.out.println("\t7.  'remove ?name'");
-        System.out.println("\t     remove site from the storage;");
-
-        System.out.println("\t8.  'map ?latitude ?longitude ?latitudeRadius ?longitudeRadius'");
-        System.out.println("\t     change coordinates of the center of the map and set new radius of area to be ");
-        System.out.println("\t     reviewed;");
-
-        System.out.println("\t9.  'draw'");
-        System.out.println("\t     show voronoi diagram");
-
-        System.out.println("\t10. 'exit'");
-        System.out.println("\t     exit from the program");
-
-        System.out.println("\t11. 'help'");
-        System.out.println("\t     show again all commands and their arguments");
-
-        System.out.println();
-
+        System.out.println(commandsList);
 
         while(!isExitCalled) {
             System.out.print(">>>\t");
