@@ -170,13 +170,12 @@ public class CommandLineControl {
                         System.out.println("added geographical point '" + newGeographicalSite.getName() +"' to storage");
                         if (newGeographicalSite.toCartesian()) {
                             System.out.println("successful point transformation to cartesian one on given map sector");
-                            return;
                         } else {
                             System.out.println(ConsoleColors.YELLOW +
                                     "failed point transformation to cartesian, it is out of map sector" +
                                     ConsoleColors.RESET);
-                            return;
                         }
+                        return;
                     default:
                         System.out.println(ConsoleColors.RED +
                                 "\tneither cartesian nor geographical point chosen, operation cancelled" +
@@ -429,6 +428,38 @@ public class CommandLineControl {
                 }
                 return;
 
+            case "calculate":
+                if (commandTokens.length < 2) {
+                    System.out.println(ConsoleColors.RED +
+                            "\tnot enough arguments, operation cancelled" +
+                            ConsoleColors.RESET);
+                    return;
+                } else if (commandTokens[1].equals("all")) {
+                    for (Site site : Utils.sitesStorage) {
+                        site.findLocus();
+                    }
+                    System.out.println("\tloci for all sites was found");
+                    return;
+                } else {
+                    Site siteToCalculate = null;
+                    for (Site site : Utils.sitesStorage) {
+                        if (site.getName().equals(commandTokens[1])) {
+                            siteToCalculate = site;
+                            break;
+                        }
+                    }
+
+                    if (siteToCalculate != null) {
+                        siteToCalculate.findLocus();
+                        System.out.println("\tlocus for '" + siteToCalculate.getName() + "' was found");
+                    } else {
+                        System.out.println(ConsoleColors.RED +
+                                "\tnot enough arguments, operation cancelled" +
+                                ConsoleColors.RESET);
+                    }
+                    return;
+                }
+
             //  if user wants to draw voronoi diagram
             case "draw":
                 if (Utils.sitesStorage.size() == 0) {
@@ -471,26 +502,24 @@ public class CommandLineControl {
                         //  takes string after '-p' flag as path to file
                         if (FileManager.writeSitesToFile(commandTokens[3])) {
                             System.out.println("successfully written sites to the storage file");
-                            return;
                         } else {
                             System.out.println(ConsoleColors.RED +
                                     "error occurred during saving process, check error info" +
                                     ConsoleColors.RESET);
-                            return;
                         }
+                        return;
 
                     //  if user wants to read from file storage
                     case "import":
                         //  takes string after '-p' flag as path to file
                         if (FileManager.readSitesFromFile(commandTokens[3])) {
                             System.out.println("successfully imported all sites from the storage file");
-                            return;
                         } else {
                             System.out.println(ConsoleColors.RED +
                                     "error occurred during import process, check error info" +
                                     ConsoleColors.RESET);
-                            return;
                         }
+                        return;
                 }
                 return;
 

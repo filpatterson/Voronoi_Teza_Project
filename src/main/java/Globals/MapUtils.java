@@ -50,12 +50,17 @@ public class MapUtils {
      */
     public static String getCompleteRequestURL() {
         //  give string-formatted URL that will take all given characteristics
-        return YANDEX_STATIC_MAPS_LINK +
+        System.out.println(YANDEX_STATIC_MAPS_LINK +
                 COORDINATES + centerLongitude + "," + centerLatitude +  //  center of the map coordinates
                 SEPARATOR +
                 BORDERS + longitudeRadius + "," + latitudeRadius +  //  radius of coverage by map
                 SEPARATOR +
-                SIZE + 450 + "," + 450 +    //  size of the image (optimal value - 450x450, possible - 650x450
+                SCHEMA_MAP_TYPE);
+
+        return YANDEX_STATIC_MAPS_LINK +
+                COORDINATES + centerLongitude + "," + centerLatitude +  //  center of the map coordinates
+                SEPARATOR +
+                BORDERS + longitudeRadius + "," + latitudeRadius +  //  radius of coverage by map
                 SEPARATOR +
                 SCHEMA_MAP_TYPE;
     }

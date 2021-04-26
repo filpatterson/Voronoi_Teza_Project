@@ -7,6 +7,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
+import java.awt.image.BufferedImage;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Random;
@@ -24,8 +25,14 @@ public class VoronoiHalfPlaneIntersection extends JFrame {
      */
     public VoronoiHalfPlaneIntersection() throws Exception {
         URL imageURL = new URL(MapUtils.getCompleteRequestURL());
-        Image img = ImageIO.read(imageURL);
-        this.image = img.getScaledInstance(Utils.xLimit, Utils.yLimit, Image.SCALE_AREA_AVERAGING);
+        BufferedImage img = ImageIO.read(imageURL);
+        //this.image = img.getScaledInstance(Utils.xLimit, Utils.yLimit, Image.SCALE_AREA_AVERAGING);
+        this.image = img;
+        Utils.xLimit = (short) img.getWidth();
+        Utils.yLimit = (short) img.getHeight();
+        System.out.println(Utils.xLimit + "; and " + Utils.yLimit);
+
+
         System.out.println(img);
 
         JPanel panel = new JPanel();

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class Utils {
     //  displayable/analyzable area size in X and Y (WARNING: conform Yandex Maps limit there can be only 450 by 450
     public static short xLimit = 600;
-    public static short yLimit = 600;
+    public static short yLimit = 450;
 
     //  constants of the line
     public static final byte HORIZONTAL_LINE_CODE = 1;
