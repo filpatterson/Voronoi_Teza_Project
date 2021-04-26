@@ -1,7 +1,5 @@
 package HalfPlaneIntersectionOld;
 
-import Globals.Utils;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
@@ -24,7 +22,7 @@ public class VoronoiHalfPlaneIntersectionOld extends JFrame {
         //  initialize panel for sites and locuses drawing, setting window size and how to close program
         JPanel panel = new JPanel();
         getContentPane().add(panel);
-        setSize(Utils.xLimit, Utils.yLimit);
+        setSize(ParametersOld.xLimit, ParametersOld.yLimit);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.siteOlds = siteOlds;
 
@@ -48,9 +46,9 @@ public class VoronoiHalfPlaneIntersectionOld extends JFrame {
         //  iterate through all sites
         for (SiteOld siteOld : this.siteOlds) {
             //  fill locus of the site with site color
-            g2.setColor(Color.BLACK);
-//            g2.fill(site.getLocus());
-            g2.draw(siteOld.getLocus());
+            g2.setColor(siteOld.getColor());
+            g2.fill(siteOld.getLocus());
+//            g2.draw(siteOld.getLocus());
 
             //  display each site as small black ellipsoid
             g2.setColor(Color.RED);
@@ -63,26 +61,10 @@ public class VoronoiHalfPlaneIntersectionOld extends JFrame {
         //  store all sites in ArrayList
         ArrayList<SiteOld> siteOlds = new ArrayList<>();
 
-//        //  sites for performing test
-//        Site firstSite = new Site(100, 100, Color.BLUE);
-//        Site secondSite = new Site(200, 210, Color.CYAN);
-//        Site thirdSite = new Site(460, 555, Color.GREEN);
-//        Site fourthSite = new Site(822, 673, Color.ORANGE);
-//        Site fifthSite = new Site(322, 111, Color.RED);
-//        Site sixthSite = new Site(999, 222, Color.PINK);
-//
-//        //  append all sites to the ArrayList
-//        sites.add(firstSite);
-//        sites.add(secondSite);
-//        sites.add(thirdSite);
-//        sites.add(fourthSite);
-//        sites.add(fifthSite);
-//        sites.add(sixthSite);
-
         //  set random generator
         Random rand = new Random();
         for (int i = 0; i < 100; i++)
-            siteOlds.add(new SiteOld(rand.nextInt(Utils.xLimit), rand.nextInt(Utils.yLimit), Color.getColor("s" ,rand.nextInt(16777215))));
+            siteOlds.add(new SiteOld(rand.nextInt(ParametersOld.xLimit), rand.nextInt(ParametersOld.yLimit), Color.getColor("s" ,rand.nextInt(16777215))));
 
         //  create voronoi diagram with perpendicular half planes approach
         VoronoiHalfPlaneIntersectionOld voronoiHalfPlaneIntersectionOld = new VoronoiHalfPlaneIntersectionOld(siteOlds);

@@ -42,7 +42,6 @@ public class VoronoiBrute extends JFrame {
 
         //  set window size and position relatively to the screen
         setBounds(0, 0, this.imageSize, this.imageSize);
-
         //  set how program should be finished
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
@@ -52,7 +51,6 @@ public class VoronoiBrute extends JFrame {
         //  set arrays for storing X and Y coordinates of interest points
         this.interestPointsX = new int[interestPointsValue];
         this.interestPointsY = new int[interestPointsValue];
-
         //  set array of colors for interest points
         this.interestPointsColors = new int[interestPointsValue];
     }
@@ -79,6 +77,7 @@ public class VoronoiBrute extends JFrame {
 
     /**
      * generate locusts for all interest points (find nearest points) using colorization via pixel-by-pixel calculation
+     * @param isManhattanRequired true if manhattan distance calculation is required, false if euclidean
      */
     public void voronoiLocustsIdentification(boolean isManhattanRequired) {
         long startTime = System.currentTimeMillis();
@@ -91,13 +90,27 @@ public class VoronoiBrute extends JFrame {
                 //  iterate through all cells of the image
                 for (byte currentInteresPoint = 0; currentInteresPoint < this.interestPointsValue; currentInteresPoint++)
                     //  choose distance calculation method between Manhattan algorithm and Euclidean
-                    if(isManhattanRequired)
-                        if (manhattanDistance2D(this.interestPointsX[currentInteresPoint], currentPointX, this.interestPointsY[currentInteresPoint], currentPointY) < manhattanDistance2D(this.interestPointsX[closestInterestPointIndex], currentPointX, this.interestPointsY[closestInterestPointIndex], currentPointY))
+                    if(isManhattanRequired) {
+                        if (
+                                manhattanDistance2D(
+                                        this.interestPointsX[currentInteresPoint], currentPointX,
+                                        this.interestPointsY[currentInteresPoint], currentPointY
+                                ) < manhattanDistance2D(
+                                        this.interestPointsX[closestInterestPointIndex], currentPointX,
+                                        this.interestPointsY[closestInterestPointIndex], currentPointY)
+                        ) {
                             closestInterestPointIndex = currentInteresPoint;
-                    else
-                        if (euclideanDistance2D(this.interestPointsX[currentInteresPoint], currentPointX, this.interestPointsY[currentInteresPoint], currentPointY) < euclideanDistance2D(this.interestPointsX[closestInterestPointIndex], currentPointX, this.interestPointsY[closestInterestPointIndex], currentPointY))
-                            closestInterestPointIndex = currentInteresPoint;
-
+                        }
+                    } else if (
+                            euclideanDistance2D(
+                                    this.interestPointsX[currentInteresPoint], currentPointX,
+                                    this.interestPointsY[currentInteresPoint], currentPointY
+                            ) < euclideanDistance2D(
+                                    this.interestPointsX[closestInterestPointIndex], currentPointX,
+                                    this.interestPointsY[closestInterestPointIndex], currentPointY)
+                    ) {
+                        closestInterestPointIndex = currentInteresPoint;
+                    }
                 //  apply color of the cell to current "pixel"
                 this.image.setRGB(currentPointX, currentPointY, interestPointsColors[closestInterestPointIndex]);
             }
@@ -117,8 +130,9 @@ public class VoronoiBrute extends JFrame {
         graphics2D.setColor(Color.BLACK);
 
         //  color all areas matched conform parameters
-        for (int i = 0; i < this.interestPointsValue; i++)
+        for (int i = 0; i < this.interestPointsValue; i++) {
             graphics2D.fill(new Ellipse2D.Double(this.interestPointsX[i] - 2.5, this.interestPointsY[i] - 2.5, 5, 5));
+        }
 
         //  try to create image
         try {

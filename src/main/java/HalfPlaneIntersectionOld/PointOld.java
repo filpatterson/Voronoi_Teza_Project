@@ -37,50 +37,6 @@ public class PointOld extends Point2D.Float {
         return this.x == anotherPointOld.getX() && this.y == anotherPointOld.getY();
     }
 
-    public boolean isOnTheSameXLevel(float x) {
-        return this.x == x;
-    }
-
-    public boolean isOnTheSameYLevel(float y) {
-        return this.y == y;
-    }
-
-    public boolean incrementX() {
-        if (this.x < Utils.xLimit)
-            this.x += 1;
-        else
-            return false;
-
-        return true;
-    }
-
-    public boolean incrementY() {
-        if (this.y < Utils.yLimit)
-            this.y += 1;
-        else
-            return false;
-
-        return true;
-    }
-
-    public boolean decrementX() {
-        if (this.x > 0)
-            this.x -= 1;
-        else
-            return false;
-
-        return true;
-    }
-
-    public boolean decrementY() {
-        if (this.x > 0)
-            this.x -= 1;
-        else
-            return false;
-
-        return true;
-    }
-
     @Override
     public String toString() {
         return "Point{" +

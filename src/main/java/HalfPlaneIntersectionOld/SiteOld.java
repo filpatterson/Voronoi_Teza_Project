@@ -59,10 +59,12 @@ public class SiteOld extends PointOld {
         locus = new Area(screenArea);
 
         //  iterate through each site
-        for (SiteOld anotherSiteOld : siteOlds)
+        for (SiteOld anotherSiteOld : siteOlds) {
             //  if current site is the same as this one
-            if (!anotherSiteOld.equals(this))
+            if (!anotherSiteOld.equals(this)) {
                 locus.intersect(findHalfPlane(new LineOld(this, anotherSiteOld).getPerpendicularByEquation(), true));
+            }
+        }
     }
 
     /**
@@ -77,13 +79,14 @@ public class SiteOld extends PointOld {
 
         //  form polygon out of estimated corners
         Polygon halfPlane = new Polygon();
-        for (PointOld corner : halfplaneCorners)
+        for (PointOld corner : halfplaneCorners) {
             halfPlane.addPoint((int) corner.getX(), (int) corner.getY());
+        }
 
         //  if half plane contains site then return this area
-        if (halfPlane.contains(this.getX(), this.getY()))
+        if (halfPlane.contains(this.getX(), this.getY())) {
             return new Area(halfPlane);
-
+        }
         //  if half plane does not have site then return another half plane from this sector
         else {
             if (useCustomSecondHalfEstimation) {
@@ -91,8 +94,9 @@ public class SiteOld extends PointOld {
                 // required and reset original halfplane
                 halfplaneCorners = findCornersOfHalfplane(borders, perpendicular, true);
                 halfPlane.reset();
-                for (PointOld corner : halfplaneCorners)
+                for (PointOld corner : halfplaneCorners) {
                     halfPlane.addPoint((int) corner.getX(), (int) corner.getY());
+                }
 
                 return new Area(halfPlane);
             } else {
@@ -117,7 +121,7 @@ public class SiteOld extends PointOld {
         //  half plane corners array
         ArrayList<PointOld> halfplaneCorners = new ArrayList<>();
 
-        if (!isSecondOneRequired)
+        if (!isSecondOneRequired) {
             //  iterate through sector borders (works with either clockwise or anti-clockwise direction)
             for (LineOld border : borders) {
                 //  if any of the perpendicular is met -> append it to half plane corners -> show this to the flag
@@ -130,18 +134,21 @@ public class SiteOld extends PointOld {
                 }
 
                 //  if both ends of perpendicular was checked -> half plane is found
-                if (perpendicularPointsMet == 2)
+                if (perpendicularPointsMet == 2) {
                     break;
+                }
 
                     //  if corner is a part of half plane -> append it to the half plane corners list
-                else if (perpendicularPointsMet == 1)
+                else if (perpendicularPointsMet == 1) {
                     halfplaneCorners.add(border.getSecondPointOld());
+                }
             }
-        else
+        } else {
             for (LineOld border : borders) {
                 //  if corner is a part of half plane -> append it to the half plane corners list
-                if (perpendicularPointsMet == 0 || perpendicularPointsMet == 2)
+                if (perpendicularPointsMet == 0 || perpendicularPointsMet == 2) {
                     halfplaneCorners.add(border.getFirstPointOld());
+                }
 
                 //  if any of the perpendicular is met -> append it to half plane corners -> show this to the flag
                 if (border.containsByEquation(perpendicular.getFirstPointOld())) {
@@ -152,6 +159,7 @@ public class SiteOld extends PointOld {
                     halfplaneCorners.add(perpendicular.getSecondPointOld());
                 }
             }
+        }
 
         return halfplaneCorners;
     }

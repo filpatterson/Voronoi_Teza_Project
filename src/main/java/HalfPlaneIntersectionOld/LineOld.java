@@ -1,7 +1,5 @@
 package HalfPlaneIntersectionOld;
 
-import Globals.Utils;
-
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
 
@@ -72,31 +70,11 @@ public class LineOld extends Line2D.Float {
     }
 
     /**
-     * Find line angle comparing with X-axis in degrees
-     * @return line angle in degrees
-     */
-    public double angleOfLineInDegrees(){
-        return Math.toDegrees(Math.atan2(secondPointOld.getY() - firstPointOld.getY(), secondPointOld.getX() - firstPointOld.getX()));
-    }
-
-    /**
      * Find line angle comparing with X-axis in radians
      * @return line angle in radians
      */
     public double angleOfLineInRadians(){
         return Math.atan2(secondPointOld.getY() - firstPointOld.getY(), secondPointOld.getX() - firstPointOld.getX());
-    }
-
-    /**
-     * Find angle between the line and its perpendicular (use for testing)
-     * @return angle between the line and its perpendicular in degrees
-     */
-    public double angleOfPerpendicularToLine(){
-        PointOld middle = middleOfLine();
-        return Math.toDegrees(
-                Math.atan2(middle.getY() - perpendicular.getFirstPointOld().getY(), middle.getX() - perpendicular.getFirstPointOld().getX()) -
-                Math.atan2(middle.getY() - firstPointOld.getY(), middle.getX() - firstPointOld.getX())
-        );
     }
 
     /**
@@ -122,15 +100,15 @@ public class LineOld extends Line2D.Float {
         double difY = Math.sin(perpendicularAngleInRadians);
 
         //  iterate in one direction until reaching axis limits
-        while((perpendicularFirstPointX > 0 && perpendicularFirstPointX < Utils.xLimit) &&
-                (perpendicularFirstPointY > 0 && perpendicularFirstPointY < Utils.yLimit)){
+        while((perpendicularFirstPointX > 0 && perpendicularFirstPointX < ParametersOld.xLimit) &&
+                (perpendicularFirstPointY > 0 && perpendicularFirstPointY < ParametersOld.yLimit)){
             perpendicularFirstPointX += difX;
             perpendicularFirstPointY += difY;
         }
 
         //  iterate in another direction until reaching axis limits
-        while((perpendicularSecondPointX > 0 && perpendicularSecondPointX < Utils.xLimit) &&
-                (perpendicularSecondPointY > 0 && perpendicularSecondPointY < Utils.yLimit)){
+        while((perpendicularSecondPointX > 0 && perpendicularSecondPointX < ParametersOld.xLimit) &&
+                (perpendicularSecondPointY > 0 && perpendicularSecondPointY < ParametersOld.yLimit)){
             perpendicularSecondPointX -= difX;
             perpendicularSecondPointY -= difY;
         }
@@ -151,13 +129,19 @@ public class LineOld extends Line2D.Float {
         //  if line is horizontal, then get vertical perpendicular
         if (firstPointOld.getY() == secondPointOld.getY()) {
             PointOld middle = middleOfLine();
-            return new LineOld(new PointOld((float) middle.getX(), 0), new PointOld((float) middle.getX(), Utils.yLimit));
+            return new LineOld(
+                    new PointOld((float) middle.getX(), 0),
+                    new PointOld((float) middle.getX(), ParametersOld.yLimit)
+            );
         }
 
         //  if line is vertical, then get horizontal perpendicular
         else if (firstPointOld.getX() == secondPointOld.getX()) {
             PointOld middle = middleOfLine();
-            return new LineOld(new PointOld(0, (float) middle.getY()), new PointOld(Utils.xLimit, (float) middle.getY()));
+            return new LineOld(
+                    new PointOld(0, (float) middle.getY()),
+                    new PointOld(ParametersOld.xLimit, (float) middle.getY())
+            );
         }
 
         //  storage for perpendicular endpoints
@@ -165,7 +149,8 @@ public class LineOld extends Line2D.Float {
 
         if (this.m == 0 && this.b == 0) {
             //  find coefficient of the line, defining its "angle"
-            this.m = (float) ((secondPointOld.getY() - firstPointOld.getY()) / (secondPointOld.getX() - firstPointOld.getX()));
+            this.m = (float) ((secondPointOld.getY() - firstPointOld.getY()) /
+                    (secondPointOld.getX() - firstPointOld.getX()));
             this.b = (float) (secondPointOld.getY() - this.m * secondPointOld.getX());
         }
 
@@ -176,27 +161,29 @@ public class LineOld extends Line2D.Float {
 
         //  check if there is perpendicular endpoint on the left border
         double yValueAtXBorder = perpM * 0 + perpB;
-        if (yValueAtXBorder <= Utils.yLimit && yValueAtXBorder >= 0)
+        if (yValueAtXBorder <= ParametersOld.yLimit && yValueAtXBorder >= 0) {
             perpendicularEndpoints.add(new PointOld(0, (int) yValueAtXBorder));
+        }
 
         //  check if it is on the right border
-        yValueAtXBorder = perpM * Utils.xLimit + perpB;
-        if (yValueAtXBorder <= Utils.yLimit && yValueAtXBorder >= 0)
-            perpendicularEndpoints.add(new PointOld(Utils.xLimit, (int) yValueAtXBorder));
+        yValueAtXBorder = perpM * ParametersOld.xLimit + perpB;
+        if (yValueAtXBorder <= ParametersOld.yLimit && yValueAtXBorder >= 0) {
+            perpendicularEndpoints.add(new PointOld(ParametersOld.xLimit, (int) yValueAtXBorder));
+        }
 
         //  check if it is on the top border
         double xValueAtYBorder = 0;
         if (perpendicularEndpoints.size() < 2) {
             xValueAtYBorder = (0 - perpB) / perpM;
-            if (xValueAtYBorder <= Utils.xLimit && xValueAtYBorder >= 0)
+            if (xValueAtYBorder <= ParametersOld.xLimit && xValueAtYBorder >= 0)
                 perpendicularEndpoints.add(new PointOld((int) xValueAtYBorder, 0));
         }
 
         //  check if it is on the bottom border
         if (perpendicularEndpoints.size() < 2) {
-            xValueAtYBorder = (Utils.yLimit - perpB) / perpM;
-            if (xValueAtYBorder <= Utils.xLimit && xValueAtYBorder >= 0)
-                perpendicularEndpoints.add(new PointOld((int) xValueAtYBorder, Utils.yLimit));
+            xValueAtYBorder = (ParametersOld.yLimit - perpB) / perpM;
+            if (xValueAtYBorder <= ParametersOld.xLimit && xValueAtYBorder >= 0)
+                perpendicularEndpoints.add(new PointOld((int) xValueAtYBorder, ParametersOld.yLimit));
         }
 
         if (perpendicularEndpoints.size() == 0) {
@@ -205,41 +192,6 @@ public class LineOld extends Line2D.Float {
 
         //  return perpendicular line
         return new LineOld(perpendicularEndpoints.get(0), perpendicularEndpoints.get(1));
-    }
-
-    /**
-     * Find out if current line contains point
-     * @param pointOld point
-     * @return True if point is on the line, False if not
-     */
-    public boolean contains(PointOld pointOld) {
-        //  if line is vertical or horizontal -> find if it contains the point
-        if (innerHorizontalAndVerticalContainsCheck(pointOld))
-            return true;
-
-        //  if line is neither horizontal nor vertical then find if point is on the line via distances check
-        else {
-            //  acceptable error
-            double epsilon = 0.0001d;
-
-            //  create two lines (let's call them segments): from first line end to point and from second line end to point
-            LineOld firstToPoint = new LineOld(this.getFirstPointOld(), pointOld);
-            LineOld secondToPoint = new LineOld(this.getSecondPointOld(), pointOld);
-
-            //  find lengths of segments
-            double firstToPointDistance = firstToPoint.lineDistanceEuclidean();
-            double secondToPointDistance = secondToPoint.lineDistanceEuclidean();
-
-            //  find length of the original line
-            double firstToSecondDistance = this.lineDistanceEuclidean();
-
-            //  if sum of segments is the same as line or negation between line and sum of segments is lower than
-            // acceptable error
-            if (firstToSecondDistance == firstToPointDistance + secondToPointDistance)
-                return true;
-            else
-                return Math.abs(firstToSecondDistance - firstToPointDistance - secondToPointDistance) < epsilon;
-        }
     }
 
     /**

@@ -6,10 +6,6 @@ public class ParametersOld {
     public static short xLimit = 700;
     public static short yLimit = 700;
 
-    public static final byte HORIZONTAL_LINE_CODE = 1;
-    public static final byte VERTICAL_LINE_CODE = 2;
-    public static final byte SIMPLE_LINE_CODE = 0;
-
     //  corners of the displayable/analyzable area
     public static final PointOld topLeftCorner = new PointOld(0, 0);
     public static final PointOld topRightCorner = new PointOld(xLimit, 0);
