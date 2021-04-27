@@ -71,14 +71,14 @@ public class Point extends Point2D.Double {
      * @return true if point can be transformed to cartesian considering map parameters, false if not
      */
     public boolean toCartesian() {
-        //  first check if point is inside of geographical bounds of the map (first latitude bounds, then longitude ones)
-        if(latitude > MapUtils.centerLatitude + MapUtils.latitudeRadius || latitude < MapUtils.centerLatitude - MapUtils.latitudeRadius) {
-//            System.err.println("Point is out of latitude bounds");
-            return false;
-        } else if (longitude > MapUtils.centerLongitude + MapUtils.longitudeRadius || longitude < MapUtils.centerLongitude - MapUtils.longitudeRadius) {
-//            System.err.println("Point is out of longitude bounds");
-            return false;
-        }
+//        //  first check if point is inside of geographical bounds of the map (first latitude bounds, then longitude ones)
+//        if(latitude > MapUtils.centerLatitude + MapUtils.latitudeRadius || latitude < MapUtils.centerLatitude - MapUtils.latitudeRadius) {
+////            System.err.println("Point is out of latitude bounds");
+//            return false;
+//        } else if (longitude > MapUtils.centerLongitude + MapUtils.longitudeRadius || longitude < MapUtils.centerLongitude - MapUtils.longitudeRadius) {
+////            System.err.println("Point is out of longitude bounds");
+//            return false;
+//        }
 
         if (x == 0) {
             x = (longitude + MapUtils.longitudeRadius - MapUtils.centerLongitude) / MapUtils.longitudeResolution;

@@ -41,13 +41,29 @@ public class CommandLineControl {
             "\n\t     change coordinates of the center of the map and set new radius of area to be " +
             "\n\t     reviewed;" +
 
-            "\n\t9.  'draw'" +
+            "\n\t9.  'calculate ?name'" +
+            "\n\t     find site locus with given name " +
+
+            "\n\t10. 'calculate all" +
+            "\n\t     find loci for all sites covered by given map area" +
+
+            "\n\t11. 'draw'" +
             "\n\t     show voronoi diagram" +
 
-            "\n\t10. 'exit'" +
+            "\n\t12. 'file export -p ?pathToFile'" +
+            "\n\t     write all sites data into file with given path " +
+
+            "\n\t13. 'file import -p ?pathToFile'" +
+            "\n\t     get sites info from file with given path " +
+
+            "\n\t14. 'map ?latitude ?longitude ?latitudeRadius ?longitudeRadius'" +
+            "\n\t     change coordinates of the center of the map and set new radius of area to be " +
+            "\n\t     reviewed;" +
+
+            "\n\t15. 'exit'" +
             "\n\t     exit from the program" +
 
-            "\n\t11. 'help'" +
+            "\n\t16. 'help'" +
             "\n\t     show again all commands and their arguments";
 
     /**

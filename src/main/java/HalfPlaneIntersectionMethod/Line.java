@@ -239,25 +239,24 @@ public class Line extends Line2D.Double {
         } else if (codeOfLine == Utils.HORIZONTAL_LINE_CODE && y1 == point.y) {
             //  find which end of line if left, which end is right, and if point is between ends
             return (x1 < x2) ? (point.x > x1 || point.x < x2) : (point.x < x1 || point.x > x2);
-
-        } else {
-            return false;
         }
+
+        return false;
     }
 
     private boolean innerHorizontalAndVerticalContainsCheck(double x, double y) {
         //  check if line is vertical and if point has the same X coordinate
-        if (codeOfLine == Utils.VERTICAL_LINE_CODE && x2 == x)
+        if (codeOfLine == Utils.VERTICAL_LINE_CODE && x2 == x) {
             //  find which end of line is lower, which end is higher, and if point is between ends
             return (y1 < y2) ? (y > y1 || y < y2) : (y < y1 || y > y2);
-
+        }
             //  check if line is horizontal and if point has the same Y coordinate
-        else if (codeOfLine == Utils.HORIZONTAL_LINE_CODE && y1 == y)
+        else if (codeOfLine == Utils.HORIZONTAL_LINE_CODE && y1 == y) {
             //  find which end of line if left, which end is right, and if point is between ends
             return (x1 < x2) ? (x > x1 || x < x2) : (x < x1 || x > x2);
+        }
 
-        else
-            return false;
+        return false;
     }
 
     /**
@@ -301,9 +300,8 @@ public class Line extends Line2D.Double {
         } else if (perpendicular.codeOfLine == Utils.HORIZONTAL_LINE_CODE) {
             return new Point(Math.abs((b - perpendicular.y1) / m), perpendicular.y1);
             //  perpendicular is vertical and another line is simple -> find intersection for this scenario
-        } else {
-            return new Point(perpendicular.x1, m * perpendicular.x1 + b);
         }
+        return new Point(perpendicular.x1, m * perpendicular.x1 + b);
     }
 
     //  getters

@@ -71,8 +71,9 @@ public class Site extends Point {
             for (Site anotherSite : Utils.sitesStorage) {
                 if (anotherSite.toCartesian() && !anotherSite.isEqual(this)) {
                     currentPerpendicular = Line.getPerpendicularOfPoints(this, anotherSite);
-                    if (locus.checkSliceByLine(currentPerpendicular))
+                    if (locus.checkSliceByLine(currentPerpendicular)) {
                         locus = locus.findHalfPolygon(currentPerpendicular, this);
+                    }
                 }
             }
         }

@@ -5,11 +5,12 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
-import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Random;
 
+/**
+ * Class for writing/reading JSON file
+ */
 public class FileManager {
     /**
      * read array list of sites from JSON formatted file
@@ -67,18 +68,5 @@ public class FileManager {
         }
 
         return true;
-    }
-
-    public static void main(String[] args) {
-        //  set random generator and generate 100 random points for constructing Voronoi diagram
-        Random rand = new Random();
-        for (int i = 0; i < 50; i++) {
-            Utils.sitesStorage.add(new Site(rand.nextDouble() * Utils.xLimit, rand.nextDouble() * Utils.yLimit, Color.getColor("s", rand.nextInt(16777215)), "name" + rand.nextDouble()));
-        }
-
-        writeSitesToFile("d:/output.json");
-        Utils.sitesStorage.clear();
-        readSitesFromFile("d:/output.json");
-        System.out.println(Utils.sitesStorage);
     }
 }
