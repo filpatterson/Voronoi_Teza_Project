@@ -32,16 +32,21 @@ public class MapUtils {
     public static final String BORDERS = "spn=";
 
     public static void setMapHandlerParameters(double latitude, double longitude,
-                                               double latitudeCenterToBorder, double longitudeCenterToBorder) {
+                                               double longitudeCenterToBorder) {
         //  init all characteristics of the area
         MapUtils.centerLatitude = latitude;
         MapUtils.centerLongitude = longitude;
-        MapUtils.latitudeRadius = latitudeCenterToBorder;
+        MapUtils.latitudeRadius = longitudeCenterToBorder / 2;
         MapUtils.longitudeRadius = longitudeCenterToBorder;
 
         //  find "resolution"
-        MapUtils.latitudeResolution = (latitudeCenterToBorder * 2) / Utils.yLimit;
-        MapUtils.longitudeResolution = (longitudeCenterToBorder * 2) / Utils.xLimit;
+        MapUtils.latitudeResolution = (latitudeRadius * 2) / Utils.yLimit;
+        MapUtils.longitudeResolution = (longitudeRadius * 2) / Utils.xLimit;
+    }
+
+    public static void setCenterCoordinates(double centerLatitude, double centerLongitude) {
+        MapUtils.centerLatitude = centerLatitude;
+        MapUtils.centerLongitude = centerLongitude;
     }
 
     /**
@@ -60,7 +65,7 @@ public class MapUtils {
         return YANDEX_STATIC_MAPS_LINK +
                 COORDINATES + centerLongitude + "," + centerLatitude +  //  center of the map coordinates
                 SEPARATOR +
-                BORDERS + longitudeRadius + "," + latitudeRadius +  //  radius of coverage by map
+                BORDERS + longitudeRadius + "," + longitudeRadius +  //  radius of coverage by map
                 SEPARATOR +
                 SCHEMA_MAP_TYPE;
     }

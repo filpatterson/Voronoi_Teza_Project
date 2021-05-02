@@ -34,36 +34,37 @@ public class CommandLineControl {
             "\n\t6.  'change ?name color ?redValue ?greenValue ?blueValue'" +
             "\n\t     change color of the site;" +
 
-            "\n\t7.  'remove ?name'" +
-            "\n\t     remove site from the storage;" +
+            "\n\t7.  'change map center ?centerLatitude ?centerLongitude'" +
+            "\n\t     change map center coordinates;" +
 
-            "\n\t8.  'map ?latitude ?longitude ?latitudeRadius ?longitudeRadius'" +
-            "\n\t     change coordinates of the center of the map and set new radius of area to be " +
-            "\n\t     reviewed;" +
+            "\n\t8.  'remove ?name'" +
+            "\n\t     remove site from the storage;" +
 
             "\n\t9.  'calculate ?name'" +
             "\n\t     find site locus with given name " +
 
-            "\n\t10. 'calculate all" +
+            "\n\t10. 'transform ?name to cartesian" +
+            "\n\t     transform given point from geographical coordinates to cartesian" +
+
+            "\n\t11. 'transform all to cartesian" +
+            "\n\t     transform all points from geographical coordinates to cartesian" +
+
+            "\n\t12. 'calculate all" +
             "\n\t     find loci for all sites covered by given map area" +
 
-            "\n\t11. 'draw'" +
+            "\n\t13. 'draw'" +
             "\n\t     show voronoi diagram" +
 
-            "\n\t12. 'file export -p ?pathToFile'" +
+            "\n\t14. 'file export -p ?pathToFile'" +
             "\n\t     write all sites data into file with given path " +
 
-            "\n\t13. 'file import -p ?pathToFile'" +
+            "\n\t15. 'file import -p ?pathToFile'" +
             "\n\t     get sites info from file with given path " +
 
-            "\n\t14. 'map ?latitude ?longitude ?latitudeRadius ?longitudeRadius'" +
-            "\n\t     change coordinates of the center of the map and set new radius of area to be " +
-            "\n\t     reviewed;" +
-
-            "\n\t15. 'exit'" +
+            "\n\t16. 'exit'" +
             "\n\t     exit from the program" +
 
-            "\n\t16. 'help'" +
+            "\n\t17. 'help'" +
             "\n\t     show again all commands and their arguments";
 
     /**
@@ -201,11 +202,28 @@ public class CommandLineControl {
 
             //  if user wants to change coordinates of existing site
             case "change":
-                if (commandTokens.length < 3) {
+                //  there can't be less than 4 arguments for 'change' command
+                if (commandTokens.length < 4) {
                     System.out.println(ConsoleColors.RED +
                             "\tnot enough arguments even to define command, operation cancel" +
                             ConsoleColors.RESET);
                     return;
+                }
+
+                //  request for changing center coordinates of the map
+                if (commandTokens[1].equals("map")) {
+                    if (commandTokens[2].equals("center")) {
+                        double centerLatitude = Double.parseDouble(commandTokens[3]);
+                        double centerLongitude = Double.parseDouble(commandTokens[4]);
+                        MapUtils.setCenterCoordinates(centerLatitude, centerLongitude);
+                        System.out.println("\tchanged center of map");
+                        return;
+                    } else {
+                        System.out.println(ConsoleColors.RED +
+                                "\tincorrect change type was requested" +
+                                ConsoleColors.RESET);
+                        return;
+                    }
                 }
 
                 //  search for site with such a name as second command token
@@ -291,12 +309,7 @@ public class CommandLineControl {
 
                     //  if user wants to change name of site
                     case "name":
-                        if (commandTokens.length < 4) {
-                            System.out.println(ConsoleColors.RED +
-                                    "\tthere are not enough arguments, operation cancelled" +
-                                    ConsoleColors.RESET);
-                            return;
-                        } else if (commandTokens.length > 4) {
+                        if (commandTokens.length > 4) {
                             System.out.println(ConsoleColors.RED +
                                     "\tthere are too many arguments, operation cancelled" +
                                     ConsoleColors.RESET);
@@ -405,45 +418,6 @@ public class CommandLineControl {
                 System.out.println("removed '" + commandTokens[1] + "' site from storage");
                 return;
 
-            //  if user requests changes in map
-            case "map":
-                if (commandTokens.length < 5) {
-                    System.out.println(ConsoleColors.RED +
-                            "\tnot enough arguments, operation cancelled" +
-                            ConsoleColors.RESET);
-                    return;
-                } else if (commandTokens.length > 5) {
-                    System.out.println(ConsoleColors.RED +
-                            "\ttoo many arguments, operation cancelled" +
-                            ConsoleColors.RESET);
-                    return;
-                }
-
-                //  take changes as: latitude, longitude, latitudeRadius, longitudeRadius
-                double oldCenterLat = MapUtils.centerLatitude;
-                double oldCenterLon = MapUtils.centerLongitude;
-                double oldLatRad = MapUtils.latitudeRadius;
-                double oldLonRad = MapUtils.longitudeRadius;
-
-                double newCenterLat = Double.parseDouble(commandTokens[1]);
-                double newCenterLon = Double.parseDouble(commandTokens[2]);
-                double newLatRad = Double.parseDouble(commandTokens[3]);
-                double newLonRad = Double.parseDouble(commandTokens[4]);
-
-                MapUtils.setMapHandlerParameters(newCenterLat, newCenterLon, newLatRad, newLonRad);
-
-                System.out.println("changed map center from " +
-                        "lat.=" + oldCenterLat + ", long.=" + oldCenterLon + " to" +
-                        " lat.=" + MapUtils.centerLatitude + ", long.=" + MapUtils.centerLongitude);
-
-                System.out.println("radius changed from " + oldLatRad + " to " + MapUtils.latitudeRadius);
-
-                //  remap all points to their cartesian representation basing on their geographical coordinates
-                for (Site site : Utils.sitesStorage) {
-                    site.toCartesian();
-                }
-                return;
-
             case "calculate":
                 if (commandTokens.length < 2) {
                     System.out.println(ConsoleColors.RED +
@@ -543,15 +517,42 @@ public class CommandLineControl {
             case "exit":
                 isExitCalled = true;
                 return;
+
             case "help":
                 System.out.println("\tavailable commands at the moment:");
                 System.out.println(commandsList);
                 return;
+
+            case "transform":
+                if(commandTokens[1].equals("all")) {
+                    for (Site site : Utils.sitesStorage) {
+                        site.toCartesian();
+                    }
+                } else {
+                    Site siteToTransform = null;
+                    for (Site site : Utils.sitesStorage) {
+                        if (site.getName().equals(commandTokens[1])) {
+                            siteToTransform = site;
+                            break;
+                        }
+                    }
+
+                    if (siteToTransform == null) {
+                        System.out.println(ConsoleColors.RED +
+                                "no site with such name was found" +
+                                ConsoleColors.RESET);
+                        return;
+                    } else {
+                        siteToTransform.toCartesian();
+                        System.out.println("\tsuccessfully transformed geographical coordinates to cartesian");
+                        return;
+                    }
+                }
+
             default:
                 System.out.println(ConsoleColors.RED +
                         "there is no such command, try again" +
                         ConsoleColors.RESET);
-                return;
         }
     }
 
@@ -560,7 +561,7 @@ public class CommandLineControl {
         CommandLineControl cmd = new CommandLineControl();
 
         //  coordinates of the Chisinau are considered as default values
-        MapUtils.setMapHandlerParameters(47.024512, 28.832157, 0.1, 0.1);
+        MapUtils.setMapHandlerParameters(47.024512, 28.832157, 0.1);
 
         //  read input from user
         Scanner scanner = new Scanner(System.in);

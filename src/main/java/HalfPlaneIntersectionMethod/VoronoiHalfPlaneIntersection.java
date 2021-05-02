@@ -81,7 +81,7 @@ public class VoronoiHalfPlaneIntersection extends JFrame {
 
     public static void main(String[] args) throws Exception {
         //  coordinates of the Chisinau are considered as default values
-        MapUtils.setMapHandlerParameters(47.024512, 28.832157, 0.1, 0.1);
+        MapUtils.setMapHandlerParameters(47.024512, 28.832157, 0.1);
 
         //  set random generator and generate 100 random points for constructing Voronoi diagram
         Random rand = new Random();

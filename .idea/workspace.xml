@@ -24,15 +24,11 @@
   <component name="ChangeListManager">
     <list default="true" id="2c445b88-c921-4aed-9f23-98fdae96b852" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Globals/FileManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Globals/FileManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Globals/MapUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Globals/MapUtils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/HalfPlaneIntersectionMethod/CommandLineControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/HalfPlaneIntersectionMethod/CommandLineControl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/HalfPlaneIntersectionMethod/Line.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/HalfPlaneIntersectionMethod/Line.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/HalfPlaneIntersectionMethod/Point.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/HalfPlaneIntersectionMethod/Point.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/HalfPlaneIntersectionMethod/Site.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/HalfPlaneIntersectionMethod/Site.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/HalfPlaneIntersectionMethod/Line.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/HalfPlaneIntersectionMethod/Line.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/HalfPlaneIntersectionMethod/Point.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/HalfPlaneIntersectionMethod/Point.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/HalfPlaneIntersectionMethod/Site.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/HalfPlaneIntersectionMethod/Site.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/PixelByPixelMethod/VoronoiBrute.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/PixelByPixelMethod/VoronoiBrute.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/HalfPlaneIntersectionMethod/VoronoiHalfPlaneIntersection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/HalfPlaneIntersectionMethod/VoronoiHalfPlaneIntersection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/HalfPlaneIntersectionMethod/CommandLineControl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/HalfPlaneIntersectionMethod/CommandLineControl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/HalfPlaneIntersectionMethod/VoronoiHalfPlaneIntersection.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/HalfPlaneIntersectionMethod/VoronoiHalfPlaneIntersection.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -209,26 +205,30 @@
     </option>
   </component>
   <component name="WindowStateProjectService">
-    <state width="1497" height="668" key="GridCell.Tab.0.bottom" timestamp="1619522378228">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state width="973" height="315" key="GridCell.Tab.0.bottom" timestamp="1619947960157">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1497" height="668" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1619522378228" />
     <state width="1242" height="276" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1536.824@0.0.1920.1040" timestamp="1619452156225" />
-    <state width="1497" height="668" key="GridCell.Tab.0.center" timestamp="1619522378228">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state width="973" height="315" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1619947960157" />
+    <state width="973" height="315" key="GridCell.Tab.0.center" timestamp="1619947960157">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1497" height="668" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1619522378228" />
     <state width="1242" height="276" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1536.824@0.0.1920.1040" timestamp="1619452156224" />
-    <state width="1497" height="668" key="GridCell.Tab.0.left" timestamp="1619522378228">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state width="973" height="315" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1619947960157" />
+    <state width="973" height="315" key="GridCell.Tab.0.left" timestamp="1619947960157">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1497" height="668" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1619522378228" />
     <state width="1242" height="276" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1536.824@0.0.1920.1040" timestamp="1619452156224" />
-    <state width="1497" height="668" key="GridCell.Tab.0.right" timestamp="1619522378228">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state width="973" height="315" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1619947960157" />
+    <state width="973" height="315" key="GridCell.Tab.0.right" timestamp="1619947960157">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1497" height="668" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1619522378228" />
     <state width="1242" height="276" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1536.824@0.0.1920.1040" timestamp="1619452156225" />
+    <state width="973" height="315" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1619947960157" />
     <state width="1497" height="200" key="GridCell.Tab.1.bottom" timestamp="1619302014031">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -245,10 +245,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1497" height="200" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1619302014031" />
-    <state x="346" y="72" key="SettingsEditor" timestamp="1619524006274">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="277" y="57" key="SettingsEditor" timestamp="1619950573579">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="277" y="57" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1619516099549" />
+    <state x="277" y="57" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1619950573579" />
     <state x="346" y="72" key="SettingsEditor/0.0.1920.1040/1920.0.1536.824@0.0.1920.1040" timestamp="1619524006274" />
     <state x="521" y="273" key="com.intellij.ide.util.TipDialog" timestamp="1619506679521">
       <screen x="0" y="0" width="1536" height="824" />
