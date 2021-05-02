@@ -13,6 +13,8 @@ public class CommandLineControl {
     //  flag for 'while' loop, true value of which will close program entirely
     private static boolean isExitCalled = false;
 
+    private VoronoiHalfPlaneIntersection voronoi = null;
+
     //  string with all available commands
     private static String commandsList = "\n\t1.  'add cartesian ?x ?y ?redValue ?greenValue ?blueValue ?name'" +
             "\n\t     add new site using cartesian coordinates and automatically finds geographical" +
@@ -52,8 +54,11 @@ public class CommandLineControl {
             "\n\t12. 'calculate all" +
             "\n\t     find loci for all sites covered by given map area" +
 
-            "\n\t13. 'draw'" +
-            "\n\t     show voronoi diagram" +
+            "\n\t13. 'draw map'" +
+            "\n\t     show voronoi diagram with map representation" +
+
+            "\n\t14. 'draw schema'" +
+            "\n\t     show voronoi diagram without map" +
 
             "\n\t14. 'file export -p ?pathToFile'" +
             "\n\t     write all sites data into file with given path " +
@@ -137,7 +142,6 @@ public class CommandLineControl {
 
             //  if user wants to add new site
             case "add":
-
                 //  if there are too small amount of arguments or too big -> cancel operation
                 if (commandTokens.length < 8) {
                     System.out.println(ConsoleColors.RED +
@@ -161,6 +165,18 @@ public class CommandLineControl {
                         int red = Integer.parseInt(commandTokens[4]);
                         int green = Integer.parseInt(commandTokens[5]);
                         int blue = Integer.parseInt(commandTokens[6]);
+
+                        if (red < 0 || green < 0 || blue < 0) {
+                            System.out.println(ConsoleColors.RED +
+                                    "\tone of RGB values is less than zero, operation cancel" +
+                                    ConsoleColors.RESET);
+                            return;
+                        } else if (red > 255 || green > 255 || blue > 255) {
+                            System.out.println(ConsoleColors.RED +
+                                    "\tone of RGB values is more than max color value, operation cancel" +
+                                    ConsoleColors.RESET);
+                            return;
+                        }
                         String name = commandTokens[7];
 
                         Site newCartesianSite = new Site(x, y, new Color(red, green, blue), name);
@@ -217,13 +233,12 @@ public class CommandLineControl {
                         double centerLongitude = Double.parseDouble(commandTokens[4]);
                         MapUtils.setCenterCoordinates(centerLatitude, centerLongitude);
                         System.out.println("\tchanged center of map");
-                        return;
                     } else {
                         System.out.println(ConsoleColors.RED +
                                 "\tincorrect change type was requested" +
                                 ConsoleColors.RESET);
-                        return;
                     }
+                    return;
                 }
 
                 //  search for site with such a name as second command token
@@ -260,10 +275,8 @@ public class CommandLineControl {
                         }
 
                         switch (commandTokens[3]) {
-
                             //  if user wants to change cartesian coordinates
                             case "cartesian":
-
                                 //  take new coordinates as: x, y
                                 double oldCoordX = siteToChange.x;
                                 double oldCoordY = siteToChange.y;
@@ -279,7 +292,6 @@ public class CommandLineControl {
 
                             //  if user wants to change geographical coordinates
                             case "geographical":
-
                                 //  take new coordinates as: latitude, longitude
                                 double oldLon = siteToChange.longitude;
                                 double oldLat = siteToChange.latitude;
@@ -452,16 +464,57 @@ public class CommandLineControl {
 
             //  if user wants to draw voronoi diagram
             case "draw":
+                if (commandTokens.length < 2) {
+                    System.out.println(ConsoleColors.RED +
+                            "\tnot enough arguments, operation cancelled" +
+                            ConsoleColors.RESET);
+                    return;
+                } else if (commandTokens.length > 2) {
+                    System.out.println(ConsoleColors.RED +
+                            "\ttoo many arguments, operation cancelled" +
+                            ConsoleColors.RESET);
+                    return;
+                }
+
                 if (Utils.sitesStorage.size() == 0) {
                     System.out.println(ConsoleColors.RED +
                             "\tthere are no sites to draw map for, operation cancelled" +
                             ConsoleColors.RESET);
                     return;
                 }
-                VoronoiHalfPlaneIntersection voronoiDiagram;
+
                 try {
-                    voronoiDiagram = new VoronoiHalfPlaneIntersection();
-                    voronoiDiagram.setVisible(true);
+                    if (voronoi == null) {
+                        if (commandTokens[1].equals("map")) {
+                            voronoi = new VoronoiHalfPlaneIntersection(true);
+                            voronoi.setVisible(true);
+                        } else if (commandTokens[1].equals("schema")) {
+                            voronoi = new VoronoiHalfPlaneIntersection(false);
+                            voronoi.setVisible(true);
+                        } else {
+                            System.out.println(ConsoleColors.RED +
+                                    "\tnot chosen draw type (map or schema), operation cancelled" +
+                                    ConsoleColors.RESET);
+                            return;
+                        }
+                    } else {
+                        if (commandTokens[1].equals("map")) {
+                            if (!voronoi.isMapRequired) {
+                                voronoi.isMapRequired = true;
+                            }
+                            voronoi.repaint();
+                        } else if (commandTokens[1].equals("schema")) {
+                            if (voronoi.isMapRequired) {
+                                voronoi.isMapRequired = false;
+                            }
+                            voronoi.repaint();
+                        } else {
+                            System.out.println(ConsoleColors.RED +
+                                    "\tnot chosen draw type (map or schema), operation cancelled" +
+                                    ConsoleColors.RESET);
+                            return;
+                        }
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -518,16 +571,19 @@ public class CommandLineControl {
                 isExitCalled = true;
                 return;
 
+            //  show all commands available
             case "help":
                 System.out.println("\tavailable commands at the moment:");
                 System.out.println(commandsList);
                 return;
 
+            //  get cartesian coordinates of site or all sites from geographical coordinates
             case "transform":
                 if(commandTokens[1].equals("all")) {
                     for (Site site : Utils.sitesStorage) {
                         site.toCartesian();
                     }
+                    System.out.println("\tsuccessfully transformed geographical coordinates to cartesian for all sites");
                 } else {
                     Site siteToTransform = null;
                     for (Site site : Utils.sitesStorage) {
@@ -541,13 +597,12 @@ public class CommandLineControl {
                         System.out.println(ConsoleColors.RED +
                                 "no site with such name was found" +
                                 ConsoleColors.RESET);
-                        return;
                     } else {
                         siteToTransform.toCartesian();
                         System.out.println("\tsuccessfully transformed geographical coordinates to cartesian");
-                        return;
                     }
                 }
+                return;
 
             default:
                 System.out.println(ConsoleColors.RED +

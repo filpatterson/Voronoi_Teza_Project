@@ -111,7 +111,6 @@ public class Site extends Point {
                 ", longitude=" + longitude +
                 ", color=" + color +
                 ", name='" + name + '\'' +
-                ", locus=" + locus +
                 ", x=" + x +
                 ", y=" + y +
                 '}';
