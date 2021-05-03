@@ -37,7 +37,7 @@ public class Site extends Point {
 
     public Site() {}
 
-    public Site(double latitude, double longitude, Color color, String name,boolean isCartesianTransformRequired) {
+    public Site(double latitude, double longitude, Color color, String name, boolean isCartesianTransformRequired) {
         this.latitude = latitude;
         this.longitude = longitude;
         this.color = color;
@@ -107,12 +107,14 @@ public class Site extends Point {
     @Override
     public String toString() {
         return "Site{" +
-                "latitude=" + latitude +
-                ", longitude=" + longitude +
-                ", color=" + color +
-                ", name='" + name + '\'' +
+                "lat.=" + latitude +
+                ", long.=" + longitude +
                 ", x=" + x +
                 ", y=" + y +
+                ", name='" + name + '\'' +
+                ", r=" + color.getRed() +
+                ", g=" + color.getGreen() +
+                ", b=" + color.getBlue() +
                 '}';
     }
 }

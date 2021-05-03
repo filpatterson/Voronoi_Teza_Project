@@ -58,14 +58,7 @@ public class VoronoiHalfPlaneIntersection extends JFrame {
             g.drawImage(image, 0, 0, null);
         }
 
-        if (Utils.sitesStorage.size() == 0) {
-            System.out.println(ConsoleColors.RED +
-                    "\tthere are no sites to show" +
-                    ConsoleColors.RESET);
-            return;
-        }
-
-        if (siteStoragePrevSize != Utils.sitesStorage.size()) {
+        if (Utils.sitesStorage.size() != 0 && siteStoragePrevSize != Utils.sitesStorage.size()) {
             for (Site site : Utils.sitesStorage) {
                 site.findLocus();
             }
