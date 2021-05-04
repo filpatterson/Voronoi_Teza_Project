@@ -1,5 +1,6 @@
 package UI;
 
+import Globals.FileManager;
 import Globals.MapUtils;
 import Globals.Utils;
 import HalfPlaneIntersectionMethod.Site;
@@ -51,7 +52,13 @@ public class UserInterface extends JDialog {
     private JTextArea outputArea;
     private JButton mapSchemaButton;
     private JButton saveSitesToFileButton;
+    private JLabel filePathLabel;
+    private JTextField filePathField;
+    private JTextField mapSchemaStatusField;
+    private JButton readFileButton;
     private boolean isMapRequired = false;
+    private boolean isEditModeEnabled = false;
+    private int currentSiteEditIndex;
 
     public UserInterface() {
         //  coordinates of the Chisinau are considered as default values
@@ -82,9 +89,18 @@ public class UserInterface extends JDialog {
                 int blueValue = (blueSlider.getValue() / 100) * 255;
                 String name = nameCreateField.getText();
 
+                //  check if point is in the given sector
+                if (xCoordinate < 0 || xCoordinate > Utils.xLimit) {
+                    outputArea.setText("Point is out of X bounds");
+                    return;
+                } else if (yCoordinate < 0 || yCoordinate > Utils.yLimit) {
+                    outputArea.setText("Point is out of X bounds");
+                    return;
+                }
+
                 //  if there is no name, then inform user about that
                 if (name == null || name.isEmpty()) {
-                    outputArea.setText(getConsoleOutput("there can't be site without name"));
+                    outputArea.setText("there can't be site without name");
                     return;
                 }
 
@@ -96,12 +112,19 @@ public class UserInterface extends JDialog {
                 //  create new site using given data
                 Site newSite = new Site(xCoordinate, yCoordinate, new Color(redValue, greenValue, blueValue), name);
                 newSite.toGeographical();
+                if (isEditModeEnabled) {
+                    Utils.sitesStorage.set(currentSiteEditIndex, newSite);
+                    isEditModeEnabled = false;
+                    outputArea.setText("Site was successfully edited");
+                    return;
+                }
+
                 Utils.sitesStorage.add(newSite);
 
                 //  show info about new site
                 outputArea.setText(newSite.toString());
             } catch (NumberFormatException nfe) {
-                outputArea.setText(getConsoleOutput("there are invalid coordinates inputted"));
+                outputArea.setText("there are invalid coordinates inputted");
             }
         });
 
@@ -118,7 +141,7 @@ public class UserInterface extends JDialog {
 
                 //  if there is no name, then inform user about that
                 if (name == null || name.isEmpty()) {
-                    outputArea.setText(getConsoleOutput("there can't be site without name"));
+                    outputArea.setText("There can't be site without name");
                     return;
                 }
 
@@ -131,16 +154,25 @@ public class UserInterface extends JDialog {
                 Site newSite = new Site(
                         longCoordinate, latCoordinate, new Color(redValue, greenValue, blueValue), name, true
                 );
+
                 if (!newSite.toCartesian()) {
-                    outputArea.setText(getConsoleOutput("point is out of given area bounds"));
+                    outputArea.setText("Point is out of given area bounds");
                     return;
                 }
+
+                if (isEditModeEnabled) {
+                    Utils.sitesStorage.set(currentSiteEditIndex, newSite);
+                    isEditModeEnabled = false;
+                    outputArea.setText("Site was successfully edited");
+                    return;
+                }
+
                 Utils.sitesStorage.add(newSite);
 
                 //  show info about new site
                 outputArea.setText(newSite.toString());
             } catch (NumberFormatException nfe) {
-                outputArea.setText(getConsoleOutput("there are invalid coordinates inputted"));
+                outputArea.setText("There are invalid coordinates inputted");
             }
         });
 
@@ -162,28 +194,126 @@ public class UserInterface extends JDialog {
                 }
 
                 Utils.sitesStorage = newSitesStorage;
+                if (isEditModeEnabled) {
+                    isEditModeEnabled = false;
+                }
             } catch (NumberFormatException nfe) {
                 outputArea.setText("there are invalid coordinates inputted");
             }
         });
 
-        //  switch representation mode
+        //  switch between map and schema representation mode
         mapSchemaButton.addActionListener(e -> {
             isMapRequired = !isMapRequired;
             if (isMapRequired) {
-                outputArea.setText("Switched diagram mode to Map");
+                mapSchemaStatusField.setText("Current mode: map");
             } else {
-                outputArea.setText("Switched diagram mode to Schema");
+                mapSchemaStatusField.setText("Current mode: schema");
             }
         });
-    }
 
-    private String getConsoleOutput(String textToShow) {
-        if (isMapRequired) {
-            return "\tDiagram mode: Map\n" + textToShow;
-        } else {
-            return "\tDiagram mode: Schema\n" + textToShow;
-        }
+        //  read sites from given path
+        readFileButton.addActionListener(e -> {
+            String path = filePathField.getText();
+            if (path == null || path.isEmpty()) {
+                outputArea.setText("No path specified, type path to file");
+                return;
+            } else if (!path.contains("json") && !path.contains("JSON")) {
+                outputArea.setText("There is no JSON file specified where to save data\nType JSON file");
+                return;
+            } else if (path.contains(" ")) {
+                outputArea.setText("There can't be space in file path, check your input");
+                return;
+            }
+
+            FileManager.readSitesFromFile(path);
+            if (isEditModeEnabled) {
+                isEditModeEnabled = false;
+            }
+        });
+
+        //  write sites to file with given path
+        saveSitesToFileButton.addActionListener(e -> {
+            String path = filePathField.getText();
+            if (path == null || path.isEmpty()) {
+                outputArea.setText("No path specified, type path to file");
+                return;
+            } else if (!path.contains("json") && !path.contains("JSON")) {
+                outputArea.setText("There is no JSON file specified where to save data\nType JSON file");
+                return;
+            } else if (path.contains(" ")) {
+                outputArea.setText("There can't be space in file path, check your input");
+                return;
+            }
+
+            FileManager.writeSitesToFile(path);
+            if (isEditModeEnabled) {
+                isEditModeEnabled = false;
+            }
+        });
+
+        //  removes site from storage
+        removeRequestField.addActionListener(e -> {
+            String siteNameToRemove = removeNameField.getText();
+            if (siteNameToRemove == null || siteNameToRemove.isEmpty()) {
+                outputArea.setText("There is no site name specified");
+                return;
+            }
+
+            Site siteToRemove = null;
+            for (Site site : Utils.sitesStorage) {
+                if (site.getName().equals(siteNameToRemove)) {
+                    siteToRemove = site;
+                }
+            }
+
+            if (siteToRemove == null) {
+                outputArea.setText("There is no site with such name, check typed name");
+            } else {
+                Utils.sitesStorage.remove(siteToRemove);
+                outputArea.setText("Site with name '" + siteNameToRemove + "' was removed");
+                if (isEditModeEnabled) {
+                    isEditModeEnabled = false;
+                }
+            }
+        });
+
+        //  request edit of the existing site
+        changeRequestField.addActionListener(e -> {
+            String siteNameToEdit = changeNameField.getText();
+            if (siteNameToEdit == null || siteNameToEdit.isEmpty()) {
+                outputArea.setText("There is no site name specified");
+                return;
+            }
+
+            Site siteToEdit = null;
+            for (int i = 0; i < Utils.sitesStorage.size(); i++) {
+                if (Utils.sitesStorage.get(i).getName().equals(siteNameToEdit)) {
+                    siteToEdit = Utils.sitesStorage.get(i);
+                    currentSiteEditIndex = i;
+                }
+            }
+
+            if (siteToEdit == null) {
+                outputArea.setText("There is no site with such name, check typed name");
+            } else {
+                Utils.sitesStorage.remove(siteToEdit);
+                outputArea.setText("Site with name '" + siteNameToEdit + "' is in the edit mode, change parameters");
+                isEditModeEnabled = true;
+
+                //  set x and y cartesian coordinates
+                xCoordField.setText(String.valueOf(siteToEdit.x));
+                yCoordField.setText(String.valueOf(siteToEdit.y));
+
+                //  set color sliders
+                redSlider.setValue(siteToEdit.getColor().getRed());
+                greenSlider.setValue(siteToEdit.getColor().getGreen());
+                blueSlider.setValue(siteToEdit.getColor().getBlue());
+
+                //  set name
+                nameCreateField.setText(siteToEdit.getName());
+            }
+        });
     }
 
     private void onOK() {
@@ -281,7 +411,7 @@ public class UserInterface extends JDialog {
         createGeoSiteButton.setText("Create geo site");
         siteControlPanel.add(createGeoSiteButton, new com.intellij.uiDesigner.core.GridConstraints(7, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, 1, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, 24), null, 0, false));
         mapControlPanel = new JPanel();
-        mapControlPanel.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(7, 2, new Insets(5, 5, 5, 5), 0, 0));
+        mapControlPanel.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(10, 2, new Insets(5, 5, 5, 5), 0, 0));
         controlPanel.add(mapControlPanel, new com.intellij.uiDesigner.core.GridConstraints(0, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_NORTHWEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, new Dimension(300, 400), new Dimension(300, 400), new Dimension(300, 400), 0, false));
         mapCenterLatitudeLabel = new JLabel();
         mapCenterLatitudeLabel.setText("Map lat.:");
@@ -325,6 +455,23 @@ public class UserInterface extends JDialog {
         removeRequestField = new JButton();
         removeRequestField.setText("Remove site");
         mapControlPanel.add(removeRequestField, new com.intellij.uiDesigner.core.GridConstraints(6, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        saveSitesToFileButton = new JButton();
+        saveSitesToFileButton.setText("Save sites to file");
+        mapControlPanel.add(saveSitesToFileButton, new com.intellij.uiDesigner.core.GridConstraints(8, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        filePathLabel = new JLabel();
+        filePathLabel.setText("File path:");
+        mapControlPanel.add(filePathLabel, new com.intellij.uiDesigner.core.GridConstraints(7, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        filePathField = new JTextField();
+        mapControlPanel.add(filePathField, new com.intellij.uiDesigner.core.GridConstraints(7, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
+        mapSchemaStatusField = new JTextField();
+        mapSchemaStatusField.setEditable(false);
+        mapControlPanel.add(mapSchemaStatusField, new com.intellij.uiDesigner.core.GridConstraints(9, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
+        readFileButton = new JButton();
+        readFileButton.setText("Read file");
+        mapControlPanel.add(readFileButton, new com.intellij.uiDesigner.core.GridConstraints(8, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        mapSchemaButton = new JButton();
+        mapSchemaButton.setText("Map/Schema:");
+        mapControlPanel.add(mapSchemaButton, new com.intellij.uiDesigner.core.GridConstraints(9, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         outputArea = new JTextArea();
         outputArea.setEditable(false);
         Font outputAreaFont = this.$$$getFont$$$("Consolas", -1, 12, outputArea.getFont());

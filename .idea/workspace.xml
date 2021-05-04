@@ -23,25 +23,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2c445b88-c921-4aed-9f23-98fdae96b852" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/UI/UserInterface.form" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/UI/UserInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/HalfPlaneIntersectionMethod/Point.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/HalfPlaneIntersectionMethod/Point.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/HalfPlaneIntersectionMethod/Site.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/HalfPlaneIntersectionMethod/Site.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Globals/ConsoleColors.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Globals/ConsoleColors.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Globals/FileManager$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Globals/FileManager$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Globals/FileManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Globals/FileManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Globals/MapUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Globals/MapUtils.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Globals/Utils.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Globals/Utils.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/HalfPlaneIntersectionMethod/CommandLineControl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/HalfPlaneIntersectionMethod/Line.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/HalfPlaneIntersectionMethod/Line.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/HalfPlaneIntersectionMethod/Point.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/HalfPlaneIntersectionMethod/Point.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/HalfPlaneIntersectionMethod/QuickSort.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/HalfPlaneIntersectionMethod/QuickSort.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/HalfPlaneIntersectionMethod/Site.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/HalfPlaneIntersectionMethod/Site.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/UI/UserInterface.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/UI/UserInterface.form" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/UI/UserInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/UI/UserInterface.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/HalfPlaneIntersectionMethod/VoronoiHalfPlaneIntersection.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/HalfPlaneIntersectionMethod/VoronoiHalfPlaneIntersection.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/HalfPlaneIntersectionMethod/VoronoiPolygon.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/HalfPlaneIntersectionMethod/VoronoiPolygon.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/META-INF/voronoi_project.kotlin_module" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,7 +74,7 @@
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
-    <property name="settings.editor.selected.configurable" value="project.propGUI" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
