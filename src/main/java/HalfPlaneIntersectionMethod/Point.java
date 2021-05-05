@@ -72,20 +72,18 @@ public class Point extends Point2D.Double {
      */
     public boolean toCartesian() {
         //  first check if point is inside of geographical bounds of the map (first latitude bounds, then longitude ones)
-        if(latitude > MapUtils.centerLatitude + MapUtils.latitudeRadius || latitude < MapUtils.centerLatitude - MapUtils.latitudeRadius) {
-            System.err.println("Point is out of latitude bounds");
+        if(latitude > (MapUtils.centerLatitude + MapUtils.latitudeRadius) || latitude < (MapUtils.centerLatitude - MapUtils.latitudeRadius)) {
+            System.err.println("Point is out of latitude bounds: " + latitude + "out of " +
+                    (MapUtils.centerLatitude + MapUtils.latitudeRadius) + " - " + (MapUtils.centerLatitude - MapUtils.latitudeRadius)
+            );
             return false;
         } else if (longitude > MapUtils.centerLongitude + MapUtils.longitudeRadius || longitude < MapUtils.centerLongitude - MapUtils.longitudeRadius) {
             System.err.println("Point is out of longitude bounds");
             return false;
         }
 
-        if (x == 0) {
-            x = (longitude + MapUtils.longitudeRadius - MapUtils.centerLongitude) / MapUtils.longitudeResolution;
-        }
-        if (y == 0) {
-            y = (MapUtils.centerLatitude + MapUtils.latitudeRadius - latitude) / MapUtils.latitudeResolution;
-        }
+        x = (longitude + MapUtils.longitudeRadius - MapUtils.centerLongitude) / MapUtils.longitudeResolution;
+        y = (MapUtils.centerLatitude + MapUtils.latitudeRadius - latitude) / MapUtils.latitudeResolution;
         return true;
     }
 

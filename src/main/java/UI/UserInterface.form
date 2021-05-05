@@ -3,7 +3,7 @@
   <grid id="cbd77" binding="contentPane" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="0" vgap="0">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="48" y="54" width="1228" height="933"/>
+      <xy x="48" y="54" width="1258" height="933"/>
     </constraints>
     <properties/>
     <border type="none"/>
@@ -29,15 +29,24 @@
               <background color="-1"/>
             </properties>
             <border type="none"/>
-            <children/>
+            <children>
+              <component id="3ff57" class="javax.swing.JLabel" binding="mapLabel">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value=""/>
+                </properties>
+              </component>
+            </children>
           </grid>
           <grid id="afb9a" binding="controlPanel" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="0" vgap="0">
             <margin top="0" left="0" bottom="0" right="0"/>
             <constraints>
               <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
-                <minimum-size width="600" height="400"/>
-                <preferred-size width="600" height="400"/>
-                <maximum-size width="600" height="400"/>
+                <minimum-size width="650" height="425"/>
+                <preferred-size width="650" height="425"/>
+                <maximum-size width="650" height="425"/>
               </grid>
             </constraints>
             <properties>
@@ -45,52 +54,52 @@
             </properties>
             <border type="none"/>
             <children>
-              <grid id="15da6" binding="siteControlPanel" layout-manager="GridLayoutManager" row-count="8" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="0" vgap="0">
+              <grid id="15da6" binding="siteControlPanel" layout-manager="GridLayoutManager" row-count="9" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="0" vgap="0">
                 <margin top="5" left="5" bottom="5" right="5"/>
                 <constraints>
                   <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="9" fill="0" indent="0" use-parent-layout="false">
-                    <minimum-size width="300" height="400"/>
-                    <preferred-size width="300" height="400"/>
-                    <maximum-size width="300" height="400"/>
+                    <minimum-size width="325" height="425"/>
+                    <preferred-size width="325" height="425"/>
+                    <maximum-size width="325" height="425"/>
                   </grid>
                 </constraints>
                 <properties/>
                 <border type="none"/>
                 <children>
-                  <component id="b3935" class="javax.swing.JLabel" binding="xCoordLabel">
+                  <component id="b3935" class="javax.swing.JLabel" binding="xLabel">
                     <constraints>
                       <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
-                      <text value="X/Long.:"/>
+                      <text value="X:"/>
                     </properties>
                   </component>
-                  <component id="fea6d" class="javax.swing.JTextField" binding="xCoordField">
+                  <component id="fea6d" class="javax.swing.JTextField" binding="xField">
                     <constraints>
                       <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                         <preferred-size width="150" height="24"/>
                       </grid>
                     </constraints>
                     <properties>
-                      <toolTipText value="type x coordinate..."/>
+                      <toolTipText value="site x cartesian coordinate"/>
                     </properties>
                   </component>
-                  <component id="3c2a9" class="javax.swing.JLabel" binding="yCoordLabel">
+                  <component id="3c2a9" class="javax.swing.JLabel" binding="yLabel">
                     <constraints>
                       <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
-                      <text value="Y/Lat.:"/>
+                      <text value="Y:"/>
                     </properties>
                   </component>
-                  <component id="cfeb5" class="javax.swing.JTextField" binding="yCoordField">
+                  <component id="cfeb5" class="javax.swing.JTextField" binding="yField">
                     <constraints>
                       <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                         <preferred-size width="150" height="24"/>
                       </grid>
                     </constraints>
                     <properties>
-                      <toolTipText value="type y coordinate..."/>
+                      <toolTipText value="site y cartesian coordinate"/>
                     </properties>
                   </component>
                   <component id="cc7d0" class="javax.swing.JLabel" binding="redLabel">
@@ -151,14 +160,6 @@
                       <text value="Name:"/>
                     </properties>
                   </component>
-                  <component id="622bd" class="javax.swing.JLabel" binding="createLabel">
-                    <constraints>
-                      <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-                    </constraints>
-                    <properties>
-                      <text value="Create"/>
-                    </properties>
-                  </component>
                   <component id="34d2e" class="javax.swing.JTextField" binding="nameCreateField">
                     <constraints>
                       <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
@@ -166,46 +167,70 @@
                       </grid>
                     </constraints>
                     <properties>
-                      <toolTipText value="type name of site..."/>
+                      <toolTipText value="site name"/>
                     </properties>
                   </component>
-                  <component id="d0a75" class="javax.swing.JButton" binding="createEditSiteButton" default-binding="true">
+                  <component id="1c477" class="javax.swing.JButton" binding="createEditSiteButton">
                     <constraints>
-                      <grid row="6" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
-                        <preferred-size width="150" height="24"/>
-                      </grid>
+                      <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
-                      <text value="Create/edit site"/>
+                      <text value="Create/edit"/>
                     </properties>
                   </component>
-                  <component id="bc59b" class="javax.swing.JLabel" binding="createGeoLabel">
+                  <component id="17b3b" class="javax.swing.JButton" binding="createEditGeoSiteButton">
+                    <constraints>
+                      <grid row="8" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <text value="Create/edit geo"/>
+                    </properties>
+                  </component>
+                  <component id="7a74b" class="javax.swing.JLabel" binding="latitudeLabel">
+                    <constraints>
+                      <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <text value="Lat.:"/>
+                    </properties>
+                  </component>
+                  <component id="c2cec" class="javax.swing.JLabel" binding="longitudeLabel">
                     <constraints>
                       <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
-                      <text value="New geo.:"/>
+                      <text value="Long.:"/>
                     </properties>
                   </component>
-                  <component id="c1191" class="javax.swing.JButton" binding="createGeoSiteButton" default-binding="true">
+                  <component id="21e20" class="javax.swing.JTextField" binding="latitudeField">
                     <constraints>
-                      <grid row="7" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="1" anchor="0" fill="1" indent="0" use-parent-layout="false">
-                        <preferred-size width="150" height="24"/>
+                      <grid row="6" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="150" height="-1"/>
                       </grid>
                     </constraints>
                     <properties>
-                      <text value="Create geo site"/>
+                      <toolTipText value="latitude site coordinate"/>
+                    </properties>
+                  </component>
+                  <component id="277a9" class="javax.swing.JTextField" binding="longitudeField">
+                    <constraints>
+                      <grid row="7" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="150" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <toolTipText value="longitude site coordinate"/>
                     </properties>
                   </component>
                 </children>
               </grid>
-              <grid id="87818" binding="mapControlPanel" layout-manager="GridLayoutManager" row-count="10" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="0" vgap="0">
+              <grid id="87818" binding="mapControlPanel" layout-manager="GridLayoutManager" row-count="9" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="0" vgap="0">
                 <margin top="5" left="5" bottom="5" right="5"/>
                 <constraints>
                   <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="9" fill="0" indent="0" use-parent-layout="false">
-                    <minimum-size width="300" height="400"/>
-                    <preferred-size width="300" height="400"/>
-                    <maximum-size width="300" height="400"/>
+                    <minimum-size width="325" height="425"/>
+                    <preferred-size width="325" height="425"/>
+                    <maximum-size width="325" height="425"/>
                   </grid>
                 </constraints>
                 <properties/>
@@ -226,7 +251,7 @@
                       </grid>
                     </constraints>
                     <properties>
-                      <toolTipText value="type map center latitude..."/>
+                      <toolTipText value="map center latitude coordinate"/>
                     </properties>
                   </component>
                   <component id="30fb7" class="javax.swing.JLabel" binding="mapCenterLongitudeLabel">
@@ -244,15 +269,7 @@
                       </grid>
                     </constraints>
                     <properties>
-                      <toolTipText value="type map center longitude..."/>
-                    </properties>
-                  </component>
-                  <component id="5cb4a" class="javax.swing.JLabel" binding="mapCenterChangeLabel">
-                    <constraints>
-                      <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-                    </constraints>
-                    <properties>
-                      <text value="Change map:"/>
+                      <toolTipText value="map center longitude coordinate"/>
                     </properties>
                   </component>
                   <component id="9ad65" class="javax.swing.JButton" binding="changeMapCenterCoordsButton" default-binding="true">
@@ -263,101 +280,79 @@
                       <text value="Change map center coords"/>
                     </properties>
                   </component>
-                  <component id="bea54" class="javax.swing.JLabel" binding="changeNameLabel">
+                  <component id="27b7a" class="javax.swing.JButton" binding="editSiteButton">
                     <constraints>
-                      <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                      <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
-                      <text value="Site name:"/>
+                      <text value="Edit site:"/>
                     </properties>
                   </component>
-                  <component id="21063" class="javax.swing.JTextField" binding="changeNameField">
+                  <component id="ed9e4" class="javax.swing.JTextField" binding="editSiteNameField">
                     <constraints>
-                      <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                      <grid row="6" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                         <preferred-size width="150" height="-1"/>
                       </grid>
                     </constraints>
                     <properties>
-                      <toolTipText value="type site to edit..."/>
+                      <toolTipText value="name of site to edit"/>
                     </properties>
                   </component>
-                  <component id="5419f" class="javax.swing.JLabel" binding="changeRequestLabel">
+                  <component id="fccf2" class="javax.swing.JButton" binding="removeSiteButton">
                     <constraints>
-                      <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                      <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
-                      <text value="Site to edit:"/>
+                      <text value="Remove site:"/>
                     </properties>
                   </component>
-                  <component id="3a0" class="javax.swing.JButton" binding="changeRequestField">
-                    <constraints>
-                      <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-                    </constraints>
-                    <properties>
-                      <text value="Request edit"/>
-                    </properties>
-                  </component>
-                  <component id="2b0aa" class="javax.swing.JLabel" binding="removeNameLabel">
-                    <constraints>
-                      <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-                    </constraints>
-                    <properties>
-                      <text value="Site to remove:"/>
-                    </properties>
-                  </component>
-                  <component id="e2a13" class="javax.swing.JTextField" binding="removeNameField">
-                    <constraints>
-                      <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                        <preferred-size width="150" height="-1"/>
-                      </grid>
-                    </constraints>
-                    <properties>
-                      <toolTipText value="type site to remove"/>
-                    </properties>
-                  </component>
-                  <component id="b856" class="javax.swing.JLabel" binding="removeRequestLabel">
-                    <constraints>
-                      <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-                    </constraints>
-                    <properties>
-                      <text value="Site remove:"/>
-                    </properties>
-                  </component>
-                  <component id="72bf7" class="javax.swing.JButton" binding="removeRequestField">
-                    <constraints>
-                      <grid row="6" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-                    </constraints>
-                    <properties>
-                      <text value="Remove site"/>
-                    </properties>
-                  </component>
-                  <component id="f833b" class="javax.swing.JButton" binding="saveSitesToFileButton" default-binding="true">
-                    <constraints>
-                      <grid row="8" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-                    </constraints>
-                    <properties>
-                      <text value="Save sites to file"/>
-                    </properties>
-                  </component>
-                  <component id="5d143" class="javax.swing.JLabel" binding="filePathLabel">
-                    <constraints>
-                      <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-                    </constraints>
-                    <properties>
-                      <text value="File path:"/>
-                    </properties>
-                  </component>
-                  <component id="d9522" class="javax.swing.JTextField" binding="filePathField">
+                  <component id="d55d9" class="javax.swing.JTextField" binding="removeSiteNameField">
                     <constraints>
                       <grid row="7" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                         <preferred-size width="150" height="-1"/>
                       </grid>
                     </constraints>
-                    <properties/>
+                    <properties>
+                      <toolTipText value="name of site to remove"/>
+                    </properties>
+                  </component>
+                  <component id="55a48" class="javax.swing.JButton" binding="showMapCenterButton" default-binding="true">
+                    <constraints>
+                      <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <text value="Show map center"/>
+                    </properties>
+                  </component>
+                  <component id="c439f" class="javax.swing.JButton" binding="showSiteButton" default-binding="true">
+                    <constraints>
+                      <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <text value="Show site:"/>
+                    </properties>
+                  </component>
+                  <component id="44301" class="javax.swing.JTextField" binding="showSiteField">
+                    <constraints>
+                      <grid row="8" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="150" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <toolTipText value="name of site to show info"/>
+                    </properties>
+                  </component>
+                  <component id="aad81" class="javax.swing.JButton" binding="mapSchemaButton">
+                    <constraints>
+                      <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <text value="Map/Schema:"/>
+                    </properties>
                   </component>
                   <component id="13c68" class="javax.swing.JTextField" binding="mapSchemaStatusField">
                     <constraints>
-                      <grid row="9" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                      <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                         <preferred-size width="150" height="-1"/>
                       </grid>
                     </constraints>
@@ -365,20 +360,39 @@
                       <editable value="false"/>
                     </properties>
                   </component>
+                  <component id="5d143" class="javax.swing.JLabel" binding="filePathLabel">
+                    <constraints>
+                      <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <text value="File path:"/>
+                    </properties>
+                  </component>
+                  <component id="d9522" class="javax.swing.JTextField" binding="filePathField">
+                    <constraints>
+                      <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="150" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <text value=""/>
+                      <toolTipText value="path to JSON file with sites"/>
+                    </properties>
+                  </component>
                   <component id="c387f" class="javax.swing.JButton" binding="readFileButton">
                     <constraints>
-                      <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                      <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
                       <text value="Read file"/>
                     </properties>
                   </component>
-                  <component id="aad81" class="javax.swing.JButton" binding="mapSchemaButton">
+                  <component id="f833b" class="javax.swing.JButton" binding="saveSitesToFileButton" default-binding="true">
                     <constraints>
-                      <grid row="9" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                      <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
-                      <text value="Map/Schema:"/>
+                      <text value="Save sites to file"/>
                     </properties>
                   </component>
                 </children>
@@ -388,7 +402,9 @@
           <component id="319d6" class="javax.swing.JTextArea" binding="outputArea">
             <constraints>
               <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
-                <preferred-size width="150" height="50"/>
+                <minimum-size width="650" height="25"/>
+                <preferred-size width="650" height="25"/>
+                <maximum-size width="650" height="25"/>
               </grid>
             </constraints>
             <properties>

@@ -24,4 +24,6 @@ public class Utils {
 
     //  sites storage
     public static ArrayList<Site> sitesStorage = new ArrayList<>();
+
+    public static boolean isModified = false;
 }

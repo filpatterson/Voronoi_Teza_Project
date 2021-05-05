@@ -23,9 +23,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2c445b88-c921-4aed-9f23-98fdae96b852" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/HalfPlaneIntersectionMethod/VoronoiHalfPlaneIntersectionUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Globals/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Globals/Utils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/HalfPlaneIntersectionMethod/Point.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/HalfPlaneIntersectionMethod/Point.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/HalfPlaneIntersectionMethod/VoronoiHalfPlaneIntersection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/HalfPlaneIntersectionMethod/VoronoiHalfPlaneIntersection.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/UI/UserInterface.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/UI/UserInterface.form" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/UI/UserInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/UI/UserInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Globals/Utils.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Globals/Utils.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/HalfPlaneIntersectionMethod/Point.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/HalfPlaneIntersectionMethod/Point.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/HalfPlaneIntersectionMethod/VoronoiHalfPlaneIntersection.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/HalfPlaneIntersectionMethod/VoronoiHalfPlaneIntersection.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -69,6 +75,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.SHOW" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="project.structure.last.edited" value="Modules" />
@@ -88,19 +95,6 @@
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="HalfPlaneIntersectionMethod.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="FileManager" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Globals.FileManager" />
-      <module name="voronoi_project" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="Globals.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -147,13 +141,26 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="VoronoiHalfPlaneIntersectionUI" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="HalfPlaneIntersectionMethod.VoronoiHalfPlaneIntersectionUI" />
+      <module name="voronoi_project" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="HalfPlaneIntersectionMethod.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Application.UserInterface" />
+        <item itemvalue="Application.VoronoiHalfPlaneIntersectionUI" />
         <item itemvalue="Application.CommandLineControl" />
         <item itemvalue="Application.VoronoiHalfPlaneIntersectionOld" />
         <item itemvalue="Application.Voronoi" />
-        <item itemvalue="Application.FileManager" />
       </list>
     </recent_temporary>
   </component>
@@ -212,5 +219,16 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/HalfPlaneIntersectionMethod/Point.java</url>
+          <line>74</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
