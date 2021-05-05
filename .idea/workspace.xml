@@ -23,16 +23,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2c445b88-c921-4aed-9f23-98fdae96b852" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/HalfPlaneIntersectionMethod/VoronoiHalfPlaneIntersectionUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Globals/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Globals/Utils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/HalfPlaneIntersectionMethod/Point.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/HalfPlaneIntersectionMethod/Point.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/HalfPlaneIntersectionMethod/VoronoiHalfPlaneIntersection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/HalfPlaneIntersectionMethod/VoronoiHalfPlaneIntersection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/UI/UserInterface.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/UI/UserInterface.form" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/UI/UserInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/UI/UserInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Globals/Utils.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Globals/Utils.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/HalfPlaneIntersectionMethod/Point.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/HalfPlaneIntersectionMethod/Point.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/HalfPlaneIntersectionMethod/VoronoiHalfPlaneIntersection.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/HalfPlaneIntersectionMethod/VoronoiHalfPlaneIntersection.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/UI/UserInterface.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/UI/UserInterface.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

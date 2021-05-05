@@ -96,9 +96,9 @@ public class UserInterface extends JDialog {
                 //  get coordinates, color and name
                 double xCoordinate = Double.parseDouble(xField.getText());
                 double yCoordinate = Double.parseDouble(yField.getText());
-                int redValue = (redSlider.getValue() / 100) * 255;
-                int greenValue = (greenSlider.getValue() / 100) * 255;
-                int blueValue = (blueSlider.getValue() / 100) * 255;
+                int redValue = (redSlider.getValue() * 255 / 100);
+                int greenValue = (greenSlider.getValue() * 255 / 100);
+                int blueValue = (blueSlider.getValue() * 255 / 100);
                 String name = nameCreateField.getText();
 
                 //  check if point is in the given sector
