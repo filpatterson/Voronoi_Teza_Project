@@ -24,8 +24,7 @@
   <component name="ChangeListManager">
     <list default="true" id="2c445b88-c921-4aed-9f23-98fdae96b852" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/UI/UserInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/UI/UserInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/UI/UserInterface.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/UI/UserInterface.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/voronoi_project.iml" beforeDir="false" afterPath="$PROJECT_DIR$/voronoi_project.iml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,9 +70,10 @@
     <property name="UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.SHOW" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$APPLICATION_HOME_DIR$/lib/forms_rt.jar" />
     <property name="project.structure.last.edited" value="Modules" />
-    <property name="project.structure.proportion" value="0.0" />
-    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RecentsManager">
