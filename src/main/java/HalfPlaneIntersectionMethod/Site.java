@@ -13,6 +13,13 @@ import java.util.ArrayList;
  * this site than to any another one (locus). Supports locus estimation via perpendicular method, has several approaches
  * for finding locus.
  */
+
+/**
+ *  Site class, each object of which is representing service point (point of interest). Extends custom Point class
+ * setting additional data and methods for work. Site locus is contained in the Voronoi Polygon class and all
+ * calculations are made through this class. If locus was defined and is requested it automatically transforms to
+ * drawable form.
+ */
 public class Site extends Point {
 
     //  color of the site that will be applied for drawing PixelByPixelMethod.Voronoi diagram by coloring locus
@@ -21,8 +28,6 @@ public class Site extends Point {
 
     //  locus - area each point of which is closer to this site than to any another one
     private VoronoiPolygon locus;
-
-    private static ArrayList<Line> allLines = new ArrayList<>();
 
     //  corners of the analyzable area
     private static final ArrayList<Point> corners = new ArrayList<>();
@@ -34,8 +39,6 @@ public class Site extends Point {
     }
 
     public static final VoronoiPolygon areaBorders = new VoronoiPolygon(corners);
-
-    public Site() {}
 
     public Site(double latitude, double longitude, Color color, String name, boolean isCartesianTransformRequired) {
         this.latitude = latitude;
@@ -77,8 +80,6 @@ public class Site extends Point {
                 }
             }
         }
-
-        return;
     }
 
     //  getters

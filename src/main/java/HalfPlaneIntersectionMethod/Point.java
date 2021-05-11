@@ -9,6 +9,11 @@ import java.math.BigDecimal;
 /**
  * Custom class that stores location of the point on 2-dimensional space, supports convertion to Point2D from Swing
  */
+
+/**
+ *  Custom Point class that extends Swing-based Point class. Has custom methods that can be used by custom Line class.
+ * Supports point change to geographical one and reverse.
+ */
 public class Point extends Point2D.Double {
     //  point geographical coordinates
     public double latitude;
@@ -44,14 +49,6 @@ public class Point extends Point2D.Double {
      */
     public boolean isEqual(Point anotherPoint) {
         return x == anotherPoint.x && y == anotherPoint.y;
-    }
-
-    /**
-     * find "weight" of the line basing on its coordinates
-     * @return "weight" of the point
-     */
-    public double getWeight() {
-        return y * Utils.xLimit + x;
     }
 
     /**

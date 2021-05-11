@@ -5,10 +5,9 @@ import Globals.Utils;
 import java.awt.geom.Line2D;
 
 /**
- *  Custom class defining line with specification of two endpoints of this line. Supports definition of first-degree
- * polynomial describing shape of line, definition of the perpendicular, distance estimation by Euclidean and Manhattan
- * algorithms, has "exact" and "epsilon-error-based" algorithms of finding point in line. Supports conversion into
- * Line2D from Swing
+ *  Custom line class that extends standard Swing-based line class. Supports definition of the first-degree polynomial
+ * describing line shape, perpendicular definition, distance estimation by Euclidean and Manhattan algorithms, has
+ * polynomial based and "epsilon-error-sum-based" algorithms defining point presence on the line.
  */
 public class Line extends Line2D.Double {
 
@@ -160,7 +159,7 @@ public class Line extends Line2D.Double {
         //  return the line that will be limited conform limits of x-axis
         return new Line(
                 0, perpM * 0 + perpB,                               // first point coordinates
-                Utils.xLimit, perpM * Utils.xLimit + perpB,   // second point coordinates
+                Utils.xLimit, perpM * Utils.xLimit + perpB,             // second point coordinates
                 perpM, perpB                                                // m and b coefficients of the line
         );
     }

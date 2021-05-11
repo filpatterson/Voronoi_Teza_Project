@@ -16,7 +16,7 @@ public class CommandLineControl {
     private VoronoiHalfPlaneIntersection voronoi = null;
 
     //  string with all available commands
-    private static String commandsList = "\n\t1.  'add cartesian ?x ?y ?redValue ?greenValue ?blueValue ?name'" +
+    private static final String commandsList = "\n\t1.  'add cartesian ?x ?y ?redValue ?greenValue ?blueValue ?name'" +
             "\n\t     add new site using cartesian coordinates and automatically finds geographical" +
             "\n\t     coordinates considering provided map area;" +
 

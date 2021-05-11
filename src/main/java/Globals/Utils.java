@@ -25,5 +25,6 @@ public class Utils {
     //  sites storage
     public static ArrayList<Site> sitesStorage = new ArrayList<>();
 
+    //  flag defining if update of the voronoi diagram is required
     public static boolean isModified = false;
 }

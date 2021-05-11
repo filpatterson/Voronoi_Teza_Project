@@ -31,6 +31,12 @@ public class MapUtils {
     //  show sector length in longitude and latitude
     public static final String BORDERS = "spn=";
 
+    /**
+     * set map center coordinates and coverage radius by longitude
+     * @param latitude map center latitude
+     * @param longitude map center longitude
+     * @param longitudeCenterToBorder map coverage radius by longitude
+     */
     public static void setMapHandlerParameters(double latitude, double longitude,
                                                double longitudeCenterToBorder) {
         //  init all characteristics of the area
@@ -44,6 +50,11 @@ public class MapUtils {
         MapUtils.longitudeResolution = (longitudeRadius * 2) / Utils.xLimit;
     }
 
+    /**
+     * set new map center coordinates
+     * @param centerLatitude map center latitude
+     * @param centerLongitude map center longitude
+     */
     public static void setCenterCoordinates(double centerLatitude, double centerLongitude) {
         MapUtils.centerLatitude = centerLatitude;
         MapUtils.centerLongitude = centerLongitude;

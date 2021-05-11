@@ -14,7 +14,8 @@ import java.util.ArrayList;
 public class FileManager {
     /**
      * read array list of sites from JSON formatted file
-     * @return array list of sites
+     * @param filePath file path to read sites from
+     * @return true if sites were taken from file, false if there is an error
      */
     public static boolean readSitesFromFile(String filePath) {
         //  try reading file content
@@ -43,6 +44,8 @@ public class FileManager {
 
     /**
      * write sites to JSON formatted file
+     * @param filePath file path to write sites to
+     * @return true if writing was successfully performed, false if not
      */
     public static boolean writeSitesToFile(String filePath) {
         //  try opening file

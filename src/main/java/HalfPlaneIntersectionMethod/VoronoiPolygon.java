@@ -3,6 +3,11 @@ package HalfPlaneIntersectionMethod;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ *  Custom polygon realization that contains methods for finding site locus. Contains line "slicing" techniques that
+ * gives fast and effective algorithm for finding areas intersections. For graphical representation must be converted
+ * to the 'drawable' form.
+ */
 public class VoronoiPolygon extends Polygon {
     //  edges of the polygon
     public ArrayList<Line> edges;

@@ -12,7 +12,7 @@ import java.net.URL;
 import java.util.Random;
 
 /**
- * Voronoi diagram class that builds locus for each site using perpendicular method.
+ * Voronoi diagram class that builds locus for each site using perpendicular method (version for command-line program part)
  */
 public class VoronoiHalfPlaneIntersection extends JFrame {
     //  reference to all sites of the map/area
@@ -87,11 +87,6 @@ public class VoronoiHalfPlaneIntersection extends JFrame {
             newPoint.toGeographical();
             Utils.sitesStorage.add(newPoint);
         }
-
-//          perform quick sort of all sites comparing by their "weight"
-//        Site[] sitesArray = sites.toArray(new Site[0]);
-//        QuickSort.performSort(sitesArray, 0, sitesArray.length - 1);
-//        sites = new ArrayList<>(Arrays.asList(sitesArray));
 
         //  create voronoi diagram with perpendicular half planes approach
         VoronoiHalfPlaneIntersection voronoiHalfPlaneIntersection = new VoronoiHalfPlaneIntersection(true);

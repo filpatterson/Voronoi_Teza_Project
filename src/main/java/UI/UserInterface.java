@@ -15,6 +15,10 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.Locale;
 
+/**
+ *  User interface class that extends JDialog class. Made using intellij IDEA graphical designer, can be further changed
+ * to the primitive or other enhanced tools.
+ */
 public class UserInterface extends JDialog {
     private JPanel contentPane;
     private JPanel siteControlPanel;
@@ -59,16 +63,25 @@ public class UserInterface extends JDialog {
     private JButton showSiteButton;
     private JTextField showSiteField;
     private JLabel mapLabel;
+
+    //  flag for switching between map and diagram modes
     private boolean isMapRequired = true;
+
+    //  flag of editing site and index of site for editing
     private boolean isEditModeEnabled = false;
     private int currentSiteEditIndex;
+
+    //  voronoi diagram entity
     private VoronoiHalfPlaneIntersectionUI voronoiDiagram;
 
     public UserInterface() {
-        //  coordinates of the Chisinau are considered as default values
+        //  initialize UI with all elements
         $$$setupUI$$$();
+
+        //  set map center coordinates and radius of reviewable area
         MapUtils.setMapHandlerParameters(47.024512, 28.832157, 0.1);
 
+        //  set main content pane where to show content
         setContentPane(contentPane);
         setModal(true);
 
@@ -80,11 +93,13 @@ public class UserInterface extends JDialog {
             }
         });
 
+        //  at launch is chosen map representation mode
         mapSchemaStatusField.setText("Current mode: map");
 
         // call onCancel() on ESCAPE
         contentPane.registerKeyboardAction(e -> onCancel(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
 
+        //  create voronoi diagram entity and connect it with panel for showing it
         try {
             voronoiDiagram = new VoronoiHalfPlaneIntersectionUI(isMapRequired);
             mapPanel.add(voronoiDiagram);
@@ -95,7 +110,7 @@ public class UserInterface extends JDialog {
         //  button to create/edit site using fields for cartesian point estimation
         createEditSiteButton.addActionListener(e -> {
             try {
-                //  get coordinates, color and name
+                //  get coordinates, color and name from respective fields
                 double xCoordinate = Double.parseDouble(xField.getText());
                 double yCoordinate = Double.parseDouble(yField.getText());
                 int redValue = (redSlider.getValue() * 255 / 100);
@@ -125,9 +140,16 @@ public class UserInterface extends JDialog {
                 latitudeField.setText("");
                 longitudeField.setText("");
 
-                //  create new site using given data
+                //  set sliders values as default
+                redSlider.setValue(50);
+                greenSlider.setValue(50);
+                blueSlider.setValue(50);
+
+                //  create new site using given data and calculate geographical coordinates for that site
                 Site newSite = new Site(xCoordinate, yCoordinate, new Color(redValue, greenValue, blueValue), name);
                 newSite.toGeographical();
+
+                //  if there is enabled edit mode, then apply changes to previously chosen site
                 if (isEditModeEnabled) {
                     Utils.sitesStorage.set(currentSiteEditIndex, newSite);
                     isEditModeEnabled = false;
@@ -136,11 +158,14 @@ public class UserInterface extends JDialog {
                     return;
                 }
 
+                //  if there is not chosen edit mode, then create new site using given data
                 Utils.sitesStorage.add(newSite);
 
                 //  show info about new site
                 outputArea.setText(newSite.toString());
                 voronoiDiagram.repaint();
+
+            //  show if there is an error in getting coordinates
             } catch (NumberFormatException nfe) {
                 outputArea.setText("there are invalid coordinates inputted");
             }
@@ -170,16 +195,21 @@ public class UserInterface extends JDialog {
                 longitudeField.setText("");
                 latitudeField.setText("");
 
-                //  create new site using given data
+                //  set slider values by default
+                redSlider.setValue(50);
+                greenSlider.setValue(50);
+                blueSlider.setValue(50);
+
+                //  create new site using given data and check if point can be presented on the given sector
                 Site newSite = new Site(
                         latCoordinate, longCoordinate, new Color(redValue, greenValue, blueValue), name, true
                 );
-
                 if (!newSite.toCartesian()) {
                     outputArea.setText("Point is out of given area bounds");
                     return;
                 }
 
+                //  perform edit of the previously chosen site if such mode is enabled
                 if (isEditModeEnabled) {
                     Utils.sitesStorage.set(currentSiteEditIndex, newSite);
                     Utils.isModified = true;
@@ -190,10 +220,9 @@ public class UserInterface extends JDialog {
                 }
 
                 Utils.sitesStorage.add(newSite);
-
-                //  show info about new site
                 outputArea.setText(newSite.toString());
                 voronoiDiagram.repaint();
+
             } catch (NumberFormatException nfe) {
                 outputArea.setText("There are invalid coordinates inputted");
             }
@@ -205,14 +234,17 @@ public class UserInterface extends JDialog {
                 //  get map center coordinates
                 double latCoordinate = Double.parseDouble(mapCenterLatitudeField.getText());
                 double longCoordinate = Double.parseDouble(mapCenterLongitudeField.getText());
-
                 MapUtils.setCenterCoordinates(latCoordinate, longCoordinate);
 
+                //  drop site edit mode if enabled
                 if (isEditModeEnabled) {
                     isEditModeEnabled = false;
                 }
 
                 voronoiDiagram.repaint();
+                mapCenterLatitudeField.setText("");
+                mapCenterLongitudeField.setText("");
+
             } catch (NumberFormatException nfe) {
                 outputArea.setText("there are invalid coordinates inputted");
             }
@@ -244,6 +276,7 @@ public class UserInterface extends JDialog {
                 return;
             }
 
+            //  read sites from the given path and if something goes wrong function will give 'false'
             if (!FileManager.readSitesFromFile(path)) {
                 outputArea.setText("Could not read file from given path, check your input");
             }
@@ -254,6 +287,7 @@ public class UserInterface extends JDialog {
             voronoiDiagram.repaint();
 
             outputArea.setText("Got all sites from file with path: " + path);
+            filePathField.setText("");
         });
 
         //  write sites to file with given path
@@ -270,6 +304,7 @@ public class UserInterface extends JDialog {
                 return;
             }
 
+            //  write sites to the file, function returns 'false' if something goes wrong
             if (!FileManager.writeSitesToFile(path)) {
                 outputArea.setText("Could not write to given path, check your path input");
             }
@@ -279,16 +314,19 @@ public class UserInterface extends JDialog {
             }
 
             outputArea.setText("Sites were written to the file with path: " + path);
+            filePathField.setText("");
         });
 
         //  removes site from storage
         removeSiteButton.addActionListener(e -> {
+            //  get name of site to remove
             String siteNameToRemove = removeSiteNameField.getText();
             if (siteNameToRemove == null || siteNameToRemove.isEmpty()) {
                 outputArea.setText("There is no site name specified");
                 return;
             }
 
+            //  search for requested site
             Site siteToRemove = null;
             for (Site site : Utils.sitesStorage) {
                 if (site.getName().equals(siteNameToRemove)) {
@@ -296,6 +334,7 @@ public class UserInterface extends JDialog {
                 }
             }
 
+            //  if site was not found then inform user, otherwise try removing
             if (siteToRemove == null) {
                 outputArea.setText("There is no site with such name, check typed name");
             } else {
@@ -306,6 +345,7 @@ public class UserInterface extends JDialog {
                 }
             }
 
+            removeSiteNameField.setText("");
             voronoiDiagram.repaint();
         });
 
@@ -327,6 +367,8 @@ public class UserInterface extends JDialog {
 
             if (siteToEdit == null) {
                 outputArea.setText("There is no site with such name, check typed name");
+
+            //  if site was found then fill all respective UI fields and set 'site edit' flag
             } else {
                 outputArea.setText("Site with name '" + siteNameToEdit + "' is in the edit mode, change parameters");
                 isEditModeEnabled = true;
@@ -347,6 +389,8 @@ public class UserInterface extends JDialog {
                 longitudeField.setText(String.valueOf(siteToEdit.longitude));
                 latitudeField.setText(String.valueOf(siteToEdit.latitude));
             }
+
+            editSiteNameField.setText("");
         });
 
         //  show site functionality
@@ -369,19 +413,16 @@ public class UserInterface extends JDialog {
             if (siteToShow == null) {
                 outputArea.setText("There is no site with such name, check typed name");
             } else {
-                outputArea.setText(siteToShow.toString());
+                outputArea.setText("You requested: " + siteToShow.toString());
             }
+
+            showSiteField.setText("");
         });
 
         showMapCenterButton.addActionListener(e -> {
             mapCenterLatitudeField.setText(String.valueOf(MapUtils.centerLatitude));
             mapCenterLongitudeField.setText(String.valueOf(MapUtils.centerLongitude));
         });
-    }
-
-    private void onOK() {
-        // add your code here
-        dispose();
     }
 
     private void onCancel() {
