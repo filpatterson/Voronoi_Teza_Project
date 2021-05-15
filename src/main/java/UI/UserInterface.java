@@ -5,6 +5,7 @@ import Globals.MapUtils;
 import Globals.Utils;
 import HalfPlaneIntersectionMethod.Site;
 import HalfPlaneIntersectionMethod.VoronoiHalfPlaneIntersectionUI;
+import HalfPlaneIntersectionMethod.Point;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 
@@ -16,7 +17,7 @@ import java.awt.event.*;
 import java.util.Locale;
 
 /**
- *  User interface class that extends JDialog class. Made using intellij IDEA graphical designer, can be further changed
+ * User interface class that extends JDialog class. Made using intellij IDEA graphical designer, can be further changed
  * to the primitive or other enhanced tools.
  */
 public class UserInterface extends JDialog {
@@ -63,6 +64,8 @@ public class UserInterface extends JDialog {
     private JButton showSiteButton;
     private JTextField showSiteField;
     private JLabel mapLabel;
+    private JButton FindClosestPointButton;
+    private JButton FindClosestPointGeoButton;
 
     //  flag for switching between map and diagram modes
     private boolean isMapRequired = true;
@@ -165,7 +168,7 @@ public class UserInterface extends JDialog {
                 outputArea.setText(newSite.toString());
                 voronoiDiagram.repaint();
 
-            //  show if there is an error in getting coordinates
+                //  show if there is an error in getting coordinates
             } catch (NumberFormatException nfe) {
                 outputArea.setText("there are invalid coordinates inputted");
             }
@@ -368,7 +371,7 @@ public class UserInterface extends JDialog {
             if (siteToEdit == null) {
                 outputArea.setText("There is no site with such name, check typed name");
 
-            //  if site was found then fill all respective UI fields and set 'site edit' flag
+                //  if site was found then fill all respective UI fields and set 'site edit' flag
             } else {
                 outputArea.setText("Site with name '" + siteNameToEdit + "' is in the edit mode, change parameters");
                 isEditModeEnabled = true;
@@ -413,7 +416,7 @@ public class UserInterface extends JDialog {
             if (siteToShow == null) {
                 outputArea.setText("There is no site with such name, check typed name");
             } else {
-                outputArea.setText("You requested: " + siteToShow.toString());
+                outputArea.setText("You requested: " + siteToShow);
             }
 
             showSiteField.setText("");
@@ -422,6 +425,47 @@ public class UserInterface extends JDialog {
         showMapCenterButton.addActionListener(e -> {
             mapCenterLatitudeField.setText(String.valueOf(MapUtils.centerLatitude));
             mapCenterLongitudeField.setText(String.valueOf(MapUtils.centerLongitude));
+        });
+
+        FindClosestPointButton.addActionListener(e -> {
+            double xCoordinate = Double.parseDouble(xField.getText());
+            double yCoordinate = Double.parseDouble(yField.getText());
+
+            xField.setText("");
+            yField.setText("");
+
+            Point currentClientPosition = new Point(xCoordinate, yCoordinate);
+            for (Site site : Utils.sitesStorage) {
+                if (site.getLocus().contains(currentClientPosition)) {
+                    outputArea.setText("Closest site to given coordinates: " + site.getName());
+                    return;
+                }
+            }
+
+            outputArea.setText("There is no locus containing this point, check coordinates again");
+        });
+        FindClosestPointGeoButton.addActionListener(e -> {
+            double longCoordinate = Double.parseDouble(longitudeField.getText());
+            double latCoordinate = Double.parseDouble(latitudeField.getText());
+
+            longitudeField.setText("");
+            latitudeField.setText("");
+
+            Point currentClientPosition = new Point(longCoordinate, latCoordinate, false);
+            if (currentClientPosition.toCartesian()) {
+                for (Site site : Utils.sitesStorage) {
+                    if (site.getLocus().contains(currentClientPosition)) {
+                        outputArea.setText("Closest site to given coordinates: " + site.getName());
+                        return;
+                    }
+                }
+            } else {
+                outputArea.setText("point is out of area bounds: lat.=" + currentClientPosition.latitude +
+                        "; long.=" + currentClientPosition.longitude);
+                return;
+            }
+
+            outputArea.setText("There is no locus containing this point, check coordinates again");
         });
     }
 
@@ -462,7 +506,7 @@ public class UserInterface extends JDialog {
         controlPanel.setBackground(new Color(-2039584));
         panel1.add(controlPanel, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, new Dimension(650, 425), new Dimension(650, 425), new Dimension(650, 425), 0, false));
         siteControlPanel = new JPanel();
-        siteControlPanel.setLayout(new GridLayoutManager(9, 2, new Insets(5, 5, 5, 5), 0, 0));
+        siteControlPanel.setLayout(new GridLayoutManager(10, 2, new Insets(5, 5, 5, 5), 0, 0));
         controlPanel.add(siteControlPanel, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_NORTHWEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, new Dimension(325, 425), new Dimension(325, 425), new Dimension(325, 425), 0, false));
         xLabel = new JLabel();
         xLabel.setText("X:");
@@ -516,6 +560,12 @@ public class UserInterface extends JDialog {
         longitudeField = new JTextField();
         longitudeField.setToolTipText("longitude site coordinate");
         siteControlPanel.add(longitudeField, new GridConstraints(7, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
+        FindClosestPointButton = new JButton();
+        FindClosestPointButton.setText("Find site");
+        siteControlPanel.add(FindClosestPointButton, new GridConstraints(9, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        FindClosestPointGeoButton = new JButton();
+        FindClosestPointGeoButton.setText("Find site geo");
+        siteControlPanel.add(FindClosestPointGeoButton, new GridConstraints(9, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         mapControlPanel = new JPanel();
         mapControlPanel.setLayout(new GridLayoutManager(9, 2, new Insets(5, 5, 5, 5), 0, 0));
         controlPanel.add(mapControlPanel, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_NORTHWEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, new Dimension(325, 425), new Dimension(325, 425), new Dimension(325, 425), 0, false));

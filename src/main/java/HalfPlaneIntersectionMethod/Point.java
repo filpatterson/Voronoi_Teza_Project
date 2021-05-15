@@ -32,6 +32,15 @@ public class Point extends Point2D.Double {
         this.y = y;
     }
 
+    public Point(double latitude, double longitude, boolean isCartesianTransformRequired) {
+        this.latitude = latitude;
+        this.longitude = longitude;
+
+        if (isCartesianTransformRequired) {
+            this.toCartesian();
+        }
+    }
+
     /**
      * Find if coordinates match coordinates of the point
      * @param x X-axis coordinate to check

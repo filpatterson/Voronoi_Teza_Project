@@ -54,7 +54,7 @@
             </properties>
             <border type="none"/>
             <children>
-              <grid id="15da6" binding="siteControlPanel" layout-manager="GridLayoutManager" row-count="9" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="0" vgap="0">
+              <grid id="15da6" binding="siteControlPanel" layout-manager="GridLayoutManager" row-count="10" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="0" vgap="0">
                 <margin top="5" left="5" bottom="5" right="5"/>
                 <constraints>
                   <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="9" fill="0" indent="0" use-parent-layout="false">
@@ -220,6 +220,22 @@
                     </constraints>
                     <properties>
                       <toolTipText value="longitude site coordinate"/>
+                    </properties>
+                  </component>
+                  <component id="394b8" class="javax.swing.JButton" binding="FindClosestPointButton">
+                    <constraints>
+                      <grid row="9" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <text value="Find site"/>
+                    </properties>
+                  </component>
+                  <component id="c6c7a" class="javax.swing.JButton" binding="FindClosestPointGeoButton">
+                    <constraints>
+                      <grid row="9" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <text value="Find site geo"/>
                     </properties>
                   </component>
                 </children>
