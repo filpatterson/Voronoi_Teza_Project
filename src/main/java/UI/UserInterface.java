@@ -88,6 +88,30 @@ public class UserInterface extends JDialog {
         setContentPane(contentPane);
         setModal(true);
 
+        //  listener that checks if user has clicked on one of the presented sites on the map
+        contentPane.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                int x = e.getX();
+                int y = e.getY();
+                for (Site site : Utils.sitesStorage) {
+                    if (site.isClicked(x, y)) {
+                        outputArea.setText("Was chosen site '" + site.getName() + "', info is shown in menu");
+
+                        //  set all site parameters to be present on the edit menu from the right
+                        xField.setText(String.valueOf(site.getX()));
+                        yField.setText(String.valueOf(site.getY()));
+                        redSlider.setValue((int) ((double) site.getColor().getRed() * ((double) 100 / 255)));
+                        greenSlider.setValue((int) ((double) site.getColor().getGreen() * ((double) 100 / 255)));
+                        blueSlider.setValue((int) ((double) site.getColor().getBlue() * ((double) 100 / 255)));
+                        nameCreateField.setText(site.getName());
+                        longitudeField.setText(String.valueOf(site.longitude));
+                        latitudeField.setText(String.valueOf(site.latitude));
+                        break;
+                    }
+                }
+            }
+        });
+
         // call onCancel() when cross is clicked
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         addWindowListener(new WindowAdapter() {

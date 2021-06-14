@@ -105,6 +105,16 @@ public class Site extends Point {
         this.name = name;
     }
 
+    /**
+     * check if point was clicked by user
+     * @param x where user clicked on X
+     * @param y where user clicked on Y
+     * @return true if was clicked site, false if not
+     */
+    public boolean isClicked(double x, double y) {
+        return Math.abs(this.x - x) < 10 && Math.abs(this.y - y) < 10;
+    }
+
     @Override
     public String toString() {
         return "Site{" +
