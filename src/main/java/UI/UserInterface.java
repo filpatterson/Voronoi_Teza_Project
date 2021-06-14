@@ -106,9 +106,15 @@ public class UserInterface extends JDialog {
                         nameCreateField.setText(site.getName());
                         longitudeField.setText(String.valueOf(site.longitude));
                         latitudeField.setText(String.valueOf(site.latitude));
-                        break;
+                        return;
                     }
                 }
+
+                //  if no site chosen, then show where user clicked and coordinates in both systems
+                Point clickPoint = new Point(x, y);
+                clickPoint.toGeographical();
+                outputArea.setText("User clicked (" + x + ", " + y + ") point => geo(" + clickPoint.longitude + ", " +
+                        clickPoint.latitude + ").");
             }
         });
 
