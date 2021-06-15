@@ -28,7 +28,34 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2c445b88-c921-4aed-9f23-98fdae96b852" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/voronoi_project_jar/voronoi_project.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/voronoi_project_jar/voronoi_project.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/HalfPlaneIntersectionMethod/Site.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/HalfPlaneIntersectionMethod/Site.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/HalfPlaneIntersectionMethod/VoronoiHalfPlaneIntersection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/HalfPlaneIntersectionMethod/VoronoiHalfPlaneIntersection.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/UI/UserInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/UI/UserInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/intellij/uiDesigner/core/AbstractLayout.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/intellij/uiDesigner/core/AbstractLayout.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/intellij/uiDesigner/core/DimensionInfo.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/intellij/uiDesigner/core/DimensionInfo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/intellij/uiDesigner/core/GridConstraints.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/intellij/uiDesigner/core/GridConstraints.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/intellij/uiDesigner/core/GridLayoutManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/intellij/uiDesigner/core/GridLayoutManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/intellij/uiDesigner/core/HorizontalInfo.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/intellij/uiDesigner/core/HorizontalInfo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/intellij/uiDesigner/core/LayoutState.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/intellij/uiDesigner/core/LayoutState.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/intellij/uiDesigner/core/Spacer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/intellij/uiDesigner/core/Spacer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/intellij/uiDesigner/core/SupportCode$TextWithMnemonic.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/intellij/uiDesigner/core/SupportCode$TextWithMnemonic.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/intellij/uiDesigner/core/SupportCode.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/intellij/uiDesigner/core/SupportCode.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/intellij/uiDesigner/core/Util.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/intellij/uiDesigner/core/Util.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/intellij/uiDesigner/core/VerticalInfo.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/intellij/uiDesigner/core/VerticalInfo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/intellij/uiDesigner/core/AbstractLayout.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/intellij/uiDesigner/core/AbstractLayout.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/intellij/uiDesigner/core/DimensionInfo.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/intellij/uiDesigner/core/DimensionInfo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/intellij/uiDesigner/core/GridConstraints.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/intellij/uiDesigner/core/GridConstraints.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/intellij/uiDesigner/core/GridLayoutManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/intellij/uiDesigner/core/GridLayoutManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/intellij/uiDesigner/core/HorizontalInfo.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/intellij/uiDesigner/core/HorizontalInfo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/intellij/uiDesigner/core/LayoutState.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/intellij/uiDesigner/core/LayoutState.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/intellij/uiDesigner/core/Spacer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/intellij/uiDesigner/core/Spacer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/intellij/uiDesigner/core/SupportCode$TextWithMnemonic.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/intellij/uiDesigner/core/SupportCode$TextWithMnemonic.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/intellij/uiDesigner/core/SupportCode.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/intellij/uiDesigner/core/SupportCode.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/intellij/uiDesigner/core/Util.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/intellij/uiDesigner/core/Util.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/intellij/uiDesigner/core/VerticalInfo.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/intellij/uiDesigner/core/VerticalInfo.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,7 +102,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$APPLICATION_HOME_DIR$/lib/forms_rt.jar" />
-    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
@@ -112,12 +139,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="VoronoiHalfPlaneIntersectionOld" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="HalfPlaneIntersectionOld.VoronoiHalfPlaneIntersectionOld" />
+    <configuration name="VoronoiHalfPlaneIntersection" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="HalfPlaneIntersectionMethod.VoronoiHalfPlaneIntersection" />
       <module name="voronoi_project" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="HalfPlaneIntersectionOld.*" />
+          <option name="PATTERN" value="HalfPlaneIntersectionMethod.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -145,10 +172,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.UserInterface" />
-        <item itemvalue="JAR Application.voronoi_project.jar" />
         <item itemvalue="Application.CommandLineControl" />
+        <item itemvalue="Application.VoronoiHalfPlaneIntersection" />
+        <item itemvalue="JAR Application.voronoi_project.jar" />
         <item itemvalue="Application.VoronoiHalfPlaneIntersectionUI" />
-        <item itemvalue="Application.VoronoiHalfPlaneIntersectionOld" />
       </list>
     </recent_temporary>
   </component>
@@ -164,7 +191,7 @@
       </list>
     </option>
   </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SpellCheckerSettings" BundledDictionaries="0" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" Dictionaries="0" CorrectionsLimit="5" DefaultDictionary="application-level" UseSingleDictionary="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -190,6 +217,7 @@
       <workItem from="1619440940509" duration="9926000" />
       <workItem from="1619506672356" duration="6614000" />
       <workItem from="1619951731442" duration="2776000" />
+      <workItem from="1623754013667" duration="5694000" />
     </task>
     <servers />
   </component>
@@ -201,20 +229,68 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="521" y="200" key="#Project_Structure" timestamp="1623753928156">
+      <screen x="0" y="0" width="1858" height="1080" />
+    </state>
+    <state x="521" y="200" key="#Project_Structure/0.0.1858.1080@0.0.1858.1080" timestamp="1623753928156" />
+    <state width="1461" height="197" key="GridCell.Tab.0.bottom" timestamp="1623765907496">
+      <screen x="0" y="0" width="1858" height="1080" />
+    </state>
+    <state width="1461" height="197" key="GridCell.Tab.0.bottom/0.0.1858.1080@0.0.1858.1080" timestamp="1623765907496" />
+    <state width="1461" height="197" key="GridCell.Tab.0.center" timestamp="1623765907496">
+      <screen x="0" y="0" width="1858" height="1080" />
+    </state>
+    <state width="1461" height="197" key="GridCell.Tab.0.center/0.0.1858.1080@0.0.1858.1080" timestamp="1623765907496" />
+    <state width="1461" height="197" key="GridCell.Tab.0.left" timestamp="1623765907495">
+      <screen x="0" y="0" width="1858" height="1080" />
+    </state>
+    <state width="1461" height="197" key="GridCell.Tab.0.left/0.0.1858.1080@0.0.1858.1080" timestamp="1623765907495" />
+    <state width="1461" height="197" key="GridCell.Tab.0.right" timestamp="1623765907496">
+      <screen x="0" y="0" width="1858" height="1080" />
+    </state>
+    <state width="1461" height="197" key="GridCell.Tab.0.right/0.0.1858.1080@0.0.1858.1080" timestamp="1623765907496" />
+    <state width="1461" height="197" key="GridCell.Tab.1.bottom" timestamp="1623765907496">
+      <screen x="0" y="0" width="1858" height="1080" />
+    </state>
+    <state width="1461" height="197" key="GridCell.Tab.1.bottom/0.0.1858.1080@0.0.1858.1080" timestamp="1623765907496" />
+    <state width="1461" height="197" key="GridCell.Tab.1.center" timestamp="1623765907496">
+      <screen x="0" y="0" width="1858" height="1080" />
+    </state>
+    <state width="1461" height="197" key="GridCell.Tab.1.center/0.0.1858.1080@0.0.1858.1080" timestamp="1623765907496" />
+    <state width="1461" height="197" key="GridCell.Tab.1.left" timestamp="1623765907496">
+      <screen x="0" y="0" width="1858" height="1080" />
+    </state>
+    <state width="1461" height="197" key="GridCell.Tab.1.left/0.0.1858.1080@0.0.1858.1080" timestamp="1623765907496" />
+    <state width="1461" height="197" key="GridCell.Tab.1.right" timestamp="1623765907496">
+      <screen x="0" y="0" width="1858" height="1080" />
+    </state>
+    <state width="1461" height="197" key="GridCell.Tab.1.right/0.0.1858.1080@0.0.1858.1080" timestamp="1623765907496" />
+    <state x="430" y="185" key="SettingsEditor" timestamp="1623753936968">
+      <screen x="0" y="0" width="1858" height="1080" />
+    </state>
+    <state x="430" y="185" key="SettingsEditor/0.0.1858.1080@0.0.1858.1080" timestamp="1623753936968" />
+    <state x="620" y="366" key="com.intellij.ide.util.TipDialog" timestamp="1623775786197">
+      <screen x="0" y="0" width="1858" height="1080" />
+    </state>
+    <state x="620" y="366" key="com.intellij.ide.util.TipDialog/0.0.1858.1080@0.0.1858.1080" timestamp="1623775786197" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <breakpoint enabled="true" type="java-exception">
-          <properties class="java.lang.NullPointerException" package="java.lang" />
-          <option name="timeStamp" value="1" />
-        </breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/UI/UserInterface.java</url>
+          <line>185</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>

@@ -62,16 +62,21 @@ public class VoronoiHalfPlaneIntersection extends JFrame {
             siteStoragePrevSize = Utils.sitesStorage.size();
         }
 
-        //  iterate through all sites
+        //  set all sites
+        g2.setColor(Color.RED);
         for (Site site : Utils.sitesStorage) {
-            //  fill locus of the site with site color
-            g2.setColor(Color.BLACK);
-//            g2.fill(site.getLocus());
-            g2.draw(site.getLocus());
-
-            //  display each site as small black ellipsoid
-            g2.setColor(Color.RED);
             g2.fill(new Ellipse2D.Double(site.x - 5, site.y - 5, 5, 5));
+        }
+
+        //  draw all loci
+        g2.setColor(Color.BLACK);
+        for (Site site : Utils.sitesStorage) {
+            try {
+                Thread.sleep(150);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            g2.draw(site.getLocus());
         }
     }
 
@@ -89,7 +94,7 @@ public class VoronoiHalfPlaneIntersection extends JFrame {
         }
 
         //  create voronoi diagram with perpendicular half planes approach
-        VoronoiHalfPlaneIntersection voronoiHalfPlaneIntersection = new VoronoiHalfPlaneIntersection(true);
+        VoronoiHalfPlaneIntersection voronoiHalfPlaneIntersection = new VoronoiHalfPlaneIntersection(false);
 
         //  show it
         voronoiHalfPlaneIntersection.setVisible(true);

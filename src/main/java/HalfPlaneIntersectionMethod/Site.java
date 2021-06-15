@@ -93,6 +93,8 @@ public class Site extends Point {
     }
 
     public VoronoiPolygon getLocus() {
+        if (locus == null)
+            this.findLocus();
         locus.setDrawable();
         return locus;
     }

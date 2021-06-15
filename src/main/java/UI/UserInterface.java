@@ -187,6 +187,9 @@ public class UserInterface extends JDialog {
                     Utils.sitesStorage.set(currentSiteEditIndex, newSite);
                     isEditModeEnabled = false;
                     outputArea.setText("Site was successfully edited");
+                    for (Site site : Utils.sitesStorage) {
+                        site.findLocus();
+                    }
                     voronoiDiagram.repaint();
                     return;
                 }
@@ -248,6 +251,9 @@ public class UserInterface extends JDialog {
                     Utils.isModified = true;
                     isEditModeEnabled = false;
                     outputArea.setText("Site was successfully edited");
+                    for (Site site : Utils.sitesStorage) {
+                        site.findLocus();
+                    }
                     voronoiDiagram.repaint();
                     return;
                 }
@@ -411,9 +417,9 @@ public class UserInterface extends JDialog {
                 yField.setText(String.valueOf(siteToEdit.y));
 
                 //  set color sliders
-                redSlider.setValue(siteToEdit.getColor().getRed());
-                greenSlider.setValue(siteToEdit.getColor().getGreen());
-                blueSlider.setValue(siteToEdit.getColor().getBlue());
+                redSlider.setValue((int) ((double) siteToEdit.getColor().getRed() * ((double) 100 / 255)));
+                greenSlider.setValue((int) ((double) siteToEdit.getColor().getGreen() * ((double) 100 / 255)));
+                blueSlider.setValue((int) ((double) siteToEdit.getColor().getBlue() * ((double) 100 / 255)));
 
                 //  set name
                 nameCreateField.setText(siteToEdit.getName());
@@ -679,10 +685,7 @@ public class UserInterface extends JDialog {
                 resultName = currentFont.getName();
             }
         }
-        Font font = new Font(resultName, style >= 0 ? style : currentFont.getStyle(), size >= 0 ? size : currentFont.getSize());
-        boolean isMac = System.getProperty("os.name", "").toLowerCase(Locale.ENGLISH).startsWith("mac");
-        Font fontWithFallback = isMac ? new Font(font.getFamily(), font.getStyle(), font.getSize()) : new StyleContext().getFont(font.getFamily(), font.getStyle(), font.getSize());
-        return fontWithFallback instanceof FontUIResource ? fontWithFallback : new FontUIResource(fontWithFallback);
+        return new Font(resultName, style >= 0 ? style : currentFont.getStyle(), size >= 0 ? size : currentFont.getSize());
     }
 
     /**
